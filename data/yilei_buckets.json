@@ -1,0 +1,423 @@
+{
+"拿": [
+"able",
+"cap",
+"capital",
+"capsule",
+"captain",
+"caption",
+"concept",
+"contain",
+"container",
+"content",
+"habit",
+"prohibit",
+"tent",
+"tentative"
+],
+"拉": [
+"abstract",
+"strict",
+"subtraction",
+"tractor"
+],
+"动": [
+"act",
+"action",
+"active",
+"activity",
+"actor",
+"actual",
+"mobile",
+"mobile phone",
+"motivation",
+"motor",
+"motorbike",
+"motorcycle",
+"motto",
+"move",
+"movement",
+"promote"
+],
+"土": [
+"agree",
+"agreement",
+"agricultural",
+"agriculture",
+"Australia",
+"disagree",
+"geometry",
+"human",
+"humour",
+"surgeon",
+"terrible",
+"terrify",
+"terror"
+],
+"走": [
+"ambulance",
+"currency",
+"curriculum",
+"grade",
+"graduate",
+"graduation",
+"process",
+"progress",
+"succeed",
+"success",
+"successful",
+"vase",
+"vast"
+],
+"心": [
+"animal",
+"card",
+"courage",
+"course",
+"court",
+"courtyard",
+"discourage",
+"psychology",
+"sympathy"
+],
+"时": [
+"anniversary",
+"announce",
+"announcement",
+"annoy",
+"annual",
+"contemporary",
+"temperature",
+"temple",
+"temporary",
+"temptation"
+],
+"听": [
+"audience",
+"phone",
+"symphony"
+],
+"生": [
+"biochemistry",
+"biology",
+"general",
+"generation",
+"generous",
+"gentle",
+"native",
+"natural",
+"nature",
+"survival",
+"survive",
+"vital",
+"vivid"
+],
+"写": [
+"biography",
+"cinema",
+"diagram",
+"geography",
+"gram",
+"grammar",
+"paragraph",
+"prescription",
+"radio",
+"subscribe"
+],
+"数": [
+"calculate",
+"count",
+"counter",
+"country",
+"countryside",
+"discount",
+"number"
+],
+"死亡": [
+"case",
+"cash",
+"castle",
+"casual"
+],
+"言": [
+"catalogue",
+"contradict",
+"contradictory",
+"dialogue",
+"dictation",
+"dictionary",
+"predict",
+"pronunciation"
+],
+"真": [
+"certain",
+"certificate",
+"concert",
+"very"
+],
+"人": [
+"city",
+"civil",
+"civilian",
+"civilization",
+"condemn",
+"demand",
+"popular",
+"population"
+],
+"光": [
+"clarify",
+"radiation",
+"radioactive",
+"radium",
+"splendid"
+],
+"法": [
+"college",
+"just",
+"justice",
+"legal",
+"license"
+],
+"力": [
+"comfort",
+"comfortable",
+"Dynamic",
+"Dynasty",
+"fortunate",
+"fortune",
+"interval",
+"pot",
+"potato",
+"potential",
+"valid",
+"valley"
+],
+"送": [
+"commit",
+"commitment",
+"committee",
+"conference",
+"dismiss",
+"firm",
+"missile",
+"port",
+"portable",
+"porter",
+"prefer",
+"preference",
+"submit",
+"suffer",
+"suffering",
+"support",
+"transport"
+],
+"同": [
+"compare",
+"equal",
+"equality",
+"equip",
+"equipment",
+"parallel",
+"parcel",
+"parent",
+"Paris",
+"park",
+"parrot",
+"part",
+"participate",
+"particular",
+"partly",
+"partner",
+"part-time",
+"party",
+"preparation",
+"prepare",
+"similar",
+"transparent"
+],
+"放": [
+"component",
+"composition",
+"position",
+"possess",
+"possession",
+"possibility",
+"possible",
+"post",
+"postage",
+"postcode",
+"poster",
+"postpone",
+"power",
+"suppose"
+],
+"给": [
+"condition",
+"contribute",
+"contribution",
+"data",
+"database",
+"date",
+"distribute",
+"pardon"
+],
+"引": [
+"conduct",
+"conductor",
+"introduce",
+"introduction",
+"product",
+"production",
+"voyage"
+],
+"信": [
+"confident",
+"confidential",
+"credit"
+],
+"知": [
+"conscience",
+"note",
+"notebook",
+"notice",
+"science",
+"scientific",
+"scientist",
+"scissors"
+],
+"建": [
+"construct",
+"construction",
+"text",
+"textbook"
+],
+"取": [
+"consume",
+"summary"
+],
+"转": [
+"conversation",
+"roll",
+"tortoise",
+"universal",
+"universe",
+"university",
+"version",
+"vertical"
+],
+"医": [
+"cure",
+"curious",
+"curtain",
+"medal",
+"media",
+"medical",
+"medicine",
+"medium"
+],
+"做": [
+"discover",
+"fact",
+"factory",
+"fiction",
+"opera",
+"operate",
+"operation",
+"operator"
+],
+"教": [
+"discrimination",
+"discuss",
+"discussion",
+"doctor",
+"document",
+"master",
+"Mr",
+"pedestrian"
+],
+"形": [
+"figure",
+"form",
+"format",
+"transform",
+"uniform"
+],
+"火": [
+"flame",
+"ignore",
+"photo",
+"photograph",
+"photographer",
+"pyramid"
+],
+"水": [
+"fluency",
+"fluent",
+"hydrogen",
+"river",
+"surround"
+],
+"大": [
+"grand",
+"grandma",
+"grandpa",
+"maximum"
+],
+"国": [
+"international",
+"nation",
+"national",
+"nationality",
+"nationwide",
+"rail",
+"regard",
+"register",
+"regret",
+"regular"
+],
+"投": [
+"jacket",
+"project",
+"subject",
+"subjective"
+],
+"远": [
+"long",
+"telegram",
+"telegraph",
+"telephone",
+"telescope",
+"television"
+],
+"小": [
+"microcomputer",
+"microscope",
+"minimum",
+"minute"
+],
+"钱": [
+"money",
+"valuable",
+"value"
+],
+"变": [
+"mutton"
+],
+"看": [
+"optimistic",
+"provide",
+"special",
+"specialist",
+"specific",
+"video",
+"videophone",
+"visa",
+"visit",
+"visitor",
+"visual"
+],
+"石": [
+"petrol"
+]
+}

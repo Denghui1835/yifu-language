@@ -17,3 +17,9 @@ venv/
 Thumbs.db
 desktop.ini
 .DS_Store
+
+# 抓取缓存：kaikki 逐词 HTML 切片（约 90MB），随时可用 fetch_raw.py 重抓
+data/etym_raw/
+data/etym/
+data/*.log
+data/fresh3500.txt
