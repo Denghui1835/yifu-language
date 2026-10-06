@@ -1,0 +1,19 @@
+# 办公软件的锁文件（WPS/Word 打开文档时会生成 ~$xxx）
+~$*
+.~*
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# 编辑器
+.vscode/
+.idea/
+*.swp
+
+# 系统
+Thumbs.db
+desktop.ini
+.DS_Store
