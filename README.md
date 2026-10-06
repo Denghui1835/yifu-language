@@ -58,8 +58,9 @@
 ├── 义符_产品规划书_v1.docx   产品规划书（公文格式）
 ├── build_plan.py             规划书生成脚本；内容全部结构化在文件顶部的 C 列表里，
 │                             改内容只动那个列表再重跑，不用碰排版代码
-├── demo/
+├── docs/
 │   └── index.html            阶段零交互演示（单文件、零依赖、离线可跑，双击即可）
+│                             这个目录同时也是 GitHub Pages 的发布源
 └── data/
     ├── gaokao3500.json       高考 3500 词结构化数据（词 / 音标 / 释义），3654 条
     ├── gaokao3500_raw.txt    原始词表
@@ -69,8 +70,10 @@
 
 ## 跑起来
 
+在线体验：**https://denghui1835.github.io/yifu-language/**
+
 ```bash
-# 演示：双击 demo/index.html 即可，不需要服务器、不需要联网
+# 演示：双击 docs/index.html 即可，不需要服务器、不需要联网
 # 规划书：重新生成
 python build_plan.py
 
