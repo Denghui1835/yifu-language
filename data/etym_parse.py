@@ -150,13 +150,24 @@ def parse_file(path):
 
 CONTENT_POS = ('Noun', 'Verb', 'Adjective', 'Adverb')
 
+# ★ 只有「转发句」的词源段不含信息：
+#   record 的 Adjective 段是 "From Middle English recorde, ... See record."
+#   真正的词源在 Verb 段（re- + cor 心）。以前按「最长」挑，恰好挑中转发段。
+REDIRECT = re.compile(r'^\s*(?:See\s|Alternative (?:form|spelling) of|'
+                      r'Misspelling of|Plural of|Clipping of|Short for|'
+                      r'Abbreviation of|Initialism of|Acronym of|'
+                      r'Contraction of)\b', re.I)
+
 
 def primary(blocks):
-    """挑一个「主词源」：优先实义词性，其次最长的那段"""
+    """挑一个「主词源」：优先实义词性，其次最长的那段。
+    转发段（See X）在存在有效段时一律跳过。"""
     if not blocks:
         return None
     good = [b for b in blocks if b['pos'] in CONTENT_POS]
     pool = good or blocks
+    real = [b for b in pool if not REDIRECT.match(b['prose'] or '')]
+    pool = real or pool
     return max(pool, key=lambda b: len(b['tree']) + len(b['prose']))
 
 

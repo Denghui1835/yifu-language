@@ -98326,13 +98326,14 @@
 "nodes": []
 },
 "record": {
-"cls": "romance",
-"pos": "Adjective",
+"cls": "classical",
+"pos": "Verb",
 "tree": "",
 "codes": [
 "enm",
 "fro",
-"ine-pro"
+"ine-pro",
+"la"
 ],
 "nodes": []
 },
