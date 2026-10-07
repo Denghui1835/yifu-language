@@ -1,0 +1,1004 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>义符 · 词源卡生产线</title>
+<!--
+  单文件复核台：不引任何外链，不依赖构建。理由——评委可能在离线的比赛现场打开，
+  任何 CDN 请求失败都会让整页变成白屏，而这个页面的价值恰恰是"现场能点"。
+  样式与脚本全部内联，唯一的外部依赖是同目录 data/cards.json（同源 fetch）。
+-->
+<style>
+/* 色板刻意做得像纸与墨。强调色只取一个：靛（--accent）。
+   赭与赭红只用于 flag 严重度，是语义信号而非装饰，不参与正常配色。 */
+:root{
+  --paper:#f7f4ee; --paper2:#fffdf8; --paper3:#f1ece2;
+  --ink:#221f1b; --ink2:#5f584d; --ink3:#918878;
+  --accent:#2f6d8f; --accent-soft:#e7eef2; --accent-deep:#245570;
+  --flag-high:#9d4230; --flag-mid:#8a6a33; --flag-low:#8a8578;
+  --line:#e0d9cb; --line2:#cfc6b4;
+  --serif:"Songti SC","STSong","SimSun","Noto Serif SC",serif;
+  --sans:"Heiti SC","Microsoft YaHei","Hiragino Sans GB","PingFang SC",system-ui,sans-serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:var(--serif); font-size:15px; line-height:1.65;
+  overflow-x:hidden;               /* 页面本身永不横向滚动，宽内容各自在内部滚 */
+}
+h1,h2,h3,h4,.sans{font-family:var(--sans)}
+button{font-family:var(--sans);cursor:pointer}
+input,textarea{font-family:var(--serif)}
+a{color:var(--accent)}
+
+/* ---------------- 顶栏 ---------------- */
+header{
+  position:sticky;top:0;z-index:20;
+  display:flex;align-items:center;gap:22px;flex-wrap:wrap;
+  padding:12px 22px;border-bottom:1px solid var(--line);
+  background:var(--paper);
+}
+.brand{display:flex;align-items:baseline;gap:10px}
+.brand b{font-family:var(--sans);font-size:22px;font-weight:700;letter-spacing:.12em}
+.brand em{font-style:normal;font-size:11.5px;color:var(--ink3);letter-spacing:.24em;font-family:var(--sans)}
+.subline{font-size:12.5px;color:var(--ink2);max-width:420px;line-height:1.5}
+.progress{margin-left:auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.pg-txt{font-family:var(--sans);font-size:13px;color:var(--ink2);letter-spacing:.04em}
+.pg-txt b{font-size:16px;color:var(--ink)}
+.bar{width:150px;height:6px;background:var(--paper3);border:1px solid var(--line2);position:relative}
+.bar i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+.btn{
+  border:1px solid var(--line2);background:var(--paper2);color:var(--ink);
+  padding:7px 16px;border-radius:2px;font-size:13px;letter-spacing:.06em;
+}
+.btn:hover{border-color:var(--accent);color:var(--accent-deep)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.primary:hover{background:var(--accent-deep)}
+.btn.primary:disabled{background:var(--paper3);border-color:var(--line2);color:var(--ink3);cursor:not-allowed}
+.btn.sm{padding:4px 11px;font-size:12px}
+
+/* ---------------- 主体两列 ---------------- */
+main{display:grid;grid-template-columns:322px minmax(0,1fr);align-items:start}
+aside{
+  border-right:1px solid var(--line);height:calc(100vh - 61px);
+  display:flex;flex-direction:column;position:sticky;top:61px;
+}
+.filters{padding:12px 14px;border-bottom:1px solid var(--line);display:grid;gap:8px}
+.filters label{font-family:var(--sans);font-size:11px;color:var(--ink3);letter-spacing:.14em;display:block;margin-bottom:3px}
+.filters select{
+  width:100%;padding:5px 8px;border:1px solid var(--line2);background:var(--paper2);
+  color:var(--ink);font-family:var(--serif);font-size:13.5px;border-radius:2px;
+}
+.list{overflow-y:auto;flex:1;padding:8px 10px 40px}
+.item{
+  display:block;width:100%;text-align:left;background:transparent;border:0;
+  border-left:3px solid transparent;padding:9px 10px 9px 12px;border-bottom:1px solid var(--line);
+}
+.item:hover{background:var(--paper2)}
+.item.on{background:var(--accent-soft);border-left-color:var(--accent)}
+.it-top{display:flex;align-items:baseline;gap:8px}
+.it-w{font-family:var(--serif);font-size:17px;letter-spacing:.01em}
+.it-dot{width:8px;height:8px;border:1.5px solid var(--line2);border-radius:50%;margin-left:auto;flex:0 0 auto}
+.it-dot.done{background:var(--accent);border-color:var(--accent)}
+.it-meta{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px;align-items:center}
+.chip{
+  font-family:var(--sans);font-size:11px;padding:1px 7px;border:1px solid var(--line2);
+  color:var(--ink2);border-radius:2px;background:var(--paper2);white-space:nowrap;
+}
+.chip.design{border-color:var(--accent);color:var(--accent-deep);background:var(--accent-soft)}
+.chip.cand{border-style:dashed}
+.chip.fl{font-size:10.5px;padding:0 5px;color:var(--flag-mid);border-color:var(--flag-mid)}
+.chip.fl.high{color:var(--flag-high);border-color:var(--flag-high)}
+.chip.fl.low{color:var(--flag-low);border-color:var(--flag-low)}
+.chip.none{color:var(--ink3);border-color:var(--line2)}
+.empty-note{color:var(--ink3);font-size:13px;padding:24px 12px;text-align:center;font-family:var(--sans)}
+
+/* ---------------- 详情 ---------------- */
+section.detail{padding:20px 24px 80px;min-width:0;max-width:1180px}
+.card-head{border-bottom:2px solid var(--ink);padding-bottom:12px;margin-bottom:16px}
+.ch-top{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.ch-w{font-family:var(--serif);font-size:34px;letter-spacing:.01em;line-height:1.15}
+.ch-ipa{color:var(--ink2);font-size:15px}
+.ch-status{margin-left:auto}
+.st-badge{font-family:var(--sans);font-size:11.5px;letter-spacing:.12em;padding:3px 10px;border:1px solid var(--line2);border-radius:2px;color:var(--ink2);background:var(--paper2)}
+.st-badge.done{border-color:var(--accent);color:var(--accent-deep);background:var(--accent-soft)}
+.meta-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.prov-line{
+  margin-top:12px;font-size:12.5px;color:var(--ink3);font-family:var(--sans);
+  border-left:2px solid var(--accent);padding-left:10px;word-break:break-all;line-height:1.6;
+}
+.prov-line b{color:var(--ink2);font-weight:400}
+
+/* 演变链时间轴 */
+.chain-wrap{margin:0 0 20px}
+.sec-label{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;color:var(--ink3);margin-bottom:9px}
+.sec-label b{color:var(--ink2);letter-spacing:.02em;font-weight:400;font-family:var(--serif);font-size:12.5px}
+.tl{display:flex;gap:0;overflow-x:auto;padding:4px 2px 10px;align-items:stretch}
+.tl-node{position:relative;flex:0 0 auto;padding:7px 16px 7px 0;display:flex;align-items:center;gap:0}
+.tl-node:not(:last-child)::after{
+  content:"";width:26px;height:1px;background:var(--line2);margin:0 10px;flex:0 0 auto;
+}
+.tl-box{border:1px solid var(--line2);background:var(--paper2);padding:6px 12px;border-radius:2px;min-width:104px}
+.tl-lang{font-family:var(--sans);font-size:10.5px;color:var(--ink3);letter-spacing:.06em}
+.tl-term{font-size:16px;color:var(--ink);white-space:nowrap}
+.tl-code{font-family:var(--sans);font-size:10px;color:var(--ink3);letter-spacing:.1em}
+.tl-box.now{border-color:var(--accent);background:var(--accent-soft)}
+.tl-none{color:var(--ink3);font-size:13px;font-family:var(--sans);padding:6px 0}
+details.raw{margin-top:8px}
+details.raw summary{font-family:var(--sans);font-size:12px;color:var(--ink2);cursor:pointer;letter-spacing:.06em}
+details.raw pre{
+  white-space:pre-wrap;word-break:break-word;background:var(--paper3);border:1px solid var(--line);
+  padding:10px 12px;font-family:var(--serif);font-size:12.5px;color:var(--ink2);margin:8px 0 0;
+}
+
+/* 对照两栏 */
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line2);background:var(--paper2)}
+.col-pane{padding:0;min-width:0}
+.col-pane + .col-pane{border-left:1px solid var(--line2)}
+.pane-head{
+  font-family:var(--sans);font-size:12px;letter-spacing:.2em;color:var(--ink2);
+  padding:10px 16px;border-bottom:1px solid var(--line2);background:var(--paper3);
+  display:flex;align-items:center;gap:9px;
+}
+.pane-head .dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.pane-head.g .dot{background:var(--ink3)}
+.pane-head small{margin-left:auto;color:var(--ink3);letter-spacing:.02em;font-family:var(--serif);font-size:11.5px}
+.field{padding:15px 16px;border-bottom:1px solid var(--line)}
+.field:last-child{border-bottom:0}
+.f-name{font-family:var(--sans);font-size:13px;letter-spacing:.08em;color:var(--ink);margin-bottom:7px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.f-name .tag{font-size:10.5px;letter-spacing:.1em;color:var(--ink3)}
+.f-val{font-size:16px;line-height:1.7;white-space:pre-wrap;word-break:break-word}
+.f-val.null{color:var(--ink3);font-size:13.5px;font-family:var(--sans)}
+.src{
+  margin-top:9px;padding:8px 11px;border-left:2px solid var(--line2);background:var(--paper);
+  font-size:12.5px;color:var(--ink2);line-height:1.6;
+}
+.src .src-h{font-family:var(--sans);font-size:10.5px;letter-spacing:.14em;color:var(--ink3);margin-bottom:4px}
+.src .src-h a{color:var(--accent);text-decoration:none;word-break:break-all}
+.src ul{margin:3px 0 0;padding-left:16px}
+.src li{margin:2px 0}
+.src .muted{color:var(--ink3)}
+.adopt-row{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.pick{cursor:pointer}
+.cand-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}
+
+/* 右栏输入 */
+textarea.ta{
+  width:100%;min-height:64px;resize:vertical;padding:8px 10px;border:1px solid var(--line2);
+  background:#fff;color:var(--ink);font-size:15px;line-height:1.6;border-radius:2px;
+}
+textarea.ta:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
+.ta-wrap{margin-top:2px}
+.f-state{font-family:var(--sans);font-size:10.5px;letter-spacing:.08em;padding:1px 7px;border:1px solid var(--line2);border-radius:2px;color:var(--ink3)}
+.f-state.adopt{color:var(--accent-deep);border-color:var(--accent);background:var(--accent-soft)}
+.f-state.modify{color:var(--flag-mid);border-color:var(--flag-mid)}
+.f-state.manual{color:var(--ink2)}
+.f-state.empty{color:var(--ink3)}
+.reason{
+  margin-top:9px;border-left:2px solid var(--line2);padding-left:10px;transition:border-color .15s;
+}
+.reason.req{border-left-color:var(--flag-mid)}
+.reason label{font-family:var(--sans);font-size:11px;letter-spacing:.1em;color:var(--ink3);display:block;margin-bottom:4px}
+.reason.req label{color:var(--flag-mid)}
+.reason input{
+  width:100%;padding:6px 9px;border:1px solid var(--line2);background:#fff;font-size:14px;border-radius:2px;
+}
+.reason.req input{border-color:var(--flag-mid)}
+.reason input:focus{outline:none;border-color:var(--accent)}
+.reason .warn{font-family:var(--sans);font-size:11px;color:var(--flag-high);margin-top:4px;display:none}
+.reason.req.bad .warn{display:block}
+
+/* flag 区 */
+.flags{margin-top:20px;border:1px solid var(--line2);background:var(--paper2)}
+.flags .pane-head{background:var(--paper3)}
+.flag{padding:12px 16px;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:flex-start}
+.flag:last-child{border-bottom:0}
+.flag .sev{
+  font-family:var(--sans);font-size:10.5px;letter-spacing:.1em;padding:2px 8px;flex:0 0 auto;
+  border:1px solid var(--line2);border-radius:2px;color:var(--ink2);margin-top:2px;
+}
+.flag.high .sev{color:var(--flag-high);border-color:var(--flag-high)}
+.flag.mid .sev{color:var(--flag-mid);border-color:var(--flag-mid)}
+.flag.low .sev{color:var(--flag-low);border-color:var(--flag-low)}
+.flag .fd{min-width:0}
+.flag code{font-family:var(--sans);font-size:12.5px;color:var(--ink);letter-spacing:.03em}
+.flag .fmsg{font-size:13.5px;color:var(--ink2);margin-top:2px}
+.flag .fexp{font-size:12.5px;color:var(--ink3);margin-top:4px;line-height:1.6}
+.flag-none{padding:14px 16px;color:var(--ink3);font-family:var(--sans);font-size:13px}
+
+/* 底部提交 */
+.submit-bar{
+  margin-top:22px;border:1px solid var(--line2);background:var(--paper2);
+  padding:16px;display:grid;grid-template-columns:1fr 1fr;gap:14px 22px;align-items:start;
+}
+.submit-bar .sb-field{min-width:0}
+.submit-bar label{font-family:var(--sans);font-size:11px;letter-spacing:.14em;color:var(--ink3);display:block;margin-bottom:5px}
+.submit-bar input[type=text]{
+  width:100%;padding:8px 10px;border:1px solid var(--line2);background:#fff;font-size:15px;border-radius:2px;
+}
+.submit-bar input[type=text]:focus,textarea.notes:focus{outline:none;border-color:var(--accent)}
+textarea.notes{width:100%;min-height:46px;resize:vertical;padding:8px 10px;border:1px solid var(--line2);background:#fff;font-size:14px;border-radius:2px}
+.sb-actions{grid-column:1 / -1;display:flex;align-items:center;gap:14px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:14px}
+.sb-msg{font-family:var(--sans);font-size:12.5px;color:var(--flag-high)}
+.sb-msg.ok{color:var(--accent-deep)}
+.legend{font-family:var(--sans);font-size:11.5px;color:var(--ink3);line-height:1.7}
+.legend b{color:var(--flag-mid);font-weight:400}
+
+/* 取数失败提示 */
+.fail{
+  max-width:640px;margin:64px auto;border:1px solid var(--line2);background:var(--paper2);padding:26px 28px;
+}
+.fail h2{font-size:19px;margin:0 0 12px;letter-spacing:.06em}
+.fail p{font-size:14px;color:var(--ink2);margin:9px 0}
+.fail code{background:var(--paper3);border:1px solid var(--line);padding:2px 7px;font-family:var(--serif);font-size:13.5px}
+.fail ol{padding-left:22px;font-size:14px;color:var(--ink2);line-height:1.9;margin:10px 0 0}
+
+/* ---------------- 窄屏 ---------------- */
+@media (max-width:980px){
+  main{grid-template-columns:1fr}
+  aside{position:static;height:auto;border-right:0;border-bottom:1px solid var(--line)}
+  .list{max-height:44vh}
+  section.detail{padding:16px 14px 60px;max-width:none}
+  .cols{grid-template-columns:1fr}
+  .col-pane + .col-pane{border-left:0;border-top:1px solid var(--line2)}
+  .submit-bar{grid-template-columns:1fr}
+  .brand em,.subline{display:none}
+  .ch-w{font-size:27px}
+}
+@media (max-width:560px){
+  header{padding:10px 12px;gap:12px}
+  .bar{width:96px}
+  .ch-w{font-size:23px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <b>义符</b><em>词源卡生产线</em>
+  </div>
+  <div class="subline">AI 出草稿、人逐字段签字。没有 kaikki 出处的字段不进入成品。</div>
+  <div class="progress">
+    <span class="pg-txt">已复核 <b id="pgDone">0</b>/<span id="pgAll">18</span></span>
+    <span class="bar"><i id="pgBar"></i></span>
+    <button class="btn" id="btnExport" type="button">导出复核记录</button>
+  </div>
+</header>
+
+<main id="main"></main>
+
+<noscript>
+  <div class="fail"><h2>需要启用 JavaScript</h2>
+  <p>本页的复核台完全由浏览器端脚本驱动，请启用 JavaScript 后刷新。</p></div>
+</noscript>
+
+<script>
+"use strict";
+/* =========================================================================
+   义符 · 词源卡生产线 复核台
+   这个页面的唯一职责：把 build_cards.py 产出的 draft 卡变成有人签字的 reviewed 卡。
+   因此所有设计都围绕两件事——"每个字段能追到 kaikki 出处" 和 "改动必须留痕"。
+   ========================================================================= */
+
+var STORE_KEY = "yifu_pipeline_v1";
+var CARDS = [];
+var state = { reviews: {} };          // reviews[词] = { by, at, status, notes, fields:{key:{value,reason}} }
+var selected = null;
+var filters = { status: "all", flag: "all", yilei: "all" };
+
+/* ---------- 四个可复核字段的定义 ----------
+   ai 是"机器给出的值"，一律从卡数据推导，绝不凭空生成：
+   取不到就是 null（显示为"AI 未起草"）。这样"改动 AI 的值"这件事才有明确定义。 */
+var FIELDS = [
+  {
+    key: "def_zh", label: "中文释义",
+    /* 流水线设计上不生成中文释义（见 build_cards.py 顶部规矩 2），所以这里始终无 AI 值。
+       拿它当"AI 建议"会变成让模型凭记忆写词义——正是这个产品要避免的事。 */
+    ai: function () { return null; },
+    aiNote: "本字段流水线不生成。草稿来源只有下方英文释义，中文须人工撰写。",
+    basis: "gloss"
+  },
+  {
+    key: "han_fu", label: "汉语义符",
+    /* 只有"义类候选去重后恰好一个"时，机器才算给出了一个确定答案。
+       多候选=机器自己也没拿定主意，此时不构成 AI 值，人工裁决不计入"修改留痕"。 */
+    ai: function (c) {
+      var u = uniqYilei(c);
+      return u.length === 1 ? u[0] : null;
+    },
+    aiNote: "机器义类候选唯一，可采纳；候选多于一个时需人工裁决。",
+    basis: "yilei"
+  },
+  {
+    key: "literal_zh", label: "字面义",
+    /* 字面义由"义类候选"机械拼合，是机器草稿而非语义翻译，必须标注来源是义类命中。 */
+    ai: function (c) {
+      var u = uniqYilei(c);
+      return u.length ? u.join("＋") : null;
+    },
+    aiNote: "由义类候选机械拼合，非语义翻译，需人工改写为通顺的汉语。",
+    basis: "yilei"
+  },
+  {
+    key: "etym_story", label: "词源故事",
+    /* 同上，脚本不写故事。原始素材是 kaikki 的英文词源段，人读原文后再落笔。 */
+    ai: function () { return null; },
+    aiNote: "本字段流水线不生成。草稿素材为下方英文词源原文，须人工转写。",
+    basis: "prose"
+  }
+];
+
+/* flag 代码 → 严重度 + 白话解释。
+   build_cards.py 里所有可能的代码都收进来；解释写"它意味着什么、人要做什么"。 */
+var FLAGS = {
+  no_raw:        {sev:"high", exp:"本地根本没有该词的 kaikki 切片。源头缺失，本卡任何字段都不可信，先补采集。"},
+  no_etym:       {sev:"high", exp:"词源正文未抽到。没有可核查的词源原文，词源故事无从写起，需回原始切片排查。"},
+  no_chain:      {sev:"mid",  exp:"祖先链为空。义符法依赖词根在祖先词条上的命中，链空则义类候选只剩现代词自身的子串匹配，可信度低。"},
+  no_yilei:      {sev:"high", exp:"现代词与全部祖先词条都没撞上词根表。这张卡挂不上义类，需人工另定或补词根表。"},
+  no_ipa:        {sev:"low",  exp:"音标未抽到。不影响义符判断，仅卡片展示信息不全。"},
+  no_gloss:      {sev:"mid",  exp:"英文释义未抽到。中文释义的草稿素材缺失，需回切片补。"},
+  redirect_prose: {sev:"mid", exp:"主词源段只是转发句（如 \"see X\"），不是实义段。取到的是别的词的内容，须另找实义词性段再抽。"},
+  ambiguous_yilei: {sev:"mid", exp:"机器给出多个义类候选。多为子串匹配的假阳性（如 aqu 命中 aqueduct，duc 也命中），需人裁决保留哪一个。"},
+  short_root:    {sev:"mid",  exp:"命中 3 字母及以下的短词根。短串在长词里极易偶然匹配，假阳性风险高，必须逐条核对 hit_in。"},
+  germanic:      {sev:"low",  exp:"日耳曼源词。义符法建立在拉丁/希腊词根上，对日耳曼词不适用，此类卡应走另一条线。"},
+  pilot_mismatch: {sev:"high", exp:"设计时定的义类与机器候选不一致。两者必有一错，需人工判定谁对，并回写设计文档。"},
+  _default:      {sev:"mid",  exp:"未知代码，请对照 build_cards.py 的 flags_of() 确认含义后再处理。"}
+};
+
+/* 语种英文名做中文标注，纯阅读便利；取不到就原样显示，绝不改写术语本身。 */
+var LANG_ZH = {
+  "Proto-Indo-European":"原始印欧语","Proto-Italic":"原始意大利语","Latin":"拉丁语",
+  "Ancient Greek":"古希腊语","Proto-Hellenic":"原始希腊语","English":"英语",
+  "Middle English":"中古英语","Old English":"古英语","Proto-Germanic":"原始日耳曼语",
+  "French":"法语","Old French":"古法语","Middle French":"中古法语","Italian":"意大利语",
+  "Proto-West Germanic":"原始西日耳曼语","Middle Dutch":"中古荷兰语","Dutch":"荷兰语"
+};
+var CLASS_ZH = { classical:"古典（拉丁/希腊）", germanic:"日耳曼", romance:"罗曼语", unknown:"未定" };
+
+/* ---------------- 小工具 ---------------- */
+function esc(s){
+  return String(s == null ? "" : s)
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+}
+function uniqYilei(c){
+  var seen = {}, out = [];
+  (c.proposal && c.proposal.yilei || []).forEach(function(x){
+    if (!seen[x.yilei]) { seen[x.yilei] = 1; out.push(x.yilei); }
+  });
+  return out;
+}
+function yileiCount(c){ return uniqYilei(c).length; }
+function flagSev(code){ return (FLAGS[code] || FLAGS._default).sev; }
+function flagMaxSev(c){
+  var rank = { low:0, mid:1, high:2 }, m = -1;
+  (c.flags||[]).forEach(function(f){ m = Math.max(m, rank[flagSev(f.code)]); });
+  return m < 0 ? null : ["low","mid","high"][m];
+}
+function reviewOf(w){ return state.reviews[w] || null; }
+function isDone(w){ var r = reviewOf(w); return !!(r && r.status === "reviewed"); }
+function fieldOf(w, key){
+  var r = reviewOf(w);
+  return (r && r.fields && r.fields[key]) || { value:"", reason:"" };
+}
+function fmtTime(d){
+  function p(n){ return (n<10?"0":"")+n; }
+  return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate())+" "+p(d.getHours())+":"+p(d.getMinutes());
+}
+function byWord(w){
+  for (var i=0;i<CARDS.length;i++) if (CARDS[i].w === w) return CARDS[i];
+  return null;
+}
+
+/* ---------------- 本地存储：读写都包 try/catch ----------------
+   隐私模式、被禁用、配额满都会让 localStorage 抛异常。
+   复核台宁可用内存态继续跑一遍演示，也不能因为存储不可用直接白屏。 */
+function loadState(){
+  try{
+    var raw = window.localStorage.getItem(STORE_KEY);
+    if (raw){
+      var o = JSON.parse(raw);
+      if (o && typeof o === "object" && o.reviews) state = { reviews: o.reviews };
+    }
+  }catch(e){ /* 读不到就按空状态跑，见上 */ }
+}
+function saveState(){
+  try{ window.localStorage.setItem(STORE_KEY, JSON.stringify(state)); }
+  catch(e){ /* 存不下不阻塞操作，用户仍可走导出拿到记录 */ }
+}
+
+/* ---------------- 取数 ---------------- */
+function boot(){
+  fetch("data/cards.json", {cache:"no-store"}).then(function(r){
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    return r.json();
+  }).then(function(d){
+    CARDS = (d && d.cards) || [];
+    loadState();
+    document.getElementById("pgAll").textContent = String(CARDS.length);
+    render();
+  }).catch(function(err){
+    showLoadFail(err);
+  });
+}
+
+function showLoadFail(err){
+  /* file:// 下浏览器必然拒绝读取本地 JSON。这不是 bug，要给出可执行的下一步。 */
+  document.getElementById("main").outerHTML =
+    '<div class="fail">' +
+      '<h2>未能读取 data/cards.json</h2>' +
+      '<p>浏览器报错：<code>' + esc(err && err.message || err) + '</code></p>' +
+      '<p>最常见的原因是<b>直接双击打开了本文件</b>（地址栏以 <code>file://</code> 开头）。' +
+      '出于同源策略，浏览器不允许 <code>file://</code> 页面读取本地数据文件，这是浏览器的安全设计，不是页面故障。</p>' +
+      '<p>请在仓库根目录起一个静态服务器，再从 <code>http://</code> 打开本页：</p>' +
+      '<ol>' +
+        '<li>在仓库根目录执行 <code>python -m http.server 8000</code></li>' +
+        '<li>浏览器访问 <code>http://localhost:8000/docs/pipeline.html</code></li>' +
+      '</ol>' +
+      '<p>用 VS Code 的 Live Server 等插件打开也可以。' +
+      '本页数据来自 <code>docs/data/cards.json</code>，由 <code>data/build_cards.py</code> 生成。</p>' +
+    '</div>';
+}
+
+/* ---------------- 渲染：清单 ---------------- */
+function render(){
+  renderFilters();
+  renderList();
+  if (!selected || !byWord(selected)){
+    selected = CARDS.length ? CARDS[0].w : null;
+  }
+  renderDetail();
+  renderProgress();
+}
+
+function renderFilters(){
+  var yilei = [], seen = {};
+  CARDS.forEach(function(c){
+    if (c.pilot_yilei && !seen[c.pilot_yilei]) { seen[c.pilot_yilei] = 1; yilei.push(c.pilot_yilei); }
+  });
+  var flagCodes = [], fs = {};
+  CARDS.forEach(function(c){ (c.flags||[]).forEach(function(f){ if(!fs[f.code]){fs[f.code]=1;flagCodes.push(f.code);} }); });
+
+  document.getElementById("main").innerHTML =
+    '<aside>' +
+      '<div class="filters">' +
+        '<div><label>状态</label><select id="fStatus">' +
+          '<option value="all">全部</option>' +
+          '<option value="draft">草稿（未复核）</option>' +
+          '<option value="reviewed">已复核</option>' +
+        '</select></div>' +
+        '<div><label>Flag</label><select id="fFlag">' +
+          '<option value="all">全部</option>' +
+          '<option value="any">有 flag（任意）</option>' +
+          '<option value="none">无 flag</option>' +
+          flagCodes.map(function(c){ return '<option value="'+esc(c)+'">'+esc(c)+'</option>'; }).join("") +
+        '</select></div>' +
+        '<div><label>设计义类</label><select id="fYilei">' +
+          '<option value="all">全部</option>' +
+          yilei.map(function(y){ return '<option value="'+esc(y)+'">'+esc(y)+'</option>'; }).join("") +
+        '</select></div>' +
+      '</div>' +
+      '<div class="list" id="list"></div>' +
+    '</aside>' +
+    '<section class="detail" id="detail"></section>';
+
+  document.getElementById("fStatus").value = filters.status;
+  document.getElementById("fFlag").value = filters.flag;
+  document.getElementById("fYilei").value = filters.yilei;
+  document.getElementById("fStatus").addEventListener("change", function(){ filters.status=this.value; renderList(); });
+  document.getElementById("fFlag").addEventListener("change", function(){ filters.flag=this.value; renderList(); });
+  document.getElementById("fYilei").addEventListener("change", function(){ filters.yilei=this.value; renderList(); });
+
+  document.getElementById("btnExport").addEventListener("click", doExport);
+}
+
+function passFilter(c){
+  if (filters.status === "draft" && isDone(c.w)) return false;
+  if (filters.status === "reviewed" && !isDone(c.w)) return false;
+  if (filters.yilei !== "all" && c.pilot_yilei !== filters.yilei) return false;
+  var codes = (c.flags||[]).map(function(f){ return f.code; });
+  if (filters.flag === "any" && !codes.length) return false;
+  if (filters.flag === "none" && codes.length) return false;
+  if (filters.flag !== "all" && filters.flag !== "any" && filters.flag !== "none" && codes.indexOf(filters.flag) < 0) return false;
+  return true;
+}
+
+function renderList(){
+  var box = document.getElementById("list");
+  if (!box) return;
+  var rows = CARDS.filter(passFilter);
+  if (!rows.length){
+    box.innerHTML = '<div class="empty-note">该筛选条件下没有词条</div>';
+    return;
+  }
+  box.innerHTML = rows.map(function(c){
+    var cands = uniqYilei(c);
+    var sev = flagMaxSev(c);
+    var chips = "";
+    if (c.pilot_yilei) chips += '<span class="chip design">设计 '+esc(c.pilot_yilei)+'</span>';
+    if (cands.length) chips += cands.map(function(y){ return '<span class="chip cand">'+esc(y)+'</span>'; }).join("");
+    else chips += '<span class="chip none">无义类候选</span>';
+    (c.flags||[]).forEach(function(f){
+      chips += '<span class="chip fl '+(flagSev(f.code)==="high"?"high":flagSev(f.code)==="low"?"low":"")+'">'+esc(f.code)+'</span>';
+    });
+    return '<button type="button" class="item'+(selected===c.w?" on":"")+'" data-w="'+esc(c.w)+'">' +
+      '<span class="it-top"><span class="it-w">'+esc(c.w)+'</span>' +
+      '<span class="it-dot'+(isDone(c.w)?" done":"")+'" title="'+(isDone(c.w)?"已复核":"未复核")+'"></span></span>' +
+      '<span class="it-meta">'+chips+'</span>' +
+    '</button>';
+  }).join("");
+  Array.prototype.forEach.call(box.querySelectorAll(".item"), function(b){
+    b.addEventListener("click", function(){
+      selected = b.getAttribute("data-w");
+      renderList(); renderDetail();
+      var d = document.getElementById("detail");
+      if (d && window.innerWidth <= 980) d.scrollIntoView({behavior:"smooth", block:"start"});
+    });
+  });
+}
+
+function renderProgress(){
+  var done = CARDS.filter(function(c){ return isDone(c.w); }).length;
+  document.getElementById("pgDone").textContent = String(done);
+  document.getElementById("pgBar").style.width = (CARDS.length ? (done / CARDS.length * 100) : 0) + "%";
+}
+
+/* ---------------- 渲染：详情 ---------------- */
+function renderDetail(){
+  var box = document.getElementById("detail");
+  if (!box) return;
+  if (!selected){ box.innerHTML = '<div class="empty-note">左侧选择一张卡开始复核</div>'; return; }
+  var c = byWord(selected);
+  var rv = reviewOf(c.w);
+  var done = isDone(c.w);
+
+  box.innerHTML =
+    cardHead(c, rv, done) +
+    chainBlock(c) +
+    '<div class="cols">' +
+      '<div class="col-pane">' + draftPane(c) + '</div>' +
+      '<div class="col-pane">' + reviewPane(c) + '</div>' +
+    '</div>' +
+    flagsBlock(c) +
+    submitBlock(c, rv, done);
+
+  wireDetail(c);
+}
+
+function cardHead(c, rv, done){
+  var cls = CLASS_ZH[c.etym_class] || c.etym_class || "未定";
+  return '<div class="card-head">' +
+    '<div class="ch-top">' +
+      '<span class="ch-w">'+esc(c.w)+'</span>' +
+      (c.ipa ? '<span class="ch-ipa">'+esc(c.ipa)+'</span>' : '<span class="ch-ipa" style="color:var(--ink3)">无音标</span>') +
+      '<span class="ch-status"><span class="st-badge'+(done?" done":"")+'">'+(done ? "已复核 · "+esc(rv.by||"") : "草稿 · 未复核")+'</span></span>' +
+    '</div>' +
+    '<div class="meta-row">' +
+      (c.pilot_yilei ? '<span class="chip design">设计义类 '+esc(c.pilot_yilei)+'</span>' : '<span class="chip none">设计义类未定</span>') +
+      '<span class="chip">'+esc(cls)+'</span>' +
+      '<span class="chip">'+esc((c.pos_all||[]).join("/") || "词性未抽到")+'</span>' +
+      '<span class="chip">词长 '+esc(c.len)+'</span>' +
+      (c.proposal.prefix ? '<span class="chip">前缀 '+esc(c.proposal.prefix)+'</span>' : '') +
+      (c.proposal.suffix ? '<span class="chip">后缀 '+esc(c.proposal.suffix)+'</span>' : '') +
+    '</div>' +
+    '<div class="prov-line"><b>词源出处</b>：'+esc(c.src.site)+' · '+esc(c.src.path)+' · 抓取于 '+esc(c.src.fetched)+
+      '<br><b>URL</b>：<a href="'+esc(c.src.url)+'" target="_blank" rel="noopener">'+esc(c.src.url)+'</a></div>' +
+  '</div>';
+}
+
+function chainBlock(c){
+  var anc = c.etym.ancestors || [];
+  var inner;
+  if (anc.length){
+    inner = '<div class="tl">' + anc.map(function(a, i){
+      var last = (i === anc.length - 1);
+      var zh = LANG_ZH[a.lang];
+      return '<div class="tl-node"><div class="tl-box'+(last?" now":"")+'">' +
+        '<div class="tl-lang">'+esc(zh || a.lang)+'</div>' +
+        '<div class="tl-term">'+esc(a.term)+'</div>' +
+        '<div class="tl-code">'+esc(a.code)+'</div>' +
+      '</div></div>';
+    }).join("") + '</div>';
+  } else {
+    inner = '<div class="tl-none">祖先链为空 —— 义类候选只能来自现代词自身的子串匹配，可信度低。</div>';
+  }
+  var tree = c.etym.tree
+    ? '<details class="raw"><summary>查看 kaikki 原始演变树文本</summary><pre>'+esc(c.etym.tree)+'</pre></details>'
+    : '<div class="tl-none" style="font-size:12px">（无原始演变树文本）</div>';
+  return '<div class="chain-wrap">' +
+    '<div class="sec-label">词源演变链 · 按 kaikki 数组顺序 <b>chain_from: '+esc(c.etym.chain_from)+'</b>' +
+      '<span style="margin-left:10px;color:var(--ink3)">' +
+      (c.etym.chain_from === "tree-text" ? "（渲染文本，最可靠）"
+        : c.etym.chain_from === "json-tree" ? "（内嵌 JSON 树）"
+        : c.etym.chain_from === "templates" ? "（普通模板兜底，可能不完整）"
+        : "（未取到链）") + '</span></div>' +
+    inner + tree +
+  '</div>';
+}
+
+/* AI 草稿栏：每个字段都必须挂出处，否则整个产品就没有立身之本 */
+function draftPane(c){
+  var f = FIELDS.map(function(F){ return draftField(c, F); }).join("");
+  return '<div class="pane-head g"><span class="dot"></span>AI 草稿 <small>build_cards.py 产出 · status=draft</small></div>' + f;
+}
+
+function draftField(c, F){
+  var v = F.ai(c);
+  var valHtml = (v === null || v === "")
+    ? '<div class="f-val null">AI 未出草稿 —— '+esc(nullNote(c, F))+'</div>'
+    : '<div class="f-val">'+esc(v)+'</div>';
+  return '<div class="field">' +
+    '<div class="f-name">'+esc(F.label)+'<span class="tag">机器值</span></div>' +
+    valHtml +
+    srcBlock(c, F) +
+  '</div>';
+}
+
+/* 无 AI 值时的解释要分情况说清楚：
+   同一句"机器没给"在"脚本本就不生成"和"候选太多机器拿不定"下，
+   对复核人的指令完全不同，所以按字段与候选数分别写。 */
+function nullNote(c, F){
+  if (F.basis === "yilei"){
+    var u = uniqYilei(c);
+    if (!u.length) return "现代词与祖先词条均未命中词根表，本字段无机器候选，须人工另定。";
+    return "机器义类候选多于一个（" + u.join("、") + "），机器自己没拿定主意，请在右栏人工裁决。";
+  }
+  return F.aiNote;
+}
+
+/* 出处块：按字段类型给出对应的 kaikki 原文，取不到就明说"无出处" */
+function srcBlock(c, F){
+  var head = '<div class="src-h">出处 · '+esc(c.src.site)+' · <a href="'+esc(c.src.url)+'" target="_blank" rel="noopener">'+esc(c.src.url)+'</a></div>';
+  var body = "";
+
+  if (F.basis === "gloss"){
+    var g = c.gloss_en || [];
+    body = g.length
+      ? '<ul>' + g.map(function(x){ return '<li>'+esc(x)+'</li>'; }).join("") + '</ul>'
+      : '<span class="muted">未抽到英文释义，本字段无草稿素材。</span>';
+  }
+
+  else if (F.basis === "yilei"){
+    var cands = c.proposal.yilei || [];
+    if (cands.length){
+      body = '<ul>' + cands.map(function(x){
+        return '<li>义类 <b>'+esc(x.yilei)+'</b>：词根 <b>'+esc(x.root)+'</b>（'+esc(x.root_len)+' 字母）命中于 <b>'+esc(x.hit_in)+'</b></li>';
+      }).join("") + '</ul>';
+    } else {
+      body = '<span class="muted">未命中任何词根，本字段无机器候选。</span>';
+    }
+  }
+
+  else if (F.basis === "prose"){
+    body = c.etym.prose
+      ? '<div>'+esc(c.etym.prose)+'</div>'
+      : '<span class="muted">未抽到词源正文，本字段无草稿素材。</span>';
+  }
+
+  return '<div class="src">'+head+body+'</div>';
+}
+
+/* 人工复核栏：与左栏字段一一对应 */
+function reviewPane(c){
+  return '<div class="pane-head"><span class="dot"></span>人工复核 <small>逐字段签字 · 改动须留理由</small></div>' +
+    FIELDS.map(function(F){ return reviewField(c, F); }).join("");
+}
+
+function reviewField(c, F){
+  var ai = F.ai(c);
+  var cur = fieldOf(c.w, F.key);
+  var mode = modeOf(c, F.key);
+  var stateTxt = { adopt:"已采纳 AI", modify:"已修改 AI 建议", manual:"人工填写", empty:"未填写" }[mode];
+
+  // AI 候选可选时给"采纳"快捷；多候选时给出选择片，便于人工裁决
+  var quick = "";
+  if (ai !== null){
+    quick = '<div class="adopt-row"><button type="button" class="btn sm adopt" data-field="'+esc(F.key)+'">采纳 AI 候选「'+esc(ai)+'」</button></div>';
+  } else {
+    var cands = uniqYilei(c);
+    if (F.basis === "yilei" && cands.length){
+      quick = '<div class="cand-list">' + cands.map(function(y){
+        return '<span class="chip cand pick" data-field="'+esc(F.key)+'" data-val="'+esc(y)+'" title="点击填入并作为人工裁决">裁决：'+esc(y)+'</span>';
+      }).join("") + '</div><div class="adopt-row"><span class="legend">机器无唯一答案，请人工裁决（不计入修改留痕）。</span></div>';
+    }
+  }
+
+  return '<div class="field">' +
+    '<div class="f-name">'+esc(F.label)+'<span class="f-state '+mode+'" data-state="'+esc(F.key)+'">'+esc(stateTxt)+'</span></div>' +
+    '<div class="ta-wrap"><textarea class="ta" data-val="'+esc(F.key)+'" rows="3" placeholder="填写'+esc(F.label)+'……">'+esc(cur.value||"")+'</textarea></div>' +
+    quick +
+    '<div class="reason'+(mode==="modify"?" req":"")+'" data-reasonbox="'+esc(F.key)+'">' +
+      '<label data-reasonlabel="'+esc(F.key)+'">'+(mode==="modify" ? "修改理由（必填）" : "修改理由（仅在改动 AI 建议时必填）")+'</label>' +
+      '<input type="text" data-reason="'+esc(F.key)+'" value="'+esc(cur.reason||"")+'" placeholder="'+(mode==="modify" ? "说明为何不采用机器判断" : "未改动 AI 建议时可不填")+'">' +
+      '<div class="warn">改动 AI 建议必须留下理由，否则无法提交该字段。</div>' +
+    '</div>' +
+  '</div>';
+}
+
+function flagsBlock(c){
+  var fs = c.flags || [];
+  var head = '<div class="pane-head"><span class="dot"></span>机器发现的疑点 <small>'+(fs.length ? fs.length+" 条" : "无")+'</small></div>';
+  if (!fs.length){
+    return '<div class="flags">'+head+'<div class="flag-none">本卡机器未标记疑点。仍须逐字段核对，无 flag 不等于无错。</div></div>';
+  }
+  return '<div class="flags">'+head+fs.map(function(f){
+    var meta = FLAGS[f.code] || FLAGS._default;
+    var sevTxt = meta.sev === "high" ? "需裁决" : meta.sev === "mid" ? "需核对" : "提示";
+    return '<div class="flag '+meta.sev+'">' +
+      '<span class="sev">'+sevTxt+'</span>' +
+      '<div class="fd">' +
+        '<code>'+esc(f.code)+'</code>' +
+        '<div class="fmsg">机器原文：'+esc(f.msg)+'</div>' +
+        '<div class="fexp">'+esc(meta.exp)+'</div>' +
+      '</div>' +
+    '</div>';
+  }).join("") + '</div>';
+}
+
+function submitBlock(c, rv, done){
+  var r = rv || { by:"", notes:[] };
+  var notes = (r.notes && r.notes.length) ? r.notes.join("\n") : "";
+  var last = done ? '<div class="sb-msg ok">本卡已于 '+esc(r.at||"")+' 由 '+esc(r.by||"")+' 复核，重新提交将覆盖该记录。</div>' : '';
+  return '<div class="submit-bar">' +
+    '<div class="sb-field">' +
+      '<label>复核人</label>' +
+      '<input type="text" id="rvBy" value="'+esc(r.by||"")+'" placeholder="签署姓名，作为复核凭据">' +
+    '</div>' +
+    '<div class="sb-field">' +
+      '<label>备注（可选）</label>' +
+      '<textarea class="notes" id="rvNotes" rows="2" placeholder="整体判断、待办事项……">'+esc(notes)+'</textarea>' +
+    '</div>' +
+    '<div class="sb-actions">' +
+      '<button type="button" class="btn primary" id="btnSubmit">提交复核</button>' +
+      '<button type="button" class="btn" id="btnAdoptAll">全部采纳 AI 候选</button>' +
+      '<span class="legend">规则：改动 AI 建议的字段必须填理由（<b>红线</b>）；AI 未给出建议的字段为人工填写，不计修改。</span>' +
+      '<span class="sb-msg" id="sbMsg"></span>' +
+    '</div>' +
+    last +
+  '</div>';
+}
+
+/* ---------------- 字段状态与交互 ---------------- */
+function setField(w, key, patch){
+  if (!state.reviews[w]) state.reviews[w] = { by:null, at:null, status:"draft", fields:{}, notes:[] };
+  var r = state.reviews[w];
+  if (!r.fields) r.fields = {};
+  var f = r.fields[key] || { value:"", reason:"" };
+  if ("value" in patch) f.value = patch.value;
+  if ("reason" in patch) f.reason = patch.reason;
+  r.fields[key] = f;
+  saveState();
+}
+
+function modeOf(c, key){
+  var F = null;
+  for (var i=0;i<FIELDS.length;i++) if (FIELDS[i].key === key) F = FIELDS[i];
+  if (!F) return "empty";
+  var ai = F.ai(c);
+  var f = fieldOf(c.w, key);
+  var v = (f.value || "").trim();
+  if (!v) return "empty";
+  if (ai === null) return "manual";
+  return v === ai ? "adopt" : "modify";
+}
+
+function refreshFieldState(c, key){
+  var mode = modeOf(c, key);
+  var txt = { adopt:"已采纳 AI", modify:"已修改 AI 建议", manual:"人工填写", empty:"未填写" }[mode];
+  var chip = document.querySelector('[data-state="'+cssEsc(key)+'"]');
+  if (chip){ chip.textContent = txt; chip.className = "f-state " + mode; }
+  var box = document.querySelector('[data-reasonbox="'+cssEsc(key)+'"]');
+  var lab = document.querySelector('[data-reasonlabel="'+cssEsc(key)+'"]');
+  var inp = document.querySelector('[data-reason="'+cssEsc(key)+'"]');
+  var bad = false;
+  if (box){
+    box.classList.toggle("req", mode === "modify");
+    if (mode === "modify"){
+      var f = fieldOf(c.w, key);
+      bad = !(f.reason || "").trim();
+      box.classList.toggle("bad", bad);
+    } else {
+      box.classList.remove("bad");
+    }
+  }
+  if (lab) lab.textContent = mode === "modify" ? "修改理由（必填）" : "修改理由（仅在改动 AI 建议时必填）";
+  if (inp) inp.placeholder = mode === "modify" ? "说明为何不采用机器判断" : "未改动 AI 建议时可不填";
+}
+
+/* 选择器里用属性值，需要转义引号等；字段键都是 ASCII，够用即可 */
+function cssEsc(s){ return String(s).replace(/(["\\])/g, "\\$1"); }
+
+function wireDetail(c){
+  // 输入框：只更新状态，不重绘整个详情，避免打字时光标丢失
+  Array.prototype.forEach.call(document.querySelectorAll("[data-val]"), function(t){
+    t.addEventListener("input", function(){
+      var key = t.getAttribute("data-val");
+      setField(c.w, key, { value: t.value });
+      refreshFieldState(c, key);
+      clearMsg();
+    });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll("[data-reason]"), function(t){
+    t.addEventListener("input", function(){
+      var key = t.getAttribute("data-reason");
+      setField(c.w, key, { reason: t.value });
+      refreshFieldState(c, key);
+      clearMsg();
+    });
+  });
+  // 采纳 AI 候选
+  Array.prototype.forEach.call(document.querySelectorAll("button.adopt"), function(b){
+    b.addEventListener("click", function(){
+      var key = b.getAttribute("data-field");
+      var F = fieldByKey(key);
+      fillField(c, key, String(F.ai(c)));
+    });
+  });
+  // 多候选裁决片
+  Array.prototype.forEach.call(document.querySelectorAll(".pick"), function(p){
+    p.addEventListener("click", function(){
+      fillField(c, p.getAttribute("data-field"), p.getAttribute("data-val"));
+    });
+  });
+  var all = document.getElementById("btnAdoptAll");
+  if (all) all.addEventListener("click", function(){
+    FIELDS.forEach(function(F){ var v = F.ai(c); if (v !== null && v !== "") fillField(c, F.key, String(v), true); });
+  });
+  var sub = document.getElementById("btnSubmit");
+  if (sub) sub.addEventListener("click", function(){ doSubmit(c); });
+}
+
+function fieldByKey(key){
+  for (var i=0;i<FIELDS.length;i++) if (FIELDS[i].key === key) return FIELDS[i];
+  return null;
+}
+
+function fillField(c, key, val, silent){
+  var ta = document.querySelector('[data-val="'+cssEsc(key)+'"]');
+  if (ta) ta.value = val;
+  setField(c.w, key, { value: val });
+  refreshFieldState(c, key);
+  if (!silent) clearMsg();
+}
+
+function clearMsg(){
+  var m = document.getElementById("sbMsg");
+  if (m){ m.textContent = ""; m.className = "sb-msg"; }
+}
+function setMsg(t, ok){
+  var m = document.getElementById("sbMsg");
+  if (m){ m.textContent = t; m.className = "sb-msg" + (ok ? " ok" : ""); }
+}
+
+/* ---------------- 提交 ----------------
+   提交前只拦两件事：复核人姓名、以及"改了 AI 却没说为什么"的字段。
+   其余字段允许留空——留空会被如实记录为"未填写"，不作假。 */
+function doSubmit(c){
+  var by = (document.getElementById("rvBy") || {}).value || "";
+  by = by.trim();
+  if (!by){ setMsg("请先填写复核人姓名。"); return; }
+
+  var blockers = [];
+  FIELDS.forEach(function(F){
+    if (modeOf(c, F.key) === "modify"){
+      var f = fieldOf(c.w, F.key);
+      if (!(f.reason || "").trim()) blockers.push(F.label);
+      refreshFieldState(c, F.key);
+    }
+  });
+  if (blockers.length){
+    setMsg("以下字段改动了 AI 建议但未填理由：" + blockers.join("、") + "。理由必填，无法提交。");
+    return;
+  }
+
+  var notes = ((document.getElementById("rvNotes") || {}).value || "").trim();
+  var fields = {};
+  FIELDS.forEach(function(F){
+    var f = fieldOf(c.w, F.key);
+    fields[F.key] = {
+      label: F.label,
+      mode: modeOf(c, F.key),          // adopt / modify / manual / empty
+      ai: F.ai(c),                      // 记录机器当时的值，日后可追溯
+      value: (f.value || "").trim(),
+      reason: (f.reason || "").trim()
+    };
+  });
+
+  if (!state.reviews[c.w]) state.reviews[c.w] = { fields:{} };
+  var r = state.reviews[c.w];
+  r.by = by;
+  r.at = fmtTime(new Date());
+  r.status = "reviewed";
+  r.fields = fields;
+  r.notes = notes ? notes.split("\n") : [];
+  saveState();
+
+  renderList(); renderDetail(); renderProgress();
+  setMsg("已提交：" + c.w + " 置为 reviewed，复核记录已写入本地。", true);
+}
+
+/* ---------------- 导出 ----------------
+   导出物是要放进参赛材料的证据，所以按正式记录写：先清单、后逐条留痕，不省略空值。 */
+function doExport(){
+  var doneCards = CARDS.filter(function(c){ return isDone(c.w); });
+  if (!doneCards.length){
+    alert("还没有任何已复核的词条，先复核至少一张卡再导出。");
+    return;
+  }
+  var L = [];
+  L.push("# 义符 · 词源卡复核记录");
+  L.push("");
+  L.push("- 生成时间：" + fmtTime(new Date()));
+  L.push("- 数据源：docs/data/cards.json（schema 1.0，由 data/build_cards.py 生成）");
+  L.push("- 已复核：" + doneCards.length + " / " + CARDS.length + " 张");
+  L.push("- 说明：本记录为人工复核签字凭据。凡改动 AI 建议的字段，均附修改理由；AI 未给出建议的字段记为「人工填写」。");
+  L.push("");
+  L.push("## 一、复核清单");
+  L.push("");
+  L.push("| 词 | 设计义类 | 机器义类候选 | 汉语义符（复核后） | 修改字段数 | 复核人 | 复核时间 |");
+  L.push("| --- | --- | --- | --- | --- | --- | --- |");
+  doneCards.forEach(function(c){
+    var r = reviewOf(c.w);
+    var cands = uniqYilei(c).join("、") || "—";
+    var hf = (r.fields.han_fu && r.fields.han_fu.value) || "—";
+    var nMod = 0;
+    FIELDS.forEach(function(F){ if (r.fields[F.key] && r.fields[F.key].mode === "modify") nMod++; });
+    L.push("| " + mdCell(c.w) + " | " + mdCell(c.pilot_yilei || "—") + " | " + mdCell(cands) + " | " +
+           mdCell(hf) + " | " + nMod + " | " + mdCell(r.by || "") + " | " + mdCell(r.at || "") + " |");
+  });
+  L.push("");
+  L.push("## 二、逐卡留痕");
+  L.push("");
+  doneCards.forEach(function(c){
+    var r = reviewOf(c.w);
+    L.push("### " + c.w);
+    L.push("");
+    L.push("- 词源出处：" + c.src.site + " · " + c.src.path + " · " + c.src.url + "（抓取于 " + c.src.fetched + "）");
+    L.push("- 祖先链来源链：chain_from = " + c.etym.chain_from + "，共 " + (c.etym.ancestors||[]).length + " 个节点");
+    if ((c.flags||[]).length){
+      L.push("- 机器疑点：" + c.flags.map(function(f){ return f.code; }).join("、"));
+    } else {
+      L.push("- 机器疑点：无");
+    }
+    FIELDS.forEach(function(F){
+      var f = r.fields[F.key] || { mode:"empty", value:"", reason:"", ai:null };
+      var modeTxt = { adopt:"采纳 AI 建议", modify:"修改 AI 建议（附理由）", manual:"人工填写（AI 无建议）", empty:"未填写" }[f.mode] || f.mode;
+      L.push("- " + F.label + "：" + modeTxt + "；复核值「" + (f.value || "—") + "」");
+      if (f.ai !== null && f.ai !== undefined) L.push("  - 机器原值：「" + f.ai + "」");
+      if (f.mode === "modify") L.push("  - 修改理由：" + (f.reason || ""));
+    });
+    if (r.notes && r.notes.length){
+      L.push("- 备注：" + r.notes.join(" / "));
+    }
+    L.push("");
+  });
+
+  var text = L.join("\n");
+  try{
+    var blob = new Blob([text], {type:"text/markdown;charset=utf-8"});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = "复核记录.md";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    // 立即 revoke 会让部分浏览器来不及取用，挪到下一轮事件循环再释放
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 1500);
+  }catch(e){
+    // 下载被拦时不至于把记录丢掉：退化为新窗口展示，用户可自行保存
+    var w = window.open("", "_blank");
+    if (w){ w.document.write("<pre>" + esc(text) + "</pre>"); w.document.title = "复核记录.md"; }
+    else alert("导出被浏览器拦截，请允许下载后重试。");
+  }
+}
+
+function mdCell(s){ return String(s == null ? "" : s).replace(/\|/g, "\\|").replace(/\n+/g, " "); }
+
+boot();
+</script>
+</body>
+</html>

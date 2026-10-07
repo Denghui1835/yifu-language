@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>义符 · 阶段零演示</title>
+<title>义符 · 词根拆解器</title>
 <style>
 :root{
   --paper:#f7f4ee; --paper2:#fffdf8;
@@ -26,6 +26,8 @@ body{
   font-family:var(--sans);
   font-size:15px; line-height:1.6;
   overflow:hidden;
+  height:100%;
+  display:flex;flex-direction:column;
 }
 /* 纸纹 */
 body::before{
@@ -36,7 +38,7 @@ body::before{
 
 /* ---------- 顶栏 ---------- */
 header{
-  position:relative;z-index:5;
+  position:relative;z-index:5;flex:none;
   display:flex;align-items:center;gap:18px;flex-wrap:wrap;
   padding:14px 24px;border-bottom:1px solid var(--line);
   background:rgba(247,244,238,.9);backdrop-filter:blur(8px);
@@ -44,7 +46,7 @@ header{
 .brand{display:flex;align-items:baseline;gap:9px;margin-right:6px}
 .brand b{font-family:var(--serif);font-size:25px;letter-spacing:.14em;font-weight:600}
 .brand span{font-size:11.5px;color:var(--ink3);letter-spacing:.22em}
-.tabs{display:flex;gap:8px;margin-left:auto;flex-wrap:wrap}
+.tabs{display:flex;gap:8px;margin-left:0;flex-wrap:wrap}
 .tab{
   border:1px solid var(--line);background:var(--paper2);color:var(--ink2);
   padding:6px 15px;border-radius:99px;cursor:pointer;
@@ -63,7 +65,7 @@ header{
 main{
   position:relative;z-index:1;
   display:grid;grid-template-columns:1fr minmax(180px,230px) 1fr;
-  gap:0;height:calc(100% - 62px);
+  gap:0;
 }
 #wires{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2;overflow:visible}
 .col{overflow-y:auto;padding:22px 20px 150px;position:relative;z-index:1}
@@ -235,25 +237,219 @@ main{
 .arw{color:var(--ink3);font-size:12px;flex:none}
 
 @media(max-width:900px){
-  main{grid-template-columns:1fr;height:auto;overflow-y:auto}
+  main{grid-template-columns:1fr}
   .col.han{border-right:0;border-bottom:1px solid var(--line)}
   .col.eng{border-left:0;border-top:1px solid var(--line)}
   .hub{order:-1;padding:22px 0}
   #wires{display:none}
-  body{overflow:auto}
   .col{padding-bottom:40px;max-height:none}
+}
+/* ============================================================
+   玩法层（新增）：把演示升级为可用的工具
+   以下为新增界面，遵循 2px 圆角、无渐变、无发光阴影、无 emoji。
+   图谱漫游沿用原有纸/墨视觉，未改动。
+   ============================================================ */
+.plays{display:flex;gap:7px;margin-left:auto;flex-wrap:wrap}
+.play{
+  border:1px solid var(--line);background:var(--paper2);color:var(--ink2);
+  padding:7px 14px;border-radius:2px;cursor:pointer;
+  font-family:var(--serif);font-size:15px;letter-spacing:.06em;transition:.2s;
+}
+.play:hover{border-color:var(--jin);color:var(--ink)}
+.play.on{background:var(--ink);border-color:var(--ink);color:#fff}
+
+.views{position:relative;z-index:1;flex:1;min-height:0}
+.view{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;display:none}
+.view.on{display:block}
+#board.on{display:grid}
+
+.wrap{max-width:1080px;margin:0 auto;padding:30px 26px 90px}
+.vhead{margin-bottom:22px}
+.vhead h2{font-family:var(--serif);font-size:26px;font-weight:600;letter-spacing:.1em;margin:0 0 6px}
+.vhead p{margin:0;color:var(--ink3);font-size:13px;line-height:1.8}
+.vsubhead{font-family:var(--serif);font-size:19px;font-weight:600;letter-spacing:.08em;margin:30px 0 10px}
+
+/* 提示面板 */
+.notice{
+  border:1px solid #e8d5a5;background:var(--jin-bg);border-radius:2px;
+  padding:14px 18px;margin-bottom:20px;font-size:13.5px;color:#6d551f;line-height:1.9;
+}
+.notice b{color:#7a5a17}
+.notice code{
+  background:rgba(255,255,255,.7);border:1px solid #e8d5a5;border-radius:2px;
+  padding:1px 6px;font-family:ui-monospace,Consolas,monospace;font-size:12.5px;word-break:break-all;
+}
+.notice.err{border-color:#e6c8bd;background:var(--zhu-bg);color:#7a4033}
+.notice.err b{color:var(--zhu)}
+.notice.info{border-color:#cfe0ea;background:var(--dian-bg);color:#2f5570}
+.notice.info b{color:var(--dian)}
+
+/* 第2玩法：词根拆解器 */
+.searchbar{display:flex;gap:10px;flex-wrap:wrap;align-items:stretch;margin-bottom:8px}
+.searchbar input{
+  flex:1 1 260px;min-width:0;padding:12px 15px;font-size:16px;
+  border:1px solid var(--line);border-radius:2px;background:var(--paper2);
+  color:var(--ink);font-family:var(--sans);
+}
+.searchbar input:focus{outline:none;border-color:var(--dian)}
+.btn{
+  border:1px solid var(--line);background:var(--paper2);color:var(--ink2);
+  padding:12px 18px;border-radius:2px;cursor:pointer;font-size:14px;font-family:var(--sans);
+  transition:.2s;white-space:nowrap;
+}
+.btn:hover{border-color:var(--dian);color:var(--dian)}
+.btn.primary{background:var(--dian);border-color:var(--dian);color:#fff}
+.btn.primary:hover{opacity:.9;color:#fff}
+.btn.small{padding:7px 13px;font-size:13px}
+.samples{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:12px 0 4px;font-size:12.5px;color:var(--ink3)}
+.chip{
+  border:1px solid var(--line);background:var(--paper);color:var(--ink2);
+  padding:5px 12px;border-radius:2px;cursor:pointer;font-size:13px;transition:.2s;display:inline-block;
+}
+.chip:hover{border-color:var(--jin);color:var(--ink)}
+
+.res{margin-top:22px}
+.badge{font-size:11.5px;padding:3px 11px;border-radius:2px;letter-spacing:.06em;white-space:nowrap}
+.badge.ok{background:var(--zhu);color:#fff}
+.badge.wait{background:transparent;border:1px solid var(--ink3);color:var(--ink3)}
+.wtop{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.wtop .hw{font-size:30px;font-weight:700;letter-spacing:.01em;word-break:break-word}
+.wtop .ipa{font-size:14px;color:var(--ink3)}
+.wtop .pos{font-size:12.5px;color:var(--ink3)}
+.wtop .def{font-size:15px;color:var(--ink2);flex:1 1 220px;min-width:0}
+
+.block{margin-top:22px}
+.block h4{font-size:11.5px;letter-spacing:.24em;color:var(--ink3);font-weight:500;margin:0 0 10px}
+
+.seg{display:inline-flex;gap:6px;flex-wrap:wrap;align-items:flex-end;background:var(--paper2);
+     border:1px solid var(--line);border-radius:2px;padding:12px 14px;max-width:100%}
+.segp{padding:8px 12px;border-radius:2px;text-align:center;min-width:44px}
+.segp .t{font-size:20px;font-weight:700;font-family:var(--serif);line-height:1.1;word-break:break-word}
+.segp .g{font-size:10.5px;color:var(--ink3);margin-top:3px;letter-spacing:.04em}
+.segp.root{background:var(--dian-bg);border:1px solid #cfe0ea}
+.segp.root .t{color:var(--dian)}
+.segp.prefix{background:var(--jin-bg);border:1px solid #e8d5a5}
+.segp.prefix .t{color:#7a5a17}
+.segp.suffix{background:var(--paper);border:1px dashed var(--line)}
+.segp.suffix .t{color:var(--ink2)}
+.segp.base{background:var(--paper);border:1px dashed var(--line)}
+.segp.base .t{color:var(--ink3)}
+.segnote{font-size:12px;color:var(--ink3);margin-top:10px;line-height:1.85}
+
+.kv{display:flex;flex-direction:column;gap:9px}
+.kvrow{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+.kvrow .k{font-size:11.5px;letter-spacing:.14em;color:var(--ink3);flex:none;min-width:78px}
+.kvrow .v{font-size:14px;color:var(--ink2)}
+.pill{display:inline-block;padding:3px 11px;border-radius:2px;background:var(--paper);
+      border:1px solid var(--line);font-size:13px;color:var(--ink2);margin:0 6px 6px 0}
+
+.chainv{display:flex;align-items:stretch;flex-wrap:wrap;row-gap:10px}
+.cnode{border:1px solid var(--line);background:var(--paper2);border-radius:2px;
+  padding:8px 12px;min-width:0;max-width:100%}
+.cnode .lang{display:block;font-size:10.5px;color:var(--ink3);letter-spacing:.08em}
+.cnode .form{display:block;font-size:15px;font-family:var(--serif);color:var(--ink);word-break:break-word}
+.carw{color:var(--ink3);align-self:center;padding:0 7px;font-size:13px}
+
+.furow{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap;
+       background:var(--zhu-bg);border:1px solid #eed6cd;border-radius:2px;padding:13px 16px;margin-bottom:10px}
+.furow .big{font-family:var(--serif);font-size:36px;color:var(--zhu);line-height:1}
+.furow .txt{font-size:13.5px;color:#6d4a3f;flex:1 1 220px;min-width:0;line-height:1.8}
+.empty{font-size:13.5px;color:var(--ink3);line-height:1.9;
+       border:1px dashed var(--line);border-radius:2px;padding:14px 16px;background:var(--paper2)}
+.storyx{font-size:14.5px;line-height:1.95;color:#3a352e}
+.storyx em{font-style:normal;color:var(--zhu);font-weight:600}
+.storyx b{color:var(--dian);font-weight:600}
+
+/* 第3玩法：词卡 + 小测 + 错题本 */
+.cardbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+.cardbar select{
+  padding:9px 12px;border:1px solid var(--line);border-radius:2px;background:var(--paper2);
+  color:var(--ink);font-size:14px;font-family:var(--sans);max-width:100%;
+}
+.tabsx{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;border-bottom:1px solid var(--line);padding-bottom:2px}
+.tabx{
+  border:1px solid transparent;background:transparent;color:var(--ink3);
+  padding:7px 14px;border-radius:2px 2px 0 0;cursor:pointer;font-size:14px;font-family:var(--serif);letter-spacing:.06em;
+}
+.tabx.on{color:var(--ink);border-color:var(--line);border-bottom-color:var(--paper2);background:var(--paper2)}
+.pane{display:none}
+.pane.on{display:block}
+.prog{height:8px;background:var(--paper);border:1px solid var(--line);border-radius:2px;overflow:hidden;margin:12px 0 6px}
+.prog i{display:block;height:100%;background:var(--jin);width:0;transition:width .3s}
+.progtxt{font-size:12.5px;color:var(--ink3)}
+.flash{max-width:600px;margin:8px auto 0}
+.thecard{
+  border:1px solid var(--line);background:var(--paper2);border-radius:2px;
+  padding:34px 26px;text-align:center;min-height:230px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
+}
+.thecard .fword{font-size:34px;font-weight:700;letter-spacing:.01em;word-break:break-word}
+.thecard .fdef{font-size:15px;color:var(--ink2)}
+.thecard .fipa{font-size:13.5px;color:var(--ink3)}
+.thecard .back{align-self:stretch;text-align:left;display:flex;flex-direction:column;gap:12px;width:100%}
+.cardbtns{display:flex;gap:9px;flex-wrap:wrap;justify-content:center;margin-top:16px}
+.mtag{font-size:11.5px;padding:3px 11px;border-radius:2px;border:1px solid var(--ink3);color:var(--ink3)}
+.mtag.known{background:var(--dian);border-color:var(--dian);color:#fff}
+.mtag.unknown{background:var(--zhu);border-color:var(--zhu);color:#fff}
+.deckdone{text-align:center;color:var(--ink3);font-size:14px;padding:30px 10px;line-height:2}
+
+.quizq{font-size:15px;color:var(--ink2);text-align:center;margin-bottom:6px}
+.quizq b{font-size:26px;color:var(--ink);display:block;margin-top:6px;word-break:break-word}
+.quizopts{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:16px}
+.quizopt{
+  border:1px solid var(--line);background:var(--paper2);color:var(--ink);
+  padding:11px 20px;border-radius:2px;cursor:pointer;font-size:16px;font-family:var(--serif);
+  min-width:120px;transition:.2s;
+}
+.quizopt:hover{border-color:var(--dian)}
+.quizopt.right{background:var(--dian-bg);border-color:var(--dian);color:var(--dian);font-weight:700}
+.quizopt.wrong{background:var(--zhu-bg);border-color:var(--zhu);color:var(--zhu);font-weight:700}
+.quizfb{text-align:center;font-size:14px;margin-top:14px;min-height:22px;color:var(--ink2)}
+.quizfb.ok{color:var(--dian)}
+.quizfb.no{color:var(--zhu)}
+.wrongitem{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;
+  border:1px solid var(--line);background:var(--paper2);border-radius:2px;padding:11px 14px;margin-bottom:9px}
+.wrongitem .ww{font-size:16px;font-weight:600;min-width:120px}
+.wrongitem .wd{font-size:13px;color:var(--ink3);flex:1 1 200px;min-width:0}
+
+/* 第4玩法：故事线 */
+.tl{position:relative;padding-left:26px}
+.tl::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.tlitem{position:relative;margin-bottom:22px}
+.tlitem::before{
+  content:"";position:absolute;left:-23px;top:6px;width:11px;height:11px;border-radius:50%;
+  background:var(--paper);border:2px solid var(--jin);
+}
+.tlitem h3{margin:0 0 2px;font-size:19px;font-weight:700;letter-spacing:.01em;word-break:break-word}
+.tlitem .mean{font-size:13px;color:var(--ink3);margin-bottom:8px}
+.tlitem .storyx{font-size:14.5px;line-height:1.95;color:#3a352e;background:var(--paper2);
+  border:1px solid var(--line);border-radius:2px;padding:14px 16px}
+.relx{display:flex;gap:8px;flex-wrap:wrap;margin-top:9px}
+
+/* 窄屏 */
+@media(max-width:820px){
+  .plays{margin-left:0;width:100%}
+}
+@media(max-width:900px){
+  .wrap{padding:20px 16px 70px}
+  .wtop .hw{font-size:25px}
+  .thecard .fword{font-size:28px}
+  .tl{padding-left:22px}
+  .tlitem::before{left:-19px}
 }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="brand"><b>义符</b><span>阶段零演示</span></div>
+  <div class="brand"><b>义符</b><span>词根拆解器</span></div>
+  <div class="plays" id="plays"></div>
   <div class="tabs" id="tabs"></div>
-  <div class="hint">点右边的英文词，看左边的义符亮起来 →</div>
+  <div class="hint" id="hint">点右边的英文词，看左边的义符亮起来 →</div>
 </header>
 
-<main id="board">
+<div class="views" id="views">
+<main id="board" class="view on" data-k="roam">
   <svg id="wires"></svg>
 
   <section class="col han" id="colHan">
@@ -279,6 +475,59 @@ main{
     <div class="wgrid" id="wgrid"></div>
   </section>
 </main>
+
+<section class="view" id="view-dismantle" data-k="dismantle">
+  <div class="wrap">
+    <div class="vhead">
+      <h2>词根拆解器</h2>
+      <p>输入任意英文词，查看它的词形拆解、义类、汉语义符对照与词源链。所有字段都来自本机词源数据，取不到的一律留白说明，不做补写。</p>
+    </div>
+    <div id="disNotice"></div>
+    <div class="searchbar">
+      <input id="disInput" type="text" placeholder="输入英文词，回车查询，如 aquarium、account" autocomplete="off" spellcheck="false">
+      <button class="btn primary" id="disGo">拆解</button>
+      <button class="btn" id="disRand">随便看看</button>
+    </div>
+    <div class="samples" id="disSamples"></div>
+    <div id="disResult"></div>
+  </div>
+</section>
+
+<section class="view" id="view-cards" data-k="cards">
+  <div class="wrap">
+    <div class="vhead">
+      <h2>义类词卡</h2>
+      <p>选一个义类，按“义符卡 → 小测 → 错题本 → 间隔复习”的顺序复习。掌握状态、小测错题都记在本机浏览器里，刷新后仍在。</p>
+    </div>
+    <div id="cardNotice"></div>
+    <div class="cardbar">
+      <span class="progtxt">义类</span>
+      <select id="cardYilei"></select>
+      <button class="btn small" id="cardReset">重置本义类复习进度</button>
+    </div>
+    <div class="tabsx" id="cardTabs">
+      <button class="tabx on" data-p="review">义符卡</button>
+      <button class="tabx" data-p="quiz">小测</button>
+      <button class="tabx" data-p="wrong">错题本</button>
+    </div>
+    <div class="pane on" id="pane-review">
+      <div class="prog"><i id="cardProg"></i></div>
+      <div class="progtxt" id="cardProgTxt"></div>
+      <div id="cardArea" class="flash"></div>
+    </div>
+    <div class="pane" id="pane-quiz">
+      <div class="flash" id="quizArea"></div>
+    </div>
+    <div class="pane" id="pane-wrong">
+      <div id="wrongArea"></div>
+    </div>
+  </div>
+</section>
+
+<section class="view" id="view-stories" data-k="stories">
+  <div class="wrap" id="stories"></div>
+</section>
+</div>
 
 <aside id="detail"><div class="dwrap" id="dwrap"></div></aside>
 
@@ -849,6 +1098,549 @@ window.addEventListener('resize', ()=>{ if(sel !== null) pickWord(sel); });
 });
 
 renderAll();
+
+/* ============================================================
+   玩法层（新增 · 把演示升级为可用的工具）
+   数据来源：内联 DATA（30 条已人工复核）+ 同源 data/lookup.json（机器抽出）。
+   页面上每一个词源 / 释义 / 拆解字段都来自这两处，取不到就留白说明，绝不补写。
+   ============================================================ */
+const esc = s => String(s==null?'':s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* 索引内联已复核数据（不改动 DATA 本身） */
+const DATA_WORDS = {};
+const DATA_STORIES = [];
+Object.keys(DATA).forEach(k=>{
+  const v = DATA[k];
+  v.words.forEach(w=>{
+    DATA_WORDS[w.w] = Object.assign({}, w, {yileiKey:k, yileiName:v.name});
+    DATA_STORIES.push(Object.assign({}, w, {yileiName:v.name}));
+  });
+});
+
+/* ---------- 词源库加载与兜底 ---------- */
+let LOOKUP = null;
+let LOOKUP_STATE = 'loading';   // loading | ok | fail
+function lookupNotice(){
+  return '<div class="notice err">'
+    + '<b>未加载词源库 data/lookup.json</b>，完整拆解（1691 个词）暂不可用。<br>'
+    + '当前可能是以 file:// 直接打开本页 —— 浏览器会拦截本地文件的取数请求，这是浏览器的安全限制，不是页面故障。<br>'
+    + '图谱漫游、典故故事线、以及内联的 30 条已人工复核词条不受影响，仍可正常使用。<br>'
+    + '启用完整词根拆解的办法：在项目根目录（含 docs 目录的上一级）运行 '
+    + '<code>python -m http.server 8000</code>，然后打开 '
+    + '<code>http://localhost:8000/docs/index.html</code>。'
+    + '</div>';
+}
+function setLookupNotices(){
+  const html = (LOOKUP_STATE==='fail') ? lookupNotice() : '';
+  const a = $('#disNotice'); if(a) a.innerHTML = html;
+  const b = $('#cardNotice'); if(b) b.innerHTML = html;
+}
+function loadLookup(){
+  // file:// 下 fetch 必被浏览器拦截，直接走兜底，连控制台报错都不留
+  if(location.protocol === 'file:'){ LOOKUP_STATE = 'fail'; onLookupReady(); return; }
+  try{
+    fetch('data/lookup.json', {cache:'no-store'})
+      .then(r=>{ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+      .then(j=>{
+        if(!j || !j.words) throw new Error('结构不符');
+        LOOKUP = j; LOOKUP_STATE = 'ok';
+        onLookupReady();
+      })
+      .catch(()=>{ LOOKUP_STATE='fail'; onLookupReady(); });
+  }catch(e){ LOOKUP_STATE='fail'; onLookupReady(); }
+}
+function onLookupReady(){
+  setLookupNotices();
+  fillCardYilei();
+  if(play==='cards'){ renderCard(); renderWrong(); }
+}
+
+/* ---------- 视图切换 ---------- */
+const VIEWS = [['roam','图谱漫游'],['dismantle','词根拆解'],['cards','义类词卡'],['stories','典故故事']];
+let play = 'roam';
+function renderPlays(){
+  $('#plays').innerHTML = VIEWS.map(([k,v])=>
+    '<button class="play '+(k===play?'on':'')+'" data-k="'+k+'">'+v+'</button>').join('');
+  $('#plays').querySelectorAll('.play').forEach(b=> b.onclick = ()=> showView(b.dataset.k));
+}
+function showView(k){
+  play = k;
+  document.querySelectorAll('#views .view').forEach(v=> v.classList.toggle('on', v.dataset.k===k));
+  const roam = (k==='roam');
+  $('#tabs').style.display = roam ? '' : 'none';
+  const h = $('#hint'); if(h) h.style.display = roam ? '' : 'none';
+  $('#plays').querySelectorAll('.play').forEach(b=> b.classList.toggle('on', b.dataset.k===k));
+  closeDetail();
+  if(k==='roam'){ setTimeout(()=>{ if(sel!==null) pickWord(sel); else clearHighlight(); }, 0); }
+}
+
+/* ---------- 词形拆解 ---------- */
+/* 依据 af（前/后缀）与 yilei[].root 在词形中定位；定位不到的如实标注，不强行着色。 */
+function segWord(word, af, yileis){
+  const low = word.toLowerCase(), n = low.length;
+  const type = new Array(n).fill('base');
+  const meta = new Array(n).fill('');
+  const pre = ((af && af[0]) || '').toLowerCase();
+  const suf = ((af && af[1]) || '').toLowerCase();
+  let pl = 0, sl = 0;
+  if(pre && pre.length < n && low.startsWith(pre)){
+    for(let i=0;i<pre.length;i++){ type[i]='prefix'; meta[i]='前缀'; }
+    pl = pre.length;
+  }
+  if(suf && (suf.length + pl) < n && low.endsWith(suf)){
+    const s = n - suf.length;
+    for(let i=s;i<n;i++){ type[i]='suffix'; meta[i]='后缀'; }
+    sl = suf.length;
+  }
+  const end = n - sl;
+  const notes = [];
+  (yileis || []).forEach(y=>{
+    const r = (y.root || '').toLowerCase();
+    if(!r){ return; }
+    const idx = low.indexOf(r, pl);
+    const inRange = idx >= pl && (idx + r.length) <= end;
+    let free = false;
+    if(inRange){
+      free = true;
+      for(let i=idx;i<idx+r.length;i++){ if(type[i] !== 'base'){ free = false; break; } }
+    }
+    if(free){ for(let i=idx;i<idx+r.length;i++){ type[i]='root'; meta[i] = y.yilei + ' · ' + y.root; } }
+    notes.push({ok:free, yilei:y.yilei, root:y.root});
+  });
+  const segs = []; let i = 0;
+  while(i<n){ let j=i; while(j<n && type[j]===type[i]) j++; segs.push({t:type[i], s:word.slice(i,j), m:meta[i]}); i=j; }
+  return {segs, notes};
+}
+function segWordHtml(seg){
+  const html = seg.segs.map(g=>{
+    const lab = g.t==='root' ? (g.m||'词根') : g.t==='prefix' ? '前缀' : g.t==='suffix' ? '后缀' : '未定位';
+    return '<span class="segp '+g.t+'"><span class="t">'+esc(g.s)+'</span><span class="g">'+esc(lab)+'</span></span>';
+  }).join('<span class="carw">+</span>');
+  const nt = seg.notes.map(n=> n.ok
+      ? '词根 '+esc(n.root)+'（义类「'+esc(n.yilei)+'」）已在词形中定位。'
+      : '词根 '+esc(n.root)+'（义类「'+esc(n.yilei)+'」）未能在词形中直接定位，故不着色。'
+    ).join('　·　');
+  return '<div class="seg">'+html+'</div>'
+    + '<div class="segnote">底色＝词根，黄底＝前后缀，“未定位”＝流水线给出的前后缀在此词形中未能对上，仅按原数据展示。</div>'
+    + (nt ? '<div class="segnote">'+nt+'</div>' : '');
+}
+function chainRender(chain){
+  if(!chain || !chain.length) return '<div class="empty">未取到词源链。</div>';
+  const nodes = [];
+  chain.forEach(it=>{
+    const code = it[0], name = it[1], form = it[2] || '';
+    const last = nodes[nodes.length-1];
+    if(last && last.code===code && last.name===name){
+      if(form && last.forms.indexOf(form) < 0) last.forms.push(form);
+    } else {
+      nodes.push({code:code, name:name, forms: form ? [form] : []});
+    }
+  });
+  const html = nodes.map(n=>{
+    const f = n.forms.length ? n.forms.map(esc).join(' · ') : '—';
+    return '<span class="cnode"><span class="lang">'+esc(n.name)+'</span><span class="form">'+f+'</span></span>';
+  }).join('<span class="carw">→</span>');
+  return '<div class="chainv">'+html+'</div>'
+    + '<div class="segnote">共 '+chain.length+' 段，合并相邻同语种后为 '+nodes.length+' 段。数据来自词源库，未经人工复核。</div>';
+}
+function clsName(c){ return ({classical:'古典词源（拉丁 / 希腊）', romance:'罗曼语系', germanic:'日耳曼语系', unknown:'语源未判定', other:'其他'})[c] || c || '未取到'; }
+function tagName(t){ return ({gaokao:'高考词表', ielts:'雅思词表'})[t] || t || '未取到'; }
+
+/* ---------- 结果渲染 ---------- */
+function renderReviewed(d){
+  const rootStem = (d.root || '').replace(/-/g,'').toLowerCase();
+  const parts = d.parts.map(p=>{
+    const pn = p.p.replace(/-/g,'').toLowerCase();
+    const isRoot = !!rootStem && !!pn && (pn.startsWith(rootStem) || rootStem.startsWith(pn));
+    return '<span class="segp '+(isRoot?'root':'prefix')+'"><span class="t">'+esc(p.p)+'</span><span class="g">'+esc(p.g)+'</span></span>';
+  }).join('<span class="carw">+</span>');
+  const evo = EVO.eng[d.w] || [];
+  const evoHtml = evo.length
+    ? '<div class="chainv">' + evo.map((s,i)=>
+        (i?'<span class="carw">→</span>':'') + '<span class="cnode"><span class="form" style="font-size:13.5px">'+esc(s)+'</span></span>'
+      ).join('') + '</div>'
+    : '<div class="empty">未取到词源链。</div>';
+  return '<div class="res">'
+    + '<div class="wtop">'
+    +   '<span class="hw">'+esc(d.w)+'</span>'
+    +   '<span class="ipa">'+esc(d.ipa||'')+'</span>'
+    +   '<span class="badge ok">已人工复核</span>'
+    +   '<span class="def">'+esc(d.mean||'')+'</span>'
+    + '</div>'
+    + '<div class="block"><h4>词　形　拆　解</h4><div class="seg">'+parts+'</div>'
+    +   '<div class="segnote">合成义（原文）：'+esc(d.result||'')+'　·　所属义类：'+esc(d.yileiName||'')+'</div>'
+    +   '<div class="segnote">底色＝词根，黄底＝前后缀。以上为人工复核过的拆解。</div></div>'
+    + '<div class="block"><h4>汉　语　义　符　对　照</h4>'
+    +   '<div class="furow"><span class="big">'+esc(d.hz.c)+'</span><span class="txt">'+esc(d.hz.note)+'</span></div></div>'
+    + '<div class="block"><h4>词　源　链</h4>'+evoHtml+'</div>'
+    + '<div class="block"><h4>词　源　故　事</h4><div class="storyx">'+(d.story||'该词尚未撰写故事。')+'</div></div>'
+    + '<div class="block"><h4>同　源　词</h4><div class="relx">'+(d.rel||[]).map(x=>'<span class="chip" data-jump="'+esc(x)+'">'+esc(x)+'</span>').join('')+'</div></div>'
+    + '</div>';
+}
+function renderMachine(word, v){
+  const seg = segWord(word, v.af, v.yilei);
+  const names = [];
+  (v.yilei || []).forEach(y=>{ if(names.indexOf(y.yilei) < 0) names.push(y.yilei); });
+  const pills = (v.yilei || []).map(y=>'<span class="pill">'+esc(y.yilei)+'　词根 '+esc(y.root)+'</span>').join('')
+    || '<span class="empty" style="padding:8px 12px">未取到义类标注。</span>';
+  const fuHtml = names.length ? names.map(name=>{
+    const Y = LOOKUP && LOOKUP.yilei ? LOOKUP.yilei[name] : null;
+    if(Y && Y.reviewed && (Y.fu || []).length){
+      return (Y.fu || []).map(f=>'<div class="furow"><span class="big">'+esc(f.ch)+'</span><span class="txt">'+esc(f.note||'')+'（来自「'+esc(f.from||'')+'」）</span></div>').join('');
+    }
+    return '<div class="empty">义类「'+esc(name)+'」的汉语义符对照尚未人工校订，暂不展示。</div>';
+  }).join('') : '<div class="empty">该词未取到义类标注，因此没有对应的汉语义符。</div>';
+  return '<div class="res">'
+    + '<div class="notice err"><b>AI 生成 · 待人工复核</b>　以下拆解由流水线从词源数据机械抽出，未经人工复核，仅供参考。</div>'
+    + '<div class="wtop">'
+    +   '<span class="hw">'+esc(word)+'</span>'
+    +   '<span class="ipa">'+esc(v.ipa||'')+'</span>'
+    +   '<span class="badge wait">AI 生成 · 待人工复核</span>'
+    +   '<span class="pos">'+esc(v.pos||'')+'</span>'
+    +   '<span class="def">'+esc(v.def||'')+'</span>'
+    + '</div>'
+    + '<div class="block"><h4>词　形　拆　解</h4>'+segWordHtml(seg)+'</div>'
+    + '<div class="block"><h4>义　类</h4><div class="relx">'+pills+'</div></div>'
+    + '<div class="block"><h4>汉　语　义　符　对　照</h4>'+fuHtml+'</div>'
+    + '<div class="block"><h4>词　源　链</h4>'+chainRender(v.chain)+'</div>'
+    + '<div class="block"><h4>其　他</h4><div class="kv">'
+    +   '<div class="kvrow"><span class="k">词源类别</span><span class="v">'+esc(clsName(v.cls))+'</span></div>'
+    +   '<div class="kvrow"><span class="k">词表来源</span><span class="v">'+esc(tagName(v.tag))+'</span></div>'
+    + '</div></div>'
+    + '</div>';
+}
+function renderNotFound(q){
+  const sug = [];
+  const add = w=>{ if(sug.indexOf(w) < 0 && sug.length < 8) sug.push(w); };
+  Object.keys(DATA_WORDS).forEach(w=>{ if(w.startsWith(q) || q.startsWith(w)) add(w); });
+  if(LOOKUP) Object.keys(LOOKUP.words).forEach(w=>{ if(w.startsWith(q) || q.startsWith(w)) add(w); });
+  const sugHtml = sug.length
+    ? '<div class="block"><h4>相　近　词　形</h4><div class="samples">'+sug.map(w=>'<span class="chip" data-jump="'+esc(w)+'">'+esc(w)+'</span>').join('')+'</div><div class="segnote">仅为词形匹配，非词源判断。</div></div>'
+    : '';
+  return '<div class="res"><div class="empty">未收录「'+esc(q)+'」。本页词源来自已人工复核的 30 条手写词条与本地词源库'
+    + (LOOKUP ? '' : '（当前词源库未加载）')
+    + '，查不到的直接说明，不做推测。</div>'+sugHtml+'</div>';
+}
+function bindJump(root){
+  root.querySelectorAll('.chip[data-jump]').forEach(c=>{
+    const w = c.dataset.jump;
+    c.onclick = ()=>{ $('#disInput').value = w; doSearch(w); };
+  });
+}
+function doSearch(q0){
+  const q = (q0 || '').trim().toLowerCase();
+  const box = $('#disResult');
+  if(!q){ box.innerHTML = '<div class="empty">请输入一个英文单词。</div>'; return; }
+  if(DATA_WORDS[q]){ box.innerHTML = renderReviewed(DATA_WORDS[q]); }
+  else if(LOOKUP && LOOKUP.words[q]){ box.innerHTML = renderMachine(q, LOOKUP.words[q]); }
+  else { box.innerHTML = renderNotFound(q); }
+  bindJump(box);
+}
+function renderDismantle(){
+  const samples = ['aquarium','account','manual','universe','sympathy'];
+  $('#disSamples').innerHTML = '试试：' + samples.map(s=>'<span class="chip" data-s="'+s+'">'+s+'</span>').join('');
+  $('#disSamples').querySelectorAll('.chip').forEach(c=> c.onclick = ()=>{ $('#disInput').value = c.dataset.s; doSearch(c.dataset.s); });
+  $('#disInput').addEventListener('keydown', e=>{ if(e.key==='Enter') doSearch($('#disInput').value); });
+  $('#disGo').onclick = ()=> doSearch($('#disInput').value);
+  $('#disRand').onclick = ()=>{
+    const pool = (LOOKUP ? Object.keys(LOOKUP.words) : Object.keys(DATA_WORDS));  /* 只从数据源里随机取，不臆造 */
+    if(!pool.length) return;
+    const w = pool[Math.floor(Math.random()*pool.length)];
+    $('#disInput').value = w; doSearch(w);
+  };
+  setLookupNotices();
+}
+
+/* ---------- 第3玩法：词卡 / 小测 / 错题本 ---------- */
+const CARD_KEY = 'yifu.cards.v1';
+let CARD = {mastery:{}, wrong:{}, yilei:'水'};
+function loadCardStore(){
+  let raw = null;
+  try{ raw = localStorage.getItem(CARD_KEY); }catch(e){ raw = null; }   /* 隐私模式会抛，退化为内存态 */
+  if(raw){
+    try{
+      const o = JSON.parse(raw);
+      if(o && typeof o === 'object'){
+        CARD = {
+          mastery:(o.mastery && typeof o.mastery==='object') ? o.mastery : {},
+          wrong:(o.wrong && typeof o.wrong==='object') ? o.wrong : {},
+          yilei:o.yilei || '水'
+        };
+      }
+    }catch(e){ /* 数据损坏则用默认内存态 */ }
+  }
+}
+function saveCardStore(){
+  try{ localStorage.setItem(CARD_KEY, JSON.stringify(CARD)); return true; }
+  catch(e){ return false; }   /* 隐私模式：写不进去，仅内存继续可用 */
+}
+function yileiNames(){
+  const names = [];
+  Object.values(DATA).forEach(v=>{ if(names.indexOf(v.name) < 0) names.push(v.name); });
+  if(LOOKUP && LOOKUP.yilei) Object.keys(LOOKUP.yilei).forEach(n=>{ if(names.indexOf(n) < 0) names.push(n); });
+  return names;
+}
+function deckForYilei(name){
+  const out = [];
+  Object.values(DATA).forEach(v=>{ if(v.name===name) v.words.forEach(w=>{ if(out.indexOf(w.w) < 0) out.push(w.w); }); });
+  if(LOOKUP && LOOKUP.words){
+    Object.keys(LOOKUP.words).forEach(w=>{
+      if(out.indexOf(w) >= 0) return;
+      if((LOOKUP.words[w].yilei || []).some(y=>y.yilei===name)) out.push(w);
+    });
+  }
+  return out;
+}
+function fillCardYilei(){
+  const sel = $('#cardYilei'); if(!sel) return;
+  const names = yileiNames();
+  if(names.indexOf(CARD.yilei) < 0 && names.length) CARD.yilei = names[0];
+  sel.innerHTML = names.map(n=>{
+    const c = deckForYilei(n).length;
+    return '<option value="'+esc(n)+'"'+(n===CARD.yilei?' selected':'')+'>'+esc(n)+'（'+c+' 词）</option>';
+  }).join('');
+  sel.onchange = ()=>{ CARD.yilei = sel.value; cardIdx = 0; cardBack = false; quiz = null; saveCardStore(); renderCard(); renderQuiz(); renderWrong(); };
+}
+function cardWordInfo(word){
+  if(DATA_WORDS[word]){
+    const d = DATA_WORDS[word];
+    return {word:word, def:d.mean, ipa:d.ipa, kind:'data', parts:d.parts, root:d.root, hz:d.hz, reviewed:true};
+  }
+  if(LOOKUP && LOOKUP.words[word]){
+    const v = LOOKUP.words[word];
+    return {word:word, def:v.def, ipa:v.ipa, kind:'lookup', af:v.af, yileis:v.yilei, reviewed:!!v.reviewed};
+  }
+  return null;
+}
+function cardBackHtml(info){
+  if(info.kind==='data'){
+    const rootStem = (info.root || '').replace(/-/g,'').toLowerCase();
+    const segs = (info.parts||[]).map(p=>{
+      const pn = p.p.replace(/-/g,'').toLowerCase();
+      const isRoot = !!rootStem && !!pn && (pn.startsWith(rootStem) || rootStem.startsWith(pn));
+      return '<span class="segp '+(isRoot?'root':'prefix')+'"><span class="t">'+esc(p.p)+'</span><span class="g">'+esc(p.g)+'</span></span>';
+    }).join('<span class="carw">+</span>');
+    return '<div class="block"><h4>词　根　拆　解</h4><div class="seg">'+segs+'</div>'
+      + '<div class="segnote">以上为人工复核过的拆解。</div></div>'
+      + '<div class="block"><h4>汉　语　义　符</h4><div class="furow"><span class="big">'+esc(info.hz.c)+'</span><span class="txt">'+esc(info.hz.note)+'</span></div></div>';
+  }
+  const seg = segWord(info.word, info.af, info.yileis);
+  const names = [];
+  (info.yileis || []).forEach(y=>{ if(names.indexOf(y.yilei) < 0) names.push(y.yilei); });
+  const fu = names.map(name=>{
+    const Y = LOOKUP && LOOKUP.yilei ? LOOKUP.yilei[name] : null;
+    if(Y && Y.reviewed && (Y.fu || []).length) return (Y.fu || []).map(f=>'<div class="furow"><span class="big">'+esc(f.ch)+'</span><span class="txt">'+esc(f.note||'')+'</span></div>').join('');
+    return '<div class="empty">义类「'+esc(name)+'」的汉语义符对照尚未人工校订。</div>';
+  }).join('') || '<div class="empty">未取到义类标注。</div>';
+  return '<div class="block"><h4>词　根　拆　解</h4>'+segWordHtml(seg)
+    + '<div class="segnote">该词由流水线机械拆解，未经人工复核（AI 生成 · 待人工复核）。</div></div>'
+    + '<div class="block"><h4>汉　语　义　符</h4>'+fu+'</div>';
+}
+let cardDeck = [], cardIdx = 0, cardBack = false;
+function updateCardProgress(){
+  const total = cardDeck.length;
+  const seen = cardDeck.filter(w=>CARD.mastery[w]).length;
+  const known = cardDeck.filter(w=>CARD.mastery[w]==='known').length;
+  const unk = seen - known;
+  const p = $('#cardProg'), t = $('#cardProgTxt');
+  if(p) p.style.width = total ? Math.round(seen/total*100)+'%' : '0%';
+  if(t) t.textContent = '已学 '+seen+' / '+total+'　·　会了 '+known+'　·　不会 '+unk+'　·　未学 '+(total-seen);
+}
+function renderCard(){
+  const area = $('#cardArea'); if(!area) return;
+  cardDeck = deckForYilei(CARD.yilei);
+  if(!cardDeck.length){
+    area.innerHTML = '<div class="deckdone">该义类当前没有可复习的词条。<br>'
+      + (LOOKUP ? '' : '（词源库未加载，仅内联的水 / 手 / 心三个义类可用）') + '</div>';
+    updateCardProgress(); return;
+  }
+  if(cardIdx < 0) cardIdx = 0;
+  if(cardIdx >= cardDeck.length) cardIdx = cardDeck.length - 1;
+  const word = cardDeck[cardIdx];
+  const info = cardWordInfo(word);
+  const st = CARD.mastery[word] || 'unseen';
+  const stTxt = st==='known' ? '会了' : st==='unknown' ? '不会' : '未学';
+  const stCls = st==='known' ? 'known' : st==='unknown' ? 'unknown' : '';
+  const badge = (info && info.reviewed) ? '<span class="badge ok">已人工复核</span>'
+              : '<span class="badge wait">AI 生成 · 待人工复核</span>';
+  let inner;
+  if(cardBack){
+    inner = '<div class="fword" style="font-size:22px">'+esc(word)+'</div>'
+      + '<div class="back">'+(info ? cardBackHtml(info) : '<div class="empty">未取到该词的拆解数据。</div>')+'</div>';
+  } else {
+    inner = '<span class="mtag '+stCls+'">'+stTxt+'</span>'
+      + '<div class="fword">'+esc(word)+'</div>'
+      + (info && info.ipa ? '<div class="fipa">'+esc(info.ipa)+'</div>' : '')
+      + '<div class="fdef">'+esc(info && info.def ? info.def : '未取到释义')+'</div>'
+      + badge;
+  }
+  area.innerHTML = '<div class="thecard">'+inner+'</div>'
+    + '<div class="cardbtns">'
+    +   '<button class="btn" id="cbFlip">'+(cardBack?'看正面':'翻面看拆解')+'</button>'
+    +   '<button class="btn" id="cbKnown">会了</button>'
+    +   '<button class="btn" id="cbUnknown">不会</button>'
+    +   '<button class="btn small" id="cbPrev">上一个</button>'
+    +   '<button class="btn small" id="cbNext">下一个</button>'
+    + '</div>'
+    + '<div class="progtxt" style="text-align:center;margin-top:10px">第 '+(cardIdx+1)+' / '+cardDeck.length+' 张</div>';
+  $('#cbFlip').onclick = ()=>{ cardBack = !cardBack; renderCard(); };
+  $('#cbKnown').onclick = ()=> markCard('known');
+  $('#cbUnknown').onclick = ()=> markCard('unknown');
+  $('#cbPrev').onclick = ()=>{ cardIdx = (cardIdx-1+cardDeck.length)%cardDeck.length; cardBack=false; renderCard(); };
+  $('#cbNext').onclick = ()=>{ cardIdx = (cardIdx+1)%cardDeck.length; cardBack=false; renderCard(); };
+  updateCardProgress();
+}
+function markCard(status){
+  const word = cardDeck[cardIdx];
+  CARD.mastery[word] = status;
+  saveCardStore();
+  cardIdx = (cardIdx+1)%cardDeck.length; cardBack = false;
+  renderCard();
+}
+
+/* 小测 */
+let quiz = null;   /* {q, answer, options, done, right} */
+function shuffle(a){ const r=a.slice(); for(let i=r.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); const t=r[i]; r[i]=r[j]; r[j]=t; } return r; }
+function makeQuiz(){
+  cardDeck = deckForYilei(CARD.yilei);
+  if(cardDeck.length < 2){
+    quiz = null;
+    $('#quizArea').innerHTML = '<div class="deckdone">该义类词条太少（少于 2 条），无法出题。</div>';
+    return;
+  }
+  const pool = cardDeck.map(cardWordInfo).filter(x=>x && x.def);
+  if(pool.length < 2){
+    quiz = null;
+    $('#quizArea').innerHTML = '<div class="deckdone">该义类可用释义不足，无法出题。'+(LOOKUP?'':'请先用本地服务器加载词源库。')+'</div>';
+    return;
+  }
+  const answer = pool[Math.floor(Math.random()*pool.length)];
+  const others = shuffle(pool.filter(x=>x.word!==answer.word)).slice(0,3);
+  const options = shuffle([answer].concat(others)).map(x=>x.word);
+  quiz = {q:answer, answer:answer.word, options:options, done:false, right:false};
+  renderQuiz();
+}
+function renderQuiz(){
+  const area = $('#quizArea'); if(!area) return;
+  if(!quiz){ area.innerHTML = ''; return; }
+  const opts = quiz.options.map(o=>{
+    let cls = 'quizopt';
+    if(quiz.done){
+      if(o===quiz.answer) cls += ' right';
+      else if(o===quiz.picked) cls += ' wrong';
+    }
+    return '<button class="'+cls+'" data-o="'+esc(o)+'">'+esc(o)+'</button>';
+  }).join('');
+  area.innerHTML = '<div class="thecard">'
+    + '<div class="quizq">选出与这个释义对应的英文词：<b>'+esc(quiz.q.def)+'</b></div>'
+    + '<div class="quizopts">'+opts+'</div>'
+    + '<div class="quizfb'+(quiz.done?(quiz.right?' ok':' no'):'')+'">'
+    +   (quiz.done ? (quiz.right ? '答对了。' : '答错了，正确答案是 '+esc(quiz.answer)+'。已加入错题本。') : '')
+    + '</div>'
+    + '</div>'
+    + '<div class="cardbtns"><button class="btn primary" id="qNext">'+(quiz.done?'下一题':'换一题')+'</button></div>';
+  area.querySelectorAll('.quizopt').forEach(b=>{
+    if(quiz.done) return;
+    b.onclick = ()=> answerQuiz(b.dataset.o);
+  });
+  $('#qNext').onclick = ()=> makeQuiz();
+}
+function answerQuiz(pick){
+  if(!quiz || quiz.done) return;
+  quiz.done = true;
+  quiz.picked = pick;
+  quiz.right = (pick === quiz.answer);
+  if(quiz.right){
+    if(CARD.mastery[quiz.answer] !== 'known') CARD.mastery[quiz.answer] = 'known';
+    if(CARD.wrong[quiz.answer]) delete CARD.wrong[quiz.answer];
+  } else {
+    CARD.wrong[quiz.answer] = {def:(quiz.q.def||''), at:Date.now()};
+  }
+  saveCardStore();
+  renderQuiz();
+  renderWrong();
+  updateCardProgress();
+}
+/* 错题本 */
+function renderWrong(){
+  const area = $('#wrongArea'); if(!area) return;
+  const words = Object.keys(CARD.wrong);
+  if(!words.length){
+    area.innerHTML = '<div class="deckdone">错题本是空的。到“小测”里答错的词会自动收进来。</div>';
+    return;
+  }
+  area.innerHTML = '<div class="vsubhead">错题本（'+words.length+' 词）</div>'
+    + '<div class="segnote" style="margin-bottom:14px">答错的词保存在本机浏览器里，刷新后仍在。点“已掌握”把它移出错题本。</div>'
+    + words.map(w=>{
+        const rec = CARD.wrong[w] || {};
+        return '<div class="wrongitem"><span class="ww">'+esc(w)+'</span><span class="wd">'+esc(rec.def||'未取到释义')+'</span>'
+          + '<button class="btn small" data-clear="'+esc(w)+'">已掌握</button>'
+          + '<button class="btn small" data-ask="'+esc(w)+'">查拆解</button></div>';
+      }).join('');
+  area.querySelectorAll('[data-clear]').forEach(b=> b.onclick = ()=>{
+    delete CARD.wrong[b.dataset.clear]; saveCardStore(); renderWrong();
+  });
+  area.querySelectorAll('[data-ask]').forEach(b=> b.onclick = ()=>{
+    const w = b.dataset.ask;
+    showView('dismantle');
+    const i = $('#disInput'); if(i) i.value = w;
+    doSearch(w);
+  });
+}
+
+/* ---------- 第4玩法：典故故事线 ---------- */
+function renderStories(){
+  const box = $('#stories'); if(!box) return;
+  const items = DATA_STORIES.map(w=>{
+    const story = w.story ? '<div class="storyx">'+w.story+'</div>' : '<div class="empty">该词尚未撰写故事。</div>';
+    const rel = (w.rel || []).map(x=>'<span class="chip" data-jump="'+esc(x)+'">'+esc(x)+'</span>').join('');
+    return '<div class="tlitem" id="story-'+esc(w.w)+'">'
+      + '<h3>'+esc(w.w)+'</h3>'
+      + '<div class="mean">'+esc(w.mean)+'　·　义类：'+esc(w.yileiName)+'</div>'
+      + story
+      + '<div class="relx">'+(rel || '<span class="empty" style="padding:8px 12px;font-size:13px">未取到同源词。</span>')+'</div>'
+      + '</div>';
+  }).join('');
+  box.innerHTML = '<div class="vhead"><h2>典故故事线</h2>'
+    + '<p>已人工复核词条的词源故事，共 '+DATA_STORIES.length+' 条。点同源词可在本页跳转；未收录的会如实说明，不做补写。</p></div>'
+    + '<div class="tl">'+items+'</div>';
+  box.querySelectorAll('.chip[data-jump]').forEach(c=>{
+    c.onclick = ()=>{
+      const w = c.dataset.jump;
+      const t = box.querySelector('#story-'+w);
+      if(t){ t.scrollIntoView({behavior:'smooth', block:'center'}); }
+      else { c.textContent = w+'（未收录故事）'; c.classList.remove('chip'); c.style.cursor='default'; c.onclick=null; }
+    };
+  });
+}
+
+/* ---------- 卡片页内的三个子页签 ---------- */
+function initCardTabs(){
+  const bar = $('#cardTabs'); if(!bar) return;
+  bar.querySelectorAll('.tabx').forEach(b=>{
+    b.onclick = ()=>{
+      bar.querySelectorAll('.tabx').forEach(x=> x.classList.toggle('on', x===b));
+      const p = b.dataset.p;
+      ['review','quiz','wrong'].forEach(k=>{
+        const el = $('#pane-'+k); if(el) el.classList.toggle('on', k===p);
+      });
+      if(p==='quiz' && !quiz) makeQuiz();
+      if(p==='wrong') renderWrong();
+      if(p==='review') renderCard();
+    };
+  });
+}
+
+/* ---------- 初始化 ---------- */
+renderPlays();
+loadCardStore();
+renderDismantle();
+fillCardYilei();
+renderCard();
+renderStories();
+initCardTabs();
+showView('roam');
+loadLookup();
 </script>
 </body>
 </html>
