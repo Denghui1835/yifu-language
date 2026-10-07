@@ -59,12 +59,21 @@
 
 | 类别 | 词数 | 占比 |
 |---|---:|---:|
-| 古典来源（拉丁／古希腊） | 1810 | 47.1% |
-| 罗曼斯来源（古法语等，多可追至拉丁） | 217 | 5.6% |
+| 古典来源（拉丁／古希腊） | 1811 | 47.1% |
+| 罗曼斯来源（古法语等，多可追至拉丁） | 216 | 5.6% |
 | **→ 可挂古典词根（合计）** | **2027** | **52.8%** |
 | 日耳曼底层 | 1483 | 38.6% |
 | 其它来源 | 4 | 0.1% |
 | 抓不到词源 | 327 | 8.5% |
+
+> **表里数字怎么来的（复算命令，2026-10 复核）**
+> ① 各类词数与总数：
+> `python -c "import json,collections;print(dict(collections.Counter(json.load(open('data/etym_class.json',encoding='utf-8')).values())))"`
+> → `{'classical': 1811, 'germanic': 1483, 'unknown': 327, 'romance': 216, 'other': 4}`
+> ② 总条目数：
+> `python -c "import json;print(len(json.load(open('data/gaokao3500.json',encoding='utf-8'))))"`
+> → `3841`
+> ③ 占比 = 该类词数 ÷ 3841。合计 = 古典 + 罗曼斯 = 1811 + 216 = 2027。
 
 抽出 51 词人工核对，**51/51 与维基词典一致**。
 
@@ -85,7 +94,7 @@
 > 合成词与专名占比升高，古典词根比例不再上升。早期正则版给出的
 > 「4 字母以上 40%／7 字母以上 60%／10 字母以上 70%」全部作废。
 
-**义类分桶（估算，勿当结论）。** 2027 个可挂古典词根的词里，按现有 55 个义类做
+**义类分桶（估算，勿当结论）。** 2027 个可挂古典词根的词里，按现有 54 个义类做
 词根匹配，**只有 335 个能归入**，1692 个匹配不上。手工抽检 60 个归入词，
 精度仅约 **70%**——3 字母词根歧义严重（`par` 既是「相等」又出现在
 prepare／part 里，`med` 既是 medicus「治」又出现在 medius「中」里），
@@ -93,6 +102,10 @@ prepare／part 里，`med` 既是 medicus「治」又出现在 medius「中」�
 
 **这本身是重要结论**：义类层必须是**人工校订的词典数据**，不能靠推导生成。
 335 只说明「方向可行、缺口巨大」，不代表最终覆盖率。
+
+> 义类数 = `data/analyze_roots.py` 里 `ROOTS` 字典的顶层键数：
+> `python -c "import ast;t=ast.parse(open('data/analyze_roots.py',encoding='utf-8').read());print(len([n for n in t.body if isinstance(n,ast.Assign) and getattr(n.targets[0],'id','')=='ROOTS'][0].value.keys))"` → `54`
+> 归入词数 335 出自 `data/yilei_buckets.json`：`python -c "import json;d=json.load(open('data/yilei_buckets.json',encoding='utf-8'));print(sum(len(v) for v in d.values()))"` → `335`。
 
 ### 四、扩到雅思词汇：义符命中率反而更高
 
@@ -184,7 +197,7 @@ python data/bucket_yilei.py   # 义类分桶
 
 **待办**
 
-- [ ] 义类层人工校订：现有 55 义类只覆盖 335 词，需扩表并逐词定根（**这是数据主工程量**）
+- [ ] 义类层人工校订：现有 54 义类只覆盖 335 词，需扩表并逐词定根（**这是数据主工程量**）
 - [ ] 阶段零对照测试：义符对齐是否真的提高记忆保持率（**这是最高风险项**）
 - [ ] 演示中的演变链逐条核对词源后再上线
 
