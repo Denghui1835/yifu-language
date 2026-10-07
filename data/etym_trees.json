@@ -30346,6 +30346,16 @@
 ]
 ]
 },
+"cancer": {
+"cls": "classical",
+"pos": "Adjective",
+"tree": "",
+"codes": [
+"grc",
+"ine-pro"
+],
+"nodes": []
+},
 "candidate": {
 "cls": "classical",
 "pos": "Noun",
@@ -52071,6 +52081,151 @@
 ],
 "nodes": []
 },
+"energy": {
+"cls": "classical",
+"pos": "Noun",
+"tree": "Proto-Indo-European *h₁én",
+"codes": [
+"en",
+"frm",
+"grc",
+"grk-pro",
+"ine-pro",
+"la-lat"
+],
+"nodes": [
+[
+"Proto-Indo-European",
+"*h₁én",
+"ine-pro"
+],
+[
+"Ancient Greek",
+"ἐν",
+"grc"
+],
+[
+"Ancient Greek",
+"ἐν-",
+"grc"
+],
+[
+"Proto-Indo-European",
+"*werǵ-",
+"ine-pro"
+],
+[
+"Proto-Indo-European",
+"*-om",
+"ine-pro"
+],
+[
+"Proto-Indo-European",
+"*wérǵom",
+"ine-pro"
+],
+[
+"Proto-Hellenic",
+"*wérgon",
+"grk-pro"
+],
+[
+"Ancient Greek",
+"ἔργον",
+"grc"
+],
+[
+"Proto-Indo-European",
+"*-os",
+"ine-pro"
+],
+[
+"Proto-Hellenic",
+"*-os",
+"grk-pro"
+],
+[
+"Ancient Greek",
+"-ος",
+"grc"
+],
+[
+"Ancient Greek",
+"ἐνεργός",
+"grc"
+],
+[
+"Proto-Hellenic",
+"*-os",
+"ine-pro"
+],
+[
+"Proto-Indo-European",
+"*-ēs",
+"ine-pro"
+],
+[
+"Proto-Indo-European",
+"-ης",
+"grk-pro"
+],
+[
+"Ancient Greek",
+"-ής",
+"grc"
+],
+[
+"Ancient Greek",
+"ἐνεργής",
+"grc"
+],
+[
+"Ancient Greek",
+"*-is",
+"grc"
+],
+[
+"Proto-Indo-European",
+"*-h₂",
+"ine-pro"
+],
+[
+"Proto-Indo-European",
+"*-ih₂",
+"ine-pro"
+],
+[
+"Proto-Indo-European",
+"-ιᾰ",
+"ine-pro"
+],
+[
+"Ancient Greek",
+"ἐνέργεια",
+"grc"
+],
+[
+"Ancient Greek",
+"energīa",
+"grc"
+],
+[
+"Late Latin",
+"énergie",
+"la-lat"
+],
+[
+"Middle French",
+"energy",
+"frm"
+],
+[
+"English",
+"",
+"en"
+]
+]
+},
 "engine": {
 "cls": "classical",
 "pos": "Noun",
@@ -56049,6 +56204,97 @@
 [
 "English",
 "February",
+"en"
+]
+]
+},
+"federal": {
+"cls": "classical",
+"pos": "Adjective",
+"tree": "Proto-Indo-European *bʰeydʰ-\nProto-Indo-European *-ós\nProto-Indo-European *bʰeydʰós\nProto-Italic *feiðos\nLatin foedus\nProto-Indo-European *h₂el-\nProto-Indo-European *-is\nProto-Indo-European *h₂élisder.?\nProto-Italic *-ālis\nLatin -ālisbor.\nOld French -al\nMiddle French -al\nFrench -al\nFrench fédéralbor.\nEnglish federal",
+"codes": [
+"en",
+"fr",
+"frm",
+"fro",
+"ine-pro",
+"itc-pro",
+"la"
+],
+"nodes": [
+[
+"Proto-Indo-European",
+"*bʰeydʰ-",
+"ine-pro"
+],
+[
+"Proto-Indo-European",
+"*-ós",
+"ine-pro"
+],
+[
+"Proto-Indo-European",
+"*bʰeydʰós",
+"ine-pro"
+],
+[
+"Proto-Italic",
+"*feiðos",
+"itc-pro"
+],
+[
+"Latin",
+"foedus",
+"la"
+],
+[
+"Proto-Indo-European",
+"*h₂el-",
+"ine-pro"
+],
+[
+"Proto-Indo-European",
+"*-is",
+"ine-pro"
+],
+[
+"Proto-Indo-European",
+"*-ālis",
+"ine-pro"
+],
+[
+"Proto-Italic",
+"-ālis",
+"itc-pro"
+],
+[
+"Latin",
+"-al",
+"la"
+],
+[
+"Old French",
+"-al",
+"fro"
+],
+[
+"Middle French",
+"-al",
+"frm"
+],
+[
+"French",
+"fédéral",
+"fr"
+],
+[
+"French",
+"federal",
+"fr"
+],
+[
+"English",
+"",
 "en"
 ]
 ]
@@ -71505,6 +71751,101 @@
 "tree": "",
 "codes": [],
 "nodes": []
+},
+"kilometre": {
+"cls": "classical",
+"pos": "Noun",
+"tree": "Proto-Indo-European *ǵʰes-\nProto-Indo-European *-lom\nProto-Indo-European *ǵʰesliyoy\nProto-Hellenic *kʰehliyoi",
+"codes": [
+"en",
+"fr",
+"grc",
+"grk-pro",
+"ine-pro",
+"la"
+],
+"nodes": [
+[
+"Proto-Indo-European",
+"*ǵʰes-",
+"ine-pro"
+],
+[
+"Proto-Indo-European",
+"*-lom",
+"ine-pro"
+],
+[
+"Proto-Indo-European",
+"*ǵʰéslom",
+"ine-pro"
+],
+[
+"Proto-Hellenic",
+"*kʰehliyoi",
+"grk-pro"
+],
+[
+"Ancient Greek",
+"χίλιοι",
+"grc"
+],
+[
+"French",
+"kilo-",
+"fr"
+],
+[
+"Proto-Indo-European",
+"*meh₁-",
+"ine-pro"
+],
+[
+"Proto-Indo-European",
+"*-tḗr",
+"ine-pro"
+],
+[
+"Proto-Indo-European",
+"*-trom",
+"ine-pro"
+],
+[
+"Proto-Hellenic",
+"*-tron",
+"grk-pro"
+],
+[
+"Ancient Greek",
+"-τρον",
+"grc"
+],
+[
+"Ancient Greek",
+"μέτρον",
+"grc"
+],
+[
+"Latin",
+"metrum",
+"la"
+],
+[
+"French",
+"mètre",
+"fr"
+],
+[
+"French",
+"kilomètre",
+"fr"
+],
+[
+"English",
+"kilometre",
+"en"
+]
+]
 },
 "kind": {
 "cls": "germanic",
@@ -130531,14 +130872,15 @@
 "codes": [],
 "nodes": []
 },
-"woo": {
+"wool": {
 "cls": "germanic",
-"pos": "Verb",
+"pos": "Noun",
 "tree": "",
 "codes": [
 "ang",
 "enm",
 "gem-pro",
+"gmw-pro",
 "ine-pro"
 ],
 "nodes": []
