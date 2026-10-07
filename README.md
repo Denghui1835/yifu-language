@@ -156,6 +156,11 @@ prepare／part 里，`med` 既是 medicus「治」又出现在 medius「中」�
 
 ## 跑起来
 
+> **环境要求：Python 3.6+**。脚本只用标准库，唯一限制版本的是 f-string 语法（3.6 引入）；
+> 本机实测 **3.13.15** 跑通。
+> - 例外 1：`build_plan.py` 需先 `pip install python-docx`。
+> - 例外 2：`fetch_raw.py`、`ielts_coverage.py` 需联网。
+
 在线体验：**https://denghui1835.github.io/yifu-language/**
 
 ```bash
