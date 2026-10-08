@@ -1,0 +1,1681 @@
+{
+ "schema": 1,
+ "built": "2026-10-08",
+ "note": "义符卡内容层。字段结构照 docs/index.html 的 const DATA（阶段零演示 30 词），词条内容逐字取自该文件，未改写。每词带 provenance 指向词源出处；拿不准的字段按 Issue #1 的要求标 pending，不猜。生成方式：node 取出 index.html 里 DATA 对象字面量转 JSON（eval 后 JSON.stringify），再补 provenance 与 review 两节 —— 词条正文一字未动。",
+ "sources": {
+  "demo": "docs/index.html 的 const DATA（阶段零演示，3 义类 × 10 词）",
+  "en_raw": "data/etym_raw/<词>.html（kaikki.org 抓取切片，每词一个文件）",
+  "en_audit": "data/demo_etym_audit.md（30 词英语侧逐条核对，29/30 与维基词典一致，修正 2 处）",
+  "zh": "pending —— 尚无字源文献级出处"
+ },
+ "yilei": [
+  {
+   "key": "shui",
+   "id": "S01",
+   "name": "水",
+   "sub": "液体·流动",
+   "fu": [
+    {
+     "ch": "氵",
+     "from": "水",
+     "note": "水作左偏旁时的简省写法",
+     "cov": "江河流湖海"
+    },
+    {
+     "ch": "水",
+     "from": "水",
+     "note": "甲骨文象流水之形，本字",
+     "cov": "泉浆淼"
+    }
+   ],
+   "chars": [
+    {
+     "c": "江",
+     "p": "jiāng",
+     "m": "大河，特指长江"
+    },
+    {
+     "c": "河",
+     "p": "hé",
+     "m": "大河，特指黄河"
+    },
+    {
+     "c": "湖",
+     "p": "hú",
+     "m": "陆地上的大型水域"
+    },
+    {
+     "c": "海",
+     "p": "hǎi",
+     "m": "大洋靠近陆地的部分"
+    },
+    {
+     "c": "洋",
+     "p": "yáng",
+     "m": "比海更广大的水域"
+    },
+    {
+     "c": "深",
+     "p": "shēn",
+     "m": "从水面到底部距离大"
+    },
+    {
+     "c": "浅",
+     "p": "qiǎn",
+     "m": "与深相对"
+    },
+    {
+     "c": "波",
+     "p": "bō",
+     "m": "水面起伏"
+    },
+    {
+     "c": "浪",
+     "p": "làng",
+     "m": "大的波"
+    },
+    {
+     "c": "滴",
+     "p": "dī",
+     "m": "一点点的水"
+    }
+   ],
+   "roots": [
+    {
+     "form": "aqua-",
+     "src": "拉丁",
+     "gloss": "水"
+    },
+    {
+     "form": "hydr-",
+     "src": "希腊",
+     "gloss": "水"
+    },
+    {
+     "form": "mar-",
+     "src": "拉丁",
+     "gloss": "海"
+    }
+   ]
+  },
+  {
+   "key": "shou",
+   "id": "S02",
+   "name": "手",
+   "sub": "操作·拿取",
+   "fu": [
+    {
+     "ch": "扌",
+     "from": "手",
+     "note": "手作左偏旁时的简省写法",
+     "cov": "打抱拉推握"
+    },
+    {
+     "ch": "手",
+     "from": "手",
+     "note": "甲骨文象五指之形，本字",
+     "cov": "掌拳拿"
+    }
+   ],
+   "chars": [
+    {
+     "c": "打",
+     "p": "dǎ",
+     "m": "用手击"
+    },
+    {
+     "c": "抱",
+     "p": "bào",
+     "m": "用手臂围住"
+    },
+    {
+     "c": "拉",
+     "p": "lā",
+     "m": "用力使向自己"
+    },
+    {
+     "c": "推",
+     "p": "tuī",
+     "m": "向外用力"
+    },
+    {
+     "c": "握",
+     "p": "wò",
+     "m": "手指弯曲拿住"
+    },
+    {
+     "c": "挥",
+     "p": "huī",
+     "m": "摇动手臂"
+    },
+    {
+     "c": "拍",
+     "p": "pāi",
+     "m": "用手掌打"
+    },
+    {
+     "c": "抓",
+     "p": "zhuā",
+     "m": "用手取物"
+    },
+    {
+     "c": "提",
+     "p": "tí",
+     "m": "悬空拿着"
+    },
+    {
+     "c": "扶",
+     "p": "fú",
+     "m": "用手支持"
+    }
+   ],
+   "roots": [
+    {
+     "form": "manu-",
+     "src": "拉丁",
+     "gloss": "手"
+    },
+    {
+     "form": "chiro-",
+     "src": "希腊",
+     "gloss": "手"
+    }
+   ]
+  },
+  {
+   "key": "xin",
+   "id": "S03",
+   "name": "心",
+   "sub": "情感·心念",
+   "fu": [
+    {
+     "ch": "忄",
+     "from": "心",
+     "note": "心作左偏旁时的简省写法",
+     "cov": "情恨忧愁惧"
+    },
+    {
+     "ch": "心",
+     "from": "心",
+     "note": "甲骨文象心脏之形，本字",
+     "cov": "思念悲慈"
+    }
+   ],
+   "chars": [
+    {
+     "c": "情",
+     "p": "qíng",
+     "m": "感情；情绪"
+    },
+    {
+     "c": "恨",
+     "p": "hèn",
+     "m": "仇怨；懊悔"
+    },
+    {
+     "c": "忧",
+     "p": "yōu",
+     "m": "发愁"
+    },
+    {
+     "c": "愁",
+     "p": "chóu",
+     "m": "忧虑"
+    },
+    {
+     "c": "怒",
+     "p": "nù",
+     "m": "生气"
+    },
+    {
+     "c": "恐",
+     "p": "kǒng",
+     "m": "害怕"
+    },
+    {
+     "c": "惧",
+     "p": "jù",
+     "m": "害怕"
+    },
+    {
+     "c": "慈",
+     "p": "cí",
+     "m": "和善；疼爱"
+    },
+    {
+     "c": "悲",
+     "p": "bēi",
+     "m": "伤心"
+    },
+    {
+     "c": "慌",
+     "p": "huāng",
+     "m": "忙乱不安"
+    }
+   ],
+   "roots": [
+    {
+     "form": "cord-",
+     "src": "拉丁",
+     "gloss": "心"
+    },
+    {
+     "form": "psych-",
+     "src": "希腊",
+     "gloss": "心灵"
+    },
+    {
+     "form": "path-",
+     "src": "希腊",
+     "gloss": "感受"
+    }
+   ]
+  }
+ ],
+ "cards": [
+  {
+   "w": "aquarium",
+   "yilei": "水",
+   "yilei_key": "shui",
+   "ipa": "/əˈkweəriəm/",
+   "root": "aqua-",
+   "mean": "水族馆；水族箱",
+   "parts": [
+    {
+     "p": "aqua",
+     "g": "水"
+    },
+    {
+     "p": "-arium",
+     "g": "场所"
+    }
+   ],
+   "result": "装水的场所",
+   "hz": {
+    "c": "池",
+    "note": "氵＋也。aquarium 的 -arium 等于汉语里表场所的\"池、塘\""
+   },
+   "story": "拉丁 <b>aqua</b>（水）加上表场所的后缀 <b>-arium</b>。1853 年伦敦动物园第一次用这个词指养水生生物的容器。同一个 aqua 还长出了 aquatic（水生的）、aqueduct（引水渠）。",
+   "rel": [
+    "aquatic",
+    "aqueduct",
+    "aquamarine"
+   ],
+   "provenance": {
+    "en": "data/etym_raw/aquarium.html",
+    "en_audit": "data/demo_etym_audit.md",
+    "en_status": "reviewed",
+    "zh": "pending",
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+   },
+   "review": {
+    "yilei": "pending",
+    "hz": "pending"
+   }
+  },
+  {
+   "w": "aquatic",
+   "yilei": "水",
+   "yilei_key": "shui",
+   "ipa": "/əˈkwætɪk/",
+   "root": "aqua-",
+   "mean": "水生的；水上的",
+   "parts": [
+    {
+     "p": "aqua",
+     "g": "水"
+    },
+    {
+     "p": "-atic",
+     "g": "形容词后缀"
+    }
+   ],
+   "result": "属于水的",
+   "hz": {
+    "c": "泳",
+    "note": "氵＋永。\"泳\"是人在水里，aquatic 是物在水里，同挂一个义类"
+   },
+   "story": "同样是 <b>aqua</b>。汉语用\"氵\"造出泳、浮、沉、潜，英语用 aqua- 造出 aquatic、aquaplane。两边的做法完全一样：把\"水\"这个义类贴到新词上。",
+   "rel": [
+    "aquarium",
+    "aqueduct"
+   ],
+   "provenance": {
+    "en": "data/etym_raw/aquatic.html",
+    "en_audit": "data/demo_etym_audit.md",
+    "en_status": "reviewed",
+    "zh": "pending",
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+   },
+   "review": {
+    "yilei": "pending",
+    "hz": "pending"
+   }
+  },
+  {
+   "w": "aqueduct",
+   "yilei": "水",
+   "yilei_key": "shui",
+   "ipa": "/ˈækwɪdʌkt/",
+   "root": "aqua-",
+   "mean": "引水渠；高架水道",
+   "parts": [
+    {
+     "p": "aqua",
+     "g": "水"
+    },
+    {
+     "p": "duct",
+     "g": "引导（拉丁 ducere）"
+    }
+   ],
+   "result": "引导水的东西",
+   "hz": {
+    "c": "渠",
+    "note": "氵＋矩。古罗马的 aqueduct 就是罗马人的\"渠\""
+   },
+   "story": "<b>aqua</b> 加 <b>duct</b>。duct 出自拉丁 ducere（引导），同族还有 conduct、introduce、produce。古罗马用高架水道把水送进城里，那些石拱至今还立在法国和西班牙。",
+   "rel": [
+    "aquarium",
+    "aquatic",
+    "conduct"
+   ],
+   "provenance": {
+    "en": "data/etym_raw/aqueduct.html",
+    "en_audit": "data/demo_etym_audit.md",
+    "en_status": "reviewed",
+    "zh": "pending",
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+   },
+   "review": {
+    "yilei": "pending",
+    "hz": "pending",
+    "hz_finding": {
+     "tag": "乙-1",
+     "kind": "字形拆解写错",
+     "demo_value": "渠（氵＋矩）",
+     "reviewed_value": "渠（氵＋巨＋木）",
+     "why": "渠的字形是 氵＋巨（声旁）＋木，没有「矩」这个成分",
+     "source": "参赛工作目录 01_对照测试/复核记录.md（不在本仓库内）"
+    }
+   }
+  },
+  {
+   "w": "hydrate",
+   "yilei": "水",
+   "yilei_key": "shui",
+   "ipa": "/ˈhaɪdreɪt/",
+   "root": "hydr-",
+   "mean": "水合物；使水合",
+   "parts": [
+    {
+     "p": "hydr",
+     "g": "水（希腊 hydor）"
+    },
+    {
+     "p": "-ate",
+     "g": "动词/名词后缀"
+    }
+   ],
+   "result": "与水结合",
+   "hz": {
+    "c": "湿",
+    "note": "氵＋显。\"湿\"是含了水，hydrate 是结合了水"
+   },
+   "story": "注意：同一个\"水\"义类，英语有两套词根。日常的用拉丁 <b>aqua</b>，学术的用希腊 <b>hydr</b>。这不是冗余，是历史分层——希腊词根从文艺复兴起大批涌进学术圈，到近代给新发现的东西命名时，用希腊词根几乎成了规矩（hydrogen 是 1783 年拉瓦锡照这个规矩造的）。",
+   "rel": [
+    "hydrogen",
+    "dehydrate",
+    "hydroelectric"
+   ],
+   "provenance": {
+    "en": "data/etym_raw/hydrate.html",
+    "en_audit": "data/demo_etym_audit.md",
+    "en_status": "reviewed",
+    "zh": "pending",
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues",
+    "en_note": "同 hydrogen，复核修正 1 处（表述不严），演示正文已改。"
+   },
+   "review": {
+    "yilei": "pending",
+    "hz": "pending"
+   }
+  },
+  {
+   "w": "hydrogen",
+   "yilei": "水",
+   "yilei_key": "shui",
+   "ipa": "/ˈhaɪdrədʒən/",
+   "root": "hydr-",
+   "mean": "氢",
+   "parts": [
+    {
+     "p": "hydro",
+     "g": "水"
+    },
+    {
+     "p": "-gen",
+     "g": "产生（希腊 genos）"
+    }
+   ],
+   "result": "产生水的东西",
+   "hz": {
+    "c": "氢",
+    "note": "气＋巠。汉语造化学字用\"气\"作义符，英语用 -gen，都是贴义类"
+   },
+   "story": "<b>hydro</b> 加 <b>-gen</b>（产生）。1787 年拉瓦锡命名它，因为这种气体燃烧后生成水。所以\"氢\"这个字的英文名字直译就是\"造水的东西\"。汉语造字时把它归到\"气\"部，英语归到 hydro，两边各贴各的义符。",
+   "rel": [
+    "hydrate",
+    "dehydrate",
+    "oxygen"
+   ],
+   "provenance": {
+    "en": "data/etym_raw/hydrogen.html",
+    "en_audit": "data/demo_etym_audit.md",
+    "en_status": "reviewed",
+    "zh": "pending",
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues",
+    "en_note": "复核修正 1 处（表述不严）：原演示把氢的希腊词根一律归到「文艺复兴时期」，已改为「到近代给新发现的东西命名时用希腊词根几乎成了规矩（hydrogen 是 1783 年拉瓦西造的）」。"
+   },
+   "review": {
+    "yilei": "pending",
+    "hz": "pending"
+   }
+  },
+  {
+   "w": "dehydrate",
+   "yilei": "水",
+   "yilei_key": "shui",
+   "ipa": "/diːˈhaɪdreɪt/",
+   "root": "hydr-",
+   "mean": "脱水；使干燥",
+   "parts": [
+    {
+     "p": "de-",
+     "g": "去除"
+    },
+    {
+     "p": "hydr",
+     "g": "水"
+    },
+    {
+     "p": "-ate",
+     "g": "后缀"
+    }
+   ],
+   "result": "把水去掉",
+   "hz": {
+    "c": "干",
+    "note": "汉语说\"干\"，是水的缺席；英语用 de- 前缀把水\"拿走\""
+   },
+   "story": "前缀 <b>de-</b> 表示\"去除、向下\"，加在水上就是脱水。汉语遇到同样的意思，用\"去掉水\"或单一个\"干\"字。有意思的是：汉语倾向于描述状态，英语倾向于描述动作的方向。",
+   "rel": [
+    "hydrate",
+    "hydrogen"
+   ],
+   "provenance": {
+    "en": "data/etym_raw/dehydrate.html",
+    "en_audit": "data/demo_etym_audit.md",
+    "en_status": "reviewed",
+    "zh": "pending",
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+   },
+   "review": {
+    "yilei": "pending",
+    "hz": "pending",
+    "hz_finding": {
+     "tag": "乙-2",
+     "kind": "部首不对",
+     "demo_value": "干",
+     "reviewed_value": "涸（氵＋固）",
+     "why": "干无氵；「水干」就叫涸",
+     "source": "参赛工作目录 01_对照测试/复核记录.md（不在本仓库内）"
+    }
+   }
+  },
+  {
+   "w": "marine",
+   "yilei": "水",
+   "yilei_key": "shui",
+   "ipa": "/məˈriːn/",
+   "root": "mar-",
+   "mean": "海洋的；海军陆战队",
+   "parts": [
+    {
+     "p": "mar",
+     "g": "海（拉丁 mare）"
+    },
+    {
+     "p": "-ine",
+     "g": "形容词后缀"
+    }
+   ],
+   "result": "属于海的",
+   "hz": {
+    "c": "海",
+    "note": "氵＋每。marine 和\"海\"是同一个义类节点"
+   },
+   "story": "拉丁 <b>mare</b>（海）。同族有 maritime、submarine、marina。有趣的是罗马人管地中海叫 Mare Nostrum——\"我们的海\"。",
+   "rel": [
+    "maritime",
+    "submarine",
+    "aquamarine"
+   ],
+   "provenance": {
+    "en": "data/etym_raw/marine.html",
+    "en_audit": "data/demo_etym_audit.md",
+    "en_status": "reviewed",
+    "zh": "pending",
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+   },
+   "review": {
+    "yilei": "pending",
+    "hz": "pending"
+   }
+  },
+  {
+   "w": "maritime",
+   "yilei": "水",
+   "yilei_key": "shui",
+   "ipa": "/ˈmærɪtaɪm/",
+   "root": "mar-",
+   "mean": "海上的；沿海的",
+   "parts": [
+    {
+     "p": "marit",
+     "g": "海（拉丁 maritimus）"
+    },
+    {
+     "p": "-ime",
+     "g": "形容词后缀"
+    }
+   ],
+   "result": "和海有关的",
+   "hz": {
+    "c": "沿",
+    "note": "氵＋㕣（yǎn，声符）。\"沿海\"和 maritime 说的是同一件事"
+   },
+   "story": "同样追到拉丁 <b>mare</b>（海）。区别在拉丁语本来就有两个\"海的\"形容词：<b>marinus</b> 指\"海里的\"，<b>maritimus</b> 指\"海边的、沿海的\"。前者演变成 marine，后者演变成 maritime。两条路都经过中古法语，只是拉丁语里早就分了工——所以意思相近却长得不像。",
+   "rel": [
+    "marine",
+    "submarine"
+   ],
+   "provenance": {
+    "en": "data/etym_raw/maritime.html",
+    "en_audit": "data/demo_etym_audit.md",
+    "en_status": "reviewed",
+    "zh": "pending",
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues",
+    "en_note": "复核修正 1 处：原演示说 maritime「没经过法语」，实为经中古法语（Borrowed from Middle French maritime）。演示正文已改，本条与 kaikki 一致。"
+   },
+   "review": {
+    "yilei": "pending",
+    "hz": "pending"
+   }
+  },
+  {
+   "w": "submarine",
+   "yilei": "水",
+   "yilei_key": "shui",
+   "ipa": "/ˌsʌbməˈriːn/",
+   "root": "mar-",
+   "mean": "潜艇；水下的",
+   "parts": [
+    {
+     "p": "sub-",
+     "g": "在下面"
+    },
+    {
+     "p": "mar",
+     "g": "海"
+    },
+    {
+     "p": "-ine",
+     "g": "后缀"
+    }
+   ],
+   "result": "海面之下的",
+   "hz": {
+    "c": "潜",
+    "note": "氵＋替的声符。\"潜\"是没入水下，submarine 是\"海之下\"，结构一模一样"
+   },
+   "story": "<b>sub-</b>（下）加 <b>marine</b>（海的）。汉语的\"潜\"是氵部；英语的 submarine 是 mar- 根。同一个动作，两边都把它挂到了\"水\"这个义类上，只是汉语把它压进了字形，英语把它摊开成拼写。",
+   "rel": [
+    "marine",
+    "maritime",
+    "submerge"
+   ],
+   "provenance": {
+    "en": "data/etym_raw/submarine.html",
+    "en_audit": "data/demo_etym_audit.md",
+    "en_status": "reviewed",
+    "zh": "pending",
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+   },
+   "review": {
+    "yilei": "pending",
+    "hz": "pending",
+    "hz_finding": {
+     "tag": "乙-3",
+     "kind": "表述含混（非错误）",
+     "demo_value": "潜（氵＋替的声符）",
+     "reviewed_value": "潜（氵＋替）",
+     "why": "没说清是什么",
+     "source": "参赛工作目录 01_对照测试/复核记录.md（不在本仓库内）"
+    }
+   }
+  },
+  {
+   "w": "aquamarine",
+   "yilei": "水",
+   "yilei_key": "shui",
+   "ipa": "/ˌækwəməˈriːn/",
+   "root": "aqua-",
+   "mean": "海蓝宝石；浅蓝绿色",
+   "parts": [
+    {
+     "p": "aqua",
+     "g": "水"
+    },
+    {
+     "p": "marine",
+     "g": "海"
+    }
+   ],
+   "result": "海水一样的",
+   "hz": {
+    "c": "蓝",
+    "note": "汉语用\"蓝\"这个颜色字，英语直接把\"水＋海\"拼成了颜色名"
+   },
+   "story": "一个词里同时装了 aqua 和 marine，两个词根都是\"水\"。字面就是\"海水色\"。拉丁 aqua marina 就是\"海水\"——宝石因颜色得名。这是个漂亮的例子：一个词能把同一义类叠两次，而汉语的\"浅蓝\"只保留了一个颜色义符。",
+   "rel": [
+    "aquarium",
+    "marine"
+   ],
+   "provenance": {
+    "en": "data/etym_raw/aquamarine.html",
+    "en_audit": "data/demo_etym_audit.md",
+    "en_status": "reviewed",
+    "zh": "pending",
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+   },
+   "review": {
+    "yilei": "pending",
+    "hz": "pending",
+    "hz_finding": {
+     "tag": "乙-2",
+     "kind": "部首不对",
+     "demo_value": "蓝",
+     "reviewed_value": "海（氵＋每）",
+     "why": "蓝＝艹＋监，无氵；水义类应取氵部的字",
+     "source": "参赛工作目录 01_对照测试/复核记录.md（不在本仓库内）"
+    }
+   }
+  },
+  {
+   "w": "manual",
+   "yilei": "手",
+   "yilei_key": "shou",
+   "ipa": "/ˈmænjuəl/",
+   "root": "manu-",
+   "mean": "手册；手工的",
+   "parts": [
+    {
+     "p": "manu",
+     "g": "手"
+    },
+    {
+     "p": "-al",
+     "g": "形容词后缀"
+    }
+   ],
+   "result": "与手有关的",
+   "hz": {
+    "c": "册",
+    "note": "\"手册\"这个词本身就把 manual 译成了\"手＋册\""
+   },
+   "story": "拉丁 <b>manus</b>（手）。\"手册\"之所以叫 handbook，是因为它小到能拿在手里。汉语译成\"手册\"，这个译法本身就是一次义类对齐——英语用手，汉语也用\"手\"。",
+   "rel": [
+    "manufacture",
+    "manuscript",
+    "manicure"
+   ],
+   "provenance": {
+    "en": "data/etym_raw/manual.html",
+    "en_audit": "data/demo_etym_audit.md",
+    "en_status": "reviewed",
+    "zh": "pending",
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+   },
+   "review": {
+    "yilei": "pending",
+    "hz": "pending"
+   }
+  },
+  {
+   "w": "manufacture",
+   "yilei": "手",
+   "yilei_key": "shou",
+   "ipa": "/ˌmænjuˈfæktʃə(r)/",
+   "root": "manu-",
+   "mean": "制造；产品",
+   "parts": [
+    {
+     "p": "manu",
+     "g": "手"
+    },
+    {
+     "p": "fact",
+     "g": "做（拉丁 facere）"
+    },
+    {
+     "p": "-ure",
+     "g": "名词后缀"
+    }
+   ],
+   "result": "用手做出来的东西",
+   "hz": {
+    "c": "造",
+    "note": "辶＋告。\"制\"和\"造\"在汉语里没有手旁，但意思是手做的"
+   },
+   "story": "<b>manu</b>（手）加 <b>fact</b>（做）。manufacture 字面就是\"手做\"。工业革命后这个词从\"手工制作\"变成了\"机器制造\"，语义正好反了过来。同族的 fact、factory、perfect、defect 全都是\"做\"这个根。",
+   "rel": [
+    "manual",
+    "factory",
+    "fact",
+    "manuscript"
+   ],
+   "provenance": {
+    "en": "data/etym_raw/manufacture.html",
+    "en_audit": "data/demo_etym_audit.md",
+    "en_status": "reviewed",
+    "zh": "pending",
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+   },
+   "review": {
+    "yilei": "pending",
+    "hz": "pending"
+   }
+  },
+  {
+   "w": "manuscript",
+   "yilei": "手",
+   "yilei_key": "shou",
+   "ipa": "/ˈmænjuskrɪpt/",
+   "root": "manu-",
+   "mean": "手稿；原稿",
+   "parts": [
+    {
+     "p": "manu",
+     "g": "手"
+    },
+    {
+     "p": "script",
+     "g": "写（拉丁 scribere）"
+    }
+   ],
+   "result": "手写的东西",
+   "hz": {
+    "c": "稿",
+    "note": "\"手稿\"是汉语照搬了这个构词法，手＋稿"
+   },
+   "story": "<b>manu</b> 加 <b>script</b>（写）。印刷术之前，书都是手抄的，所以叫 manuscript。今天打字了，这个词还留着。script 同族有 describe、prescribe、subscribe。",
+   "rel": [
+    "manual",
+    "manufacture",
+    "describe"
+   ],
+   "provenance": {
+    "en": "data/etym_raw/manuscript.html",
+    "en_audit": "data/demo_etym_audit.md",
+    "en_status": "reviewed",
+    "zh": "pending",
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+   },
+   "review": {
+    "yilei": "pending",
+    "hz": "pending",
+    "hz_finding": {
+     "tag": "乙-2",
+     "kind": "部首不对",
+     "demo_value": "稿",
+     "reviewed_value": "抄（扌＋少）",
+     "why": "稿＝禾＋高，无扌；手义类应取扌部的字",
+     "source": "参赛工作目录 01_对照测试/复核记录.md（不在本仓库内）"
+    }
+   }
+  },
+  {
+   "w": "manicure",
+   "yilei": "手",
+   "yilei_key": "shou",
+   "ipa": "/ˈmænɪkjʊə(r)/",
+   "root": "manu-",
+   "mean": "修指甲；美甲",
+   "parts": [
+    {
+     "p": "mani",
+     "g": "手"
+    },
+    {
+     "p": "cure",
+     "g": "护理（拉丁 cura）"
+    }
+   ],
+   "result": "护理手",
+   "hz": {
+    "c": "掐",
+    "note": "扌＋臽。都是手上的细活"
+   },
+   "story": "<b>mani</b>（手）加 <b>cure</b>（护理）。本来专指修指甲，后来泛指手部护理。有意思的是 cure 今天主要意思是\"治愈\"，但它的本义是\"care，照看\"——所以 manicure 其实是\"照料手\"。",
+   "rel": [
+    "manual",
+    "pedicure"
+   ],
+   "provenance": {
+    "en": "data/etym_raw/manicure.html",
+    "en_audit": "data/demo_etym_audit.md",
+    "en_status": "reviewed",
+    "zh": "pending",
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+   },
+   "review": {
+    "yilei": "pending",
+    "hz": "pending"
+   }
+  },
+  {
+   "w": "manipulate",
+   "yilei": "手",
+   "yilei_key": "shou",
+   "ipa": "/məˈnɪpjuleɪt/",
+   "root": "manu-",
+   "mean": "操纵；操作",
+   "parts": [
+    {
+     "p": "mani",
+     "g": "手"
+    },
+    {
+     "p": "pul",
+     "g": "填满（一把）"
+    },
+    {
+     "p": "-ate",
+     "g": "后缀"
+    }
+   ],
+   "result": "用一把（手）来控制",
+   "hz": {
+    "c": "操",
+    "note": "扌＋品＋木。\"操\"本义是\"拿着、从事\"，和 manipulate 几乎同义"
+   },
+   "story": "来自拉丁 <b>manipulus</b>，意思是\"一把\"——manus（手）加 ple（填满），就是一只手能握住的分量。罗马军队里一个 manipulus 是最小的作战单位。从\"手里握着一把\"到\"操纵\"，词义走得很自然。",
+   "rel": [
+    "manual",
+    "maneuver"
+   ],
+   "provenance": {
+    "en": "data/etym_raw/manipulate.html",
+    "en_audit": "data/demo_etym_audit.md",
+    "en_status": "reviewed",
+    "zh": "pending",
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+   },
+   "review": {
+    "yilei": "pending",
+    "hz": "pending"
+   }
+  },
+  {
+   "w": "emancipate",
+   "yilei": "手",
+   "yilei_key": "shou",
+   "ipa": "/ɪˈmænsɪpeɪt/",
+   "root": "manu-",
+   "mean": "解放；使不受束缚",
+   "parts": [
+    {
+     "p": "e-",
+     "g": "出来"
+    },
+    {
+     "p": "mancip",
+     "g": "手／占有"
+    },
+    {
+     "p": "-ate",
+     "g": "后缀"
+    }
+   ],
+   "result": "从手中放出来",
+   "hz": {
+    "c": "释",
+    "note": "釆＋尺。\"释\"本义就是\"解开、放下\"，和 e- 的\"放出来\"同构"
+   },
+   "story": "拉丁 <b>e-</b>（出来）加 <b>mancipium</b>（占有物，来自 manus 手）。字面是\"从手里放出来\"。古罗马解放奴隶用的就是这个词——把孩子从家长权里\"放出\"。manus 在这里从\"手\"引申成了\"掌握、所有权\"。",
+   "rel": [
+    "manual",
+    "manipulate"
+   ],
+   "provenance": {
+    "en": "data/etym_raw/emancipate.html",
+    "en_audit": "data/demo_etym_audit.md",
+    "en_status": "reviewed",
+    "zh": "pending",
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+   },
+   "review": {
+    "yilei": "pending",
+    "hz": "pending",
+    "hz_finding": {
+     "tag": "乙-2",
+     "kind": "部首不对",
+     "demo_value": "释",
+     "reviewed_value": "挣（扌＋争）",
+     "why": "释无扌",
+     "source": "参赛工作目录 01_对照测试/复核记录.md（不在本仓库内）"
+    }
+   }
+  },
+  {
+   "w": "chiropractor",
+   "yilei": "手",
+   "yilei_key": "shou",
+   "ipa": "/ˈkaɪərəʊpræktə(r)/",
+   "root": "chiro-",
+   "mean": "脊椎按摩师",
+   "parts": [
+    {
+     "p": "chiro",
+     "g": "手（希腊 cheir）"
+    },
+    {
+     "p": "practor",
+     "g": "操作者"
+    }
+   ],
+   "result": "用手操作的人",
+   "hz": {
+    "c": "按",
+    "note": "扌＋安。\"按摩\"的\"按\"就是用手操作，同义类"
+   },
+   "story": "希腊 <b>cheir</b>（手）加 praktikos（操作的）。脊椎按摩师靠手法治疗，字面就是\"用手做的人\"。同一个 chiro 还有 chirography（笔迹）、chironomy（手势术）。",
+   "rel": [
+    "chirography",
+    "surgeon"
+   ],
+   "provenance": {
+    "en": "data/etym_raw/chiropractor.html",
+    "en_audit": "data/demo_etym_audit.md",
+    "en_status": "reviewed",
+    "zh": "pending",
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+   },
+   "review": {
+    "yilei": "pending",
+    "hz": "pending"
+   }
+  },
+  {
+   "w": "chirography",
+   "yilei": "手",
+   "yilei_key": "shou",
+   "ipa": "/kaɪəˈrɒɡrəfi/",
+   "root": "chiro-",
+   "mean": "笔迹；书法",
+   "parts": [
+    {
+     "p": "chiro",
+     "g": "手"
+    },
+    {
+     "p": "graphy",
+     "g": "写、记录"
+    }
+   ],
+   "result": "手写的痕迹",
+   "hz": {
+    "c": "迹",
+    "note": "辶＋亦。\"笔迹\"的\"迹\"是痕迹，字面就是手的痕迹"
+   },
+   "story": "<b>chiro</b>（手）加 <b>graphy</b>（写）。和 manuscript 说的是同一件事——手写的——只是 chirography 走希腊路线，manuscript 走拉丁路线。汉语的\"笔迹\"用的却是\"迹\"，强调的是留下的印子。",
+   "rel": [
+    "chiropractor",
+    "manuscript"
+   ],
+   "provenance": {
+    "en": "data/etym_raw/chirography.html",
+    "en_audit": "data/demo_etym_audit.md",
+    "en_status": "reviewed",
+    "zh": "pending",
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+   },
+   "review": {
+    "yilei": "pending",
+    "hz": "pending",
+    "hz_finding": {
+     "tag": "乙-2",
+     "kind": "部首不对",
+     "demo_value": "迹",
+     "reviewed_value": "描（扌＋苗）",
+     "why": "迹＝辶＋亦，无扌",
+     "source": "参赛工作目录 01_对照测试/复核记录.md（不在本仓库内）"
+    }
+   }
+  },
+  {
+   "w": "surgeon",
+   "yilei": "手",
+   "yilei_key": "shou",
+   "ipa": "/ˈsɜːdʒən/",
+   "root": "chiro-",
+   "mean": "外科医生",
+   "parts": [
+    {
+     "p": "chir",
+     "g": "手（希腊 cheir）"
+    },
+    {
+     "p": "erg",
+     "g": "工作（希腊 ergon）"
+    },
+    {
+     "p": "-on",
+     "g": "人称后缀"
+    }
+   ],
+   "result": "用手工作的人",
+   "hz": {
+    "c": "医",
+    "note": "外科医生靠手，中医讲\"手到病除\"，用的是同一个逻辑"
+   },
+   "story": "这个词的来历很能说明问题：希腊 <b>cheirourgos</b> = cheir（手）加 ergon（工作），字面就是\"用手干活的人\"。中世纪传进英语时，起头的 cheir 被砍成了 chir，于是变成了不认识手根的 surgeon。词根被磨损，是语言里最容易被忽略的坑。",
+   "rel": [
+    "chiropractor",
+    "surgery"
+   ],
+   "provenance": {
+    "en": "data/etym_raw/surgeon.html",
+    "en_audit": "data/demo_etym_audit.md",
+    "en_status": "reviewed",
+    "zh": "pending",
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+   },
+   "review": {
+    "yilei": "pending",
+    "hz": "pending"
+   }
+  },
+  {
+   "w": "manage",
+   "yilei": "手",
+   "yilei_key": "shou",
+   "ipa": "/ˈmænɪdʒ/",
+   "root": "manu-",
+   "mean": "管理；设法做到",
+   "parts": [
+    {
+     "p": "man",
+     "g": "手（拉丁 manus）"
+    },
+    {
+     "p": "-age",
+     "g": "后缀"
+    }
+   ],
+   "result": "用手驾驭",
+   "hz": {
+    "c": "驭",
+    "note": "马＋又(手)。\"驭\"是用手控马，manage 的本义就是驾驭马"
+   },
+   "story": "从意大利语 <b>maneggiare</b> 来，本义是\"用手训练马\"，源头还是拉丁 <b>manus</b>（手）。从\"驾驭马\"到\"管理公司\"，词义走了五百年。汉语的\"驭\"是\"马＋手\"，思路一模一样——把手搭在要控制的东西上。",
+   "rel": [
+    "manipulate",
+    "manicure"
+   ],
+   "provenance": {
+    "en": "data/etym_raw/manage.html",
+    "en_audit": "data/demo_etym_audit.md",
+    "en_status": "reviewed",
+    "zh": "pending",
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+   },
+   "review": {
+    "yilei": "pending",
+    "hz": "pending"
+   }
+  },
+  {
+   "w": "courage",
+   "yilei": "心",
+   "yilei_key": "xin",
+   "ipa": "/ˈkʌrɪdʒ/",
+   "root": "cord-",
+   "mean": "勇气",
+   "parts": [
+    {
+     "p": "cour",
+     "g": "心（拉丁 cor）"
+    },
+    {
+     "p": "-age",
+     "g": "名词后缀"
+    }
+   ],
+   "result": "心里生出来的东西",
+   "hz": {
+    "c": "勇",
+    "note": "力＋甬。\"勇\"从\"力\"，英语从\"心\"——同一个东西，两边选了不同的义符"
+   },
+   "story": "古法语 <b>cuer</b>（心）加 -age，源头是拉丁 <b>cor</b>。勇气是\"心里长出来的\"，这个比喻两边都有。\"勇敢\"的\"勇\"字带\"力\"，英语的 courage 带\"心\"——正好互换了一个维度。",
+   "rel": [
+    "cordial",
+    "discourage",
+    "encourage"
+   ],
+   "provenance": {
+    "en": "data/etym_raw/courage.html",
+    "en_audit": "data/demo_etym_audit.md",
+    "en_status": "reviewed",
+    "zh": "pending",
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+   },
+   "review": {
+    "yilei": "pending",
+    "hz": "pending"
+   }
+  },
+  {
+   "w": "cordial",
+   "yilei": "心",
+   "yilei_key": "xin",
+   "ipa": "/ˈkɔːdiəl/",
+   "root": "cord-",
+   "mean": "热忱的；强心剂",
+   "parts": [
+    {
+     "p": "cord",
+     "g": "心"
+    },
+    {
+     "p": "-ial",
+     "g": "形容词后缀"
+    }
+   ],
+   "result": "发自内心的",
+   "hz": {
+    "c": "恳",
+    "note": "艮＋心。\"诚恳\"的\"恳\"直接带心，cordial 也是\"从心出发\""
+   },
+   "story": "同样是拉丁 <b>cor</b>（心）。今天的 medical 义项\"强心剂\"其实保留了更老的意思——一种\"能强健心脏\"的药酒。所以同一个词既是\"热情的\"又是\"强心的\"：一个说心，一个治心。",
+   "rel": [
+    "courage",
+    "accord",
+    "discord"
+   ],
+   "provenance": {
+    "en": "data/etym_raw/cordial.html",
+    "en_audit": "data/demo_etym_audit.md",
+    "en_status": "reviewed",
+    "zh": "pending",
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+   },
+   "review": {
+    "yilei": "pending",
+    "hz": "pending"
+   }
+  },
+  {
+   "w": "record",
+   "yilei": "心",
+   "yilei_key": "xin",
+   "ipa": "/ˈrekɔːd/",
+   "root": "cord-",
+   "mean": "记录；唱片",
+   "parts": [
+    {
+     "p": "re-",
+     "g": "再、回"
+    },
+    {
+     "p": "cord",
+     "g": "心"
+    }
+   ],
+   "result": "再放回心里",
+   "hz": {
+    "c": "忆",
+    "note": "忄＋乙。\"记忆\"的\"忆\"就是忄部，record 是\"记回心里\""
+   },
+   "story": "这是本演示里最漂亮的一条：<b>re-</b>（再）加 <b>cord</b>（心），本义是\"重新记到心里去\"。所以 record 既是\"记录\"也是\"唱片\"。汉语的\"忆\"字是 <em>忄</em> 部——<em>记忆就是往心里放东西</em>。两种语言独立地用了同一个比喻：记住 = 放回心里。",
+   "rel": [
+    "cordial",
+    "accord",
+    "memorize"
+   ],
+   "provenance": {
+    "en": "data/etym_raw/record.html",
+    "en_audit": "data/demo_etym_audit.md",
+    "en_status": "reviewed",
+    "zh": "pending",
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+   },
+   "review": {
+    "yilei": "pending",
+    "hz": "pending"
+   }
+  },
+  {
+   "w": "accord",
+   "yilei": "心",
+   "yilei_key": "xin",
+   "ipa": "/əˈkɔːd/",
+   "root": "cord-",
+   "mean": "一致；协议",
+   "parts": [
+    {
+     "p": "ac-",
+     "g": "朝向（ad-）"
+    },
+    {
+     "p": "cord",
+     "g": "心"
+    }
+   ],
+   "result": "心朝着同一个方向",
+   "hz": {
+    "c": "契",
+    "note": "汉语的\"契合\"说的是两块玉的齿口对上，英语说的是两颗心对上"
+   },
+   "story": "<b>ac-</b>（朝着）加 <b>cord</b>（心）。字面是\"心往一处去\"。所以达成 accord 就是达成\"同心\"。同族的 concord（和睦）是 con-（共同）加 cord，discord（不和）是 dis-（分开）加 cord——三个词只差一个前缀，全靠\"心\"在中间。",
+   "rel": [
+    "discord",
+    "concord",
+    "cordial",
+    "record"
+   ],
+   "provenance": {
+    "en": "data/etym_raw/accord.html",
+    "en_audit": "data/demo_etym_audit.md",
+    "en_status": "reviewed",
+    "zh": "pending",
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+   },
+   "review": {
+    "yilei": "pending",
+    "hz": "pending",
+    "hz_finding": {
+     "tag": "乙-2",
+     "kind": "部首不对",
+     "demo_value": "契",
+     "reviewed_value": "恰（忄＋合）",
+     "why": "契无心；心义类应取含心（忄／心）的字",
+     "source": "参赛工作目录 01_对照测试/复核记录.md（不在本仓库内）"
+    }
+   }
+  },
+  {
+   "w": "discord",
+   "yilei": "心",
+   "yilei_key": "xin",
+   "ipa": "/ˈdɪskɔːd/",
+   "root": "cord-",
+   "mean": "不和；争吵",
+   "parts": [
+    {
+     "p": "dis-",
+     "g": "分开"
+    },
+    {
+     "p": "cord",
+     "g": "心"
+    }
+   ],
+   "result": "心分开了",
+   "hz": {
+    "c": "隙",
+    "note": "汉语说\"有嫌隙\"，是裂开了一道缝；英语说\"心分开了\""
+   },
+   "story": "<b>dis-</b>（分开）加 <b>cord</b>（心）——心分开了，就是不和。音乐里的 discord 是\"不协和音\"，同样形容\"合不到一起\"。和 accord、concord 摆在一起看，cord 这根\"心\"是多清楚。",
+   "rel": [
+    "accord",
+    "concord",
+    "cordial"
+   ],
+   "provenance": {
+    "en": "data/etym_raw/discord.html",
+    "en_audit": "data/demo_etym_audit.md",
+    "en_status": "reviewed",
+    "zh": "pending",
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+   },
+   "review": {
+    "yilei": "pending",
+    "hz": "pending",
+    "hz_finding": {
+     "tag": "乙-2",
+     "kind": "部首不对",
+     "demo_value": "隙",
+     "reviewed_value": "悖（忄＋孛）",
+     "why": "隙无心",
+     "source": "参赛工作目录 01_对照测试/复核记录.md（不在本仓库内）"
+    }
+   }
+  },
+  {
+   "w": "concord",
+   "yilei": "心",
+   "yilei_key": "xin",
+   "ipa": "/ˈkɒŋkɔːd/",
+   "root": "cord-",
+   "mean": "和睦；一致",
+   "parts": [
+    {
+     "p": "con-",
+     "g": "共同"
+    },
+    {
+     "p": "cord",
+     "g": "心"
+    }
+   ],
+   "result": "心在一起",
+   "hz": {
+    "c": "和",
+    "note": "禾＋口，本义是声音相和，引申为和睦"
+   },
+   "story": "<b>con-</b>（共同）加 <b>cord</b>（心）。accord、concord、discord 这三个词是同一根\"心\"上长出来的三根枝：朝着同一个方向、在一起、分开。记住 cord 是心，这三个词一次全收。",
+   "rel": [
+    "accord",
+    "discord",
+    "cordial"
+   ],
+   "provenance": {
+    "en": "data/etym_raw/concord.html",
+    "en_audit": "data/demo_etym_audit.md",
+    "en_status": "reviewed",
+    "zh": "pending",
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+   },
+   "review": {
+    "yilei": "pending",
+    "hz": "pending",
+    "hz_finding": {
+     "tag": "乙-2",
+     "kind": "部首不对",
+     "demo_value": "和",
+     "reviewed_value": "怡（忄＋台）",
+     "why": "和＝禾＋口，无心",
+     "source": "参赛工作目录 01_对照测试/复核记录.md（不在本仓库内）"
+    }
+   }
+  },
+  {
+   "w": "psychology",
+   "yilei": "心",
+   "yilei_key": "xin",
+   "ipa": "/saɪˈkɒlədʒi/",
+   "root": "psych-",
+   "mean": "心理学",
+   "parts": [
+    {
+     "p": "psycho",
+     "g": "心灵（希腊 psyche）"
+    },
+    {
+     "p": "-logy",
+     "g": "学科"
+    }
+   ],
+   "result": "研究心灵的学问",
+   "hz": {
+    "c": "理",
+    "note": "汉语\"心理学\"用\"理\"（纹理、道理）作后半个义符"
+   },
+   "story": "希腊 <b>psyche</b> 本义是\"呼吸、气息\"，后来引申为\"灵魂\"。因为古人觉得气息离开身体就是死。所以 psychology 字面是\"关于气息/灵魂的学问\"。汉语译成\"心理学\"，用的是\"心\"——两边都把这件事安在了同一个器官上。",
+   "rel": [
+    "psychiatrist",
+    "sympathy"
+   ],
+   "provenance": {
+    "en": "data/etym_raw/psychology.html",
+    "en_audit": "data/demo_etym_audit.md",
+    "en_status": "reviewed",
+    "zh": "pending",
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+   },
+   "review": {
+    "yilei": "pending",
+    "hz": "pending"
+   }
+  },
+  {
+   "w": "psychiatrist",
+   "yilei": "心",
+   "yilei_key": "xin",
+   "ipa": "/saɪˈkaɪətrɪst/",
+   "root": "psych-",
+   "mean": "精神科医生",
+   "parts": [
+    {
+     "p": "psych",
+     "g": "心灵"
+    },
+    {
+     "p": "iatr",
+     "g": "治疗（希腊 iatros）"
+    },
+    {
+     "p": "-ist",
+     "g": "人"
+    }
+   ],
+   "result": "治疗心灵的人",
+   "hz": {
+    "c": "疗",
+    "note": "病字旁。汉语把\"治病\"归到\"病\"这个义类，英语把它归到 iatros（医者）"
+   },
+   "story": "希腊 <b>iatros</b> 是\"医生\"。所以 psychiatrist 的中间一段是\"治疗\"。同族有 pediatrics（儿科，pais 儿童加 iatros）——注意这里的 ped- 是\"儿童\"那个 ped-，不是\"脚\"那个（见规划书第二章的假同源陷阱）。",
+   "rel": [
+    "psychology",
+    "pediatrics"
+   ],
+   "provenance": {
+    "en": "data/etym_raw/psychiatrist.html",
+    "en_audit": "data/demo_etym_audit.md",
+    "en_status": "reviewed",
+    "zh": "pending",
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+   },
+   "review": {
+    "yilei": "pending",
+    "hz": "pending",
+    "hz_finding": {
+     "tag": "乙-2",
+     "kind": "部首不对",
+     "demo_value": "疗",
+     "reviewed_value": "愈（俞＋心）",
+     "why": "疗＝疒＋了，是病字旁（属「医」义类，不属「心」）；心组六张里只有它带疒，平行关系断在这里",
+     "source": "参赛工作目录 01_对照测试/复核记录.md（不在本仓库内）"
+    }
+   }
+  },
+  {
+   "w": "sympathy",
+   "yilei": "心",
+   "yilei_key": "xin",
+   "ipa": "/ˈsɪmpəθi/",
+   "root": "path-",
+   "mean": "同情；共鸣",
+   "parts": [
+    {
+     "p": "sym-",
+     "g": "共同（希腊 syn-）"
+    },
+    {
+     "p": "path",
+     "g": "感受（希腊 pathos）"
+    }
+   ],
+   "result": "一起感受",
+   "hz": {
+    "c": "悯",
+    "note": "忄＋闵。\"怜悯\"的\"悯\"是心部，sympathy 是\"同感\""
+   },
+   "story": "<b>sym-</b> 加 <b>path-</b>（感受）。注意这个词用的不是 cord 也不是 psych，而是第三个词根 path——感受。同一个\"心\"义类下，英语挂了三个不同的词根族，各有侧重：cord 是心这个器官，psych 是心灵，path 是感受。",
+   "rel": [
+    "empathy",
+    "psychology"
+   ],
+   "provenance": {
+    "en": "data/etym_raw/sympathy.html",
+    "en_audit": "data/demo_etym_audit.md",
+    "en_status": "reviewed",
+    "zh": "pending",
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+   },
+   "review": {
+    "yilei": "pending",
+    "hz": "pending"
+   }
+  },
+  {
+   "w": "empathy",
+   "yilei": "心",
+   "yilei_key": "xin",
+   "ipa": "/ˈempəθi/",
+   "root": "path-",
+   "mean": "共情；移情",
+   "parts": [
+    {
+     "p": "em-",
+     "g": "进入（希腊 en-）"
+    },
+    {
+     "p": "path",
+     "g": "感受"
+    }
+   ],
+   "result": "进入对方的感受里",
+   "hz": {
+    "c": "感",
+    "note": "咸＋心。\"感\"字本身就是\"心\"部，和 path 同义类"
+   },
+   "story": "<b>em-</b>（进入）加 <b>path-</b>。sympathy 是\"和你有同样的感受\"，empathy 更进一步，是\"走进你的感受里\"。这个词 1909 年才被心理学家造出来译德语的 Einfühlung。汉语译成\"共情\"，用的是\"情\"——还是那个\"心\"。",
+   "rel": [
+    "sympathy",
+    "psychology"
+   ],
+   "provenance": {
+    "en": "data/etym_raw/empathy.html",
+    "en_audit": "data/demo_etym_audit.md",
+    "en_status": "reviewed",
+    "zh": "pending",
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+   },
+   "review": {
+    "yilei": "pending",
+    "hz": "pending"
+   }
+  }
+ ],
+ "known_issues": [
+  {
+   "scope": "汉语侧（hz 字段），仅覆盖 30 词中的 18 个",
+   "what": "有一轮人工复核对其中 18 个词做过「义类 ↔ 汉语义符部首是否对得上」的检查，发现 11 处问题（字形拆解写错 1、部首与义类不符 9、表述含混 1）。该轮记录在参赛工作目录 01_对照测试/复核记录.md，**不在本仓库内**。",
+   "why_not_fixed_here": "本卡的范围是「搬运 + 如实标注」，不改 docs/index.html；且该记录不在仓库里，本文件不宜把它当已入库证据。故 30 词的 hz 一律标 pending，已知的 11 处逐条列在下面，由项目方裁决。",
+   "unreviewed": "30 词里另有 12 个（aquarium aquatic hydrogen marine manual manufacture surgeon manage courage record psychology sympathy）**汉语侧从未被复核过**；复核过的那 18 个里就有 9 个部首不对，这 12 个不能假定没问题。",
+   "items": [
+    {
+     "w": "aqueduct",
+     "tag": "乙-1",
+     "kind": "字形拆解写错",
+     "demo_value": "渠（氵＋矩）",
+     "reviewed_value": "渠（氵＋巨＋木）",
+     "why": "渠的字形是 氵＋巨（声旁）＋木，没有「矩」这个成分"
+    },
+    {
+     "w": "aquamarine",
+     "tag": "乙-2",
+     "kind": "部首不对",
+     "demo_value": "蓝",
+     "reviewed_value": "海（氵＋每）",
+     "why": "蓝＝艹＋监，无氵；水义类应取氵部的字"
+    },
+    {
+     "w": "dehydrate",
+     "tag": "乙-2",
+     "kind": "部首不对",
+     "demo_value": "干",
+     "reviewed_value": "涸（氵＋固）",
+     "why": "干无氵；「水干」就叫涸"
+    },
+    {
+     "w": "manuscript",
+     "tag": "乙-2",
+     "kind": "部首不对",
+     "demo_value": "稿",
+     "reviewed_value": "抄（扌＋少）",
+     "why": "稿＝禾＋高，无扌；手义类应取扌部的字"
+    },
+    {
+     "w": "emancipate",
+     "tag": "乙-2",
+     "kind": "部首不对",
+     "demo_value": "释",
+     "reviewed_value": "挣（扌＋争）",
+     "why": "释无扌"
+    },
+    {
+     "w": "chirography",
+     "tag": "乙-2",
+     "kind": "部首不对",
+     "demo_value": "迹",
+     "reviewed_value": "描（扌＋苗）",
+     "why": "迹＝辶＋亦，无扌"
+    },
+    {
+     "w": "accord",
+     "tag": "乙-2",
+     "kind": "部首不对",
+     "demo_value": "契",
+     "reviewed_value": "恰（忄＋合）",
+     "why": "契无心；心义类应取含心（忄／心）的字"
+    },
+    {
+     "w": "discord",
+     "tag": "乙-2",
+     "kind": "部首不对",
+     "demo_value": "隙",
+     "reviewed_value": "悖（忄＋孛）",
+     "why": "隙无心"
+    },
+    {
+     "w": "concord",
+     "tag": "乙-2",
+     "kind": "部首不对",
+     "demo_value": "和",
+     "reviewed_value": "怡（忄＋台）",
+     "why": "和＝禾＋口，无心"
+    },
+    {
+     "w": "psychiatrist",
+     "tag": "乙-2",
+     "kind": "部首不对",
+     "demo_value": "疗",
+     "reviewed_value": "愈（俞＋心）",
+     "why": "疗＝疒＋了，是病字旁（属「医」义类，不属「心」）；心组六张里只有它带疒，平行关系断在这里"
+    },
+    {
+     "w": "submarine",
+     "tag": "乙-3",
+     "kind": "表述含混（非错误）",
+     "demo_value": "潜（氵＋替的声符）",
+     "reviewed_value": "潜（氵＋替）",
+     "why": "没说清是什么"
+    }
+   ]
+  }
+ ]
+}
