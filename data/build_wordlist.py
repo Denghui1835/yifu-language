@@ -9,7 +9,7 @@
 
 源：LazuliKao/brochure-of-vocabularies 的 raw.txt（3897 行，词+音标+释义）
 产出：gaokao3500.json  ->  [{w, ipa, def, hw, kind}]
-      w    = 原始词条串
+      w    = 源文件的原始词条串（残缺写法已被 FIX 逐条修正）
       hw   = 查词用的词头（去括号、去冠词、-- 归一）
       kind = word | phrase | letter
 """
@@ -26,8 +26,20 @@ ARTICLES = ('the ', 'a ', 'an ')
 POS_TOK = re.compile(r'\s+(?:n|v|vt|vi|a|ad|adj|adv|prep|conj|pron|int|num|art|'
                       r'aux|pl|abbr|modal)\.?$', re.I)
 # ★ 原件自带的小毛病，逐条修（不修就是真丢词）：
-#   'anywa [ˈenɪweɪ]y ad.' —— 源文件把 anyway 的末字母 y 甩到了音标后面
-FIX = {'anywa': 'anyway'}
+#   源文件把某些词的【末字母】甩到了音标后面 —— 于是词头缺末字母、释义开头多一个游离字母。
+#   例：'anywa [ˈenɪweɪ]y ad.' —— anyway 的 y 落到了音标后。
+#   key = 残缺词头, value = (正确词头, 被甩出去的字母)
+#   全表共扫出 7 处（含 ladder 只多字母不缺字母的情形），逐条列全，别只修一个。
+FIX = {
+    'anywa':    ('anyway',    'y'),
+    'cance':    ('cancer',    'r'),
+    'energ':    ('energy',    'y'),
+    'federa':   ('federal',   'l'),
+    'kilometr': ('kilometre', 'e'),
+    'woo':      ('wool',      'l'),
+}
+# 词头本身没缺字母、只是音标后多甩了一个字母的
+STRAY = {'ladder': 'r'}
 
 
 def clean_word(s):
@@ -50,7 +62,7 @@ def clean_word(s):
         if low.startswith(a) and len(s) > len(a):
             s = s[len(a):].strip()
             break
-    return FIX.get(s.lower(), s)
+    return s
 
 
 def kind_of(hw):
@@ -87,8 +99,21 @@ def main():
         if not rest.strip():
             skipped.append(line)
             continue
+        # ★ 补回被源文件甩掉的末字母，并记下要从释义开头剥掉的游离字母
+        stray = None
+        fixed = False
+        low = hw.lower()
+        if low in FIX:
+            hw, stray = FIX[low]
+            fixed = True
+        elif low in STRAY:
+            stray = STRAY[low]
+            fixed = True
         rest = re.sub(r'\s+', ' ', rest.replace('', ' ')).strip()
-        rows.append({'w': head.strip(), 'ipa': ipa.strip('[]'),
+        if stray and rest.startswith(stray):
+            rest = rest[len(stray):].lstrip()
+        # w 保留源文件的原始写法（如 'afterward(s)'）；只有被 FIX 修过的残缺词头才写修正值
+        rows.append({'w': hw if fixed else head.strip(), 'ipa': ipa.strip('[]'),
                      'def': rest, 'hw': hw, 'kind': kind_of(hw)})
 
     # 去重（保留首次出现）

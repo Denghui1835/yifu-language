@@ -9,80 +9,8 @@ words = [e['w'].lower().strip() for e in W]
 words = [w for w in words if re.fullmatch(r"[a-z][a-z'\- ]*", w)]
 print('总词条:', len(words))
 
-# ---- 前缀：只留可靠信号（去掉裸 e/di/in/co 这类高噪声的，补 ad- 同化形式）----
-PREFIX = [
-    'ab','abs','ad','ac','af','ag','al','ap','ar','as','at','ambi','ante','anti',
-    'auto','bene','bi','circum','com','con','contra','counter','de','dis','ex','extra',
-    'hyper','hypo','il','im','inter','intra','intro','ir','macro','mal','meta','micro',
-    'mis','mono','multi','non','ob','oc','of','op','omni','para','per','peri','poly',
-    'post','pre','pro','retro','semi','sub','suc','suf','sup','sur','sus','super',
-    'syn','sym','tele','trans','tri','ultra','uni','vice',
-]
-# ---- 后缀：比较可靠的外来语信号（-tion/-ment/-ous 极少出现在日耳曼词里）----
-SUFFIX = [
-    'able','ible','acy','age','ance','ancy','ant','ary','ate','ation','ative',
-    'ence','ency','ent','eous','fy','ic','ical','ify','ion','ise','ism','ist',
-    'ite','itis','ity','ive','ize','logy','graphy','sion','tion','tious','ture',
-    'tude','ure','ous','meter','scope','phobia','aceous',
-]
-
-# ---- 义类词根表（产品内核；按义类组织，一个义类可挂多个词根）----
-ROOTS = {
- '水':['aqua','aqu','hydr','marin','maritim','flu','fluct','riv','und'],
- '手':['manu','mani','chir','chiro'],
- '心':['cord','cour','psych','path','card','anim'],
- '走':['ceed','cede','cess','gress','grad','vad','vas','itiner','ambul','curr','curs'],
- '言':['loqu','locut','dict','ling','lingu','logu','logue','nunc','nunci','verb','claim','clam'],
- '生':['bio','viv','vit','gen','nat'],
- '火':['ign','photo','pyr','flam','ferv'],
- '土':['terr','geo','hum','agr'],
- '石':['lith','petr','sax'],
- '大':['magn','maxi','macro','grand'],
- '小':['micro','minim','minut'],
- '看':['vid','vis','spec','spect','opt','ocul'],
- '听':['aud','son','phon'],
- '写':['scrib','script','graph','gram'],
- '拿':['cap','cept','cip','tain','tent','hab','hibit'],
- '送':['mit','miss','port','fer','vect'],
- '放':['pos','pon','posit','thes','thet'],
- '转':['vert','vers','tort','tors','volv','volut','rot'],
- '拉':['tract','trah','string','strict'],
- '建':['struct','stru','text'],
- '投':['ject','jac'],
- '引':['duc','duct','voy'],
- '数':['numer','count','calcul'],
- '时':['chron','temp','ann','enn','ev'],
- '人':['anthrop','dem','popul','homin','civ'],
- '力':['dyn','fort','val','pot','robor'],
- '光':['luc','lum','clar','splend','radi'],
- '声':['phon','son','aud'],
- '生命':['viv','vit','bio'],
- '死亡':['mort','necr','cad','cas'],
- '爱':['am','amor','phil','dilect'],
- '恨':['odium','phob'],
- '知':['sci','cogn','gnos','not','sap','soph'],
- '信':['cred','fid','feder'],
- '说':['dict','loqu','nunc','fab'],
- '做':['fact','fect','fic','oper','ag'],
- '给':['dat','don','trib','dit'],
- '取':['cap','cept','sum','sumpt','empt'],
- '见':['vid','vis','spec'],
- '名':['nomin','onym','nomen'],
- '钱':['pecun','monet','fisc','valu'],
- '法':['leg','jur','just','lic'],
- '国':['natio','patri','reg','civ'],
- '战':['bell','pugn','milit','belli','fend','fens'],
- '医':['med','iatr','san','cur'],
- '教':['doc','disc','ped','magist'],
- '形':['form','morph','fig'],
- '动':['mot','mov','mob','ag','act'],
- '变':['mut','vers','form'],
- '多':['multi','poly','plur'],
- '同':['equ','simil','par'],
- '远':['tele','long','procul'],
- '真':['ver','fid','cert'],
- '手写':['scrib','script','chiro'],
-}
+# ---- 义类词根表已抽到 yilei_roots.py（与卡片生产流水线共用同一份）----
+from yilei_roots import PREFIX, SUFFIX, ROOTS
 
 def hit_prefix(w):
     for p in PREFIX:
