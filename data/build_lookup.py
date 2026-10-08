@@ -126,24 +126,41 @@ def main():
         s = io.open(idx, encoding='utf-8', errors='replace').read()
         reviewed_words = set(re.findall(r"\{w:'([^']+)'", s))
 
+    def tag_of(w, t):
+        """词表来源标签。有词源树时沿用树表给的 tag；否则由 meta.src 反推。
+        只遍历 trees 会漏掉「词表里有、但没抓到词源树」的词，它们同样该在线上搜得到。"""
+        if t is not None:
+            return t['tag']
+        src = meta.get(w, {}).get('src', '')
+        g, i = 'gaokao' in src, 'ielts' in src
+        if g and i:
+            return 'gaokao+ielts'
+        return 'gaokao' if g else ('ielts' if i else '')
+
     words = {}
-    for w, t in trees.items():
+    # 迭代范围 = 词源树键 ∪ 词表词头（并集 5757 词）。原先只遍历 trees，
+    # 于是 4108 个"有释义、没词源链"的词在演示站上根本搜不到。
+    for w in list(trees.keys()) + [k for k in meta if k not in trees]:
+        t = trees.get(w)
         m = meta.get(w, {})
-        chain = t['chain']
+        chain = t['chain'] if t else []
+        cls = t['cls'] if t else 'unknown'
         pre, suf = match_affix(w)
-        yilei = candidates_for(w, chain, t['cls'])
+        yilei = candidates_for(w, chain, cls)
         rec = {
             'def': m.get('def', ''),
             'ipa': m.get('ipa', ''),
-            'pos': t.get('pos') or m.get('pos', ''),
-            'cls': t['cls'],
+            'pos': (t.get('pos') if t else '') or m.get('pos', ''),
+            'cls': cls,
             'chain': chain,
             'yilei': yilei,
             'af': [pre or '', suf or ''],
-            'tag': t['tag'],
+            'tag': tag_of(w, t),
             'reviewed': w in reviewed_words,
         }
-        if yilei or chain or w in reviewed_words:
+        # 收录口径：词表里有的词就上线（有释义或音标即可）。
+        # 词源链/义类取不到就留空 —— 页面如实留白，绝不补写。
+        if yilei or chain or w in reviewed_words or m.get('def') or m.get('ipa'):
             words[w] = rec
 
     # ---- 义类表：词根（全部 54 类）+ 汉语义符（仅人工校订过的）----

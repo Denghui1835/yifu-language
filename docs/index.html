@@ -1148,7 +1148,7 @@ let LOOKUP = null;
 let LOOKUP_STATE = 'loading';   // loading | ok | fail
 function lookupNotice(){
   return '<div class="notice err">'
-    + '<b>未加载词源库 data/lookup.json</b>，完整拆解（1691 个词）暂不可用。<br>'
+    + '<b>未加载词源库 data/lookup.json</b>，完整拆解暂不可用。<br>'
     + '当前可能是以 file:// 直接打开本页 —— 浏览器会拦截本地文件的取数请求，这是浏览器的安全限制，不是页面故障。<br>'
     + '图谱漫游、典故故事线、以及内联的 30 条已人工复核词条不受影响，仍可正常使用。<br>'
     + '启用完整词根拆解的办法：在项目根目录（含 docs 目录的上一级）运行 '
@@ -1270,7 +1270,7 @@ function chainRender(chain){
     + '<div class="segnote">共 '+chain.length+' 段，合并相邻同语种后为 '+nodes.length+' 段。数据来自词源库，未经人工复核。</div>';
 }
 function clsName(c){ return ({classical:'古典词源（拉丁 / 希腊）', romance:'罗曼语系', germanic:'日耳曼语系', unknown:'语源未判定', other:'其他'})[c] || c || '未取到'; }
-function tagName(t){ return ({gaokao:'高考词表', ielts:'雅思词表'})[t] || t || '未取到'; }
+function tagName(t){ return ({gaokao:'高考词表', ielts:'雅思词表', 'gaokao+ielts':'高考+雅思'})[t] || t || '未取到'; }
 
 /* ---------- 结果渲染 ---------- */
 function renderReviewed(d){
