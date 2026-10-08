@@ -152,7 +152,7 @@ prepare／part 里，`med` 既是 medicus「治」又出现在 medius「中」�
 │                             规划书与参赛材料共用这一套排版机器
 ├── build_plan.py             规划书生成脚本；内容全部结构化在文件顶部的 C 列表里，
 │                             改内容只动那个列表再重跑，不用碰排版代码
-│                             产出到 D:\AI coding\规划书\义符_产品规划书_v1.docx（公文格式）
+│                             产出到**仓库同级的 `规划书/`**（本机即 D:\AI coding\规划书）
 ├── docs/                     GitHub Pages 的发布源
 │   ├── index.html            交互演示（单文件、零依赖、离线可跑）：义类漫游 / 词根拆解器 / 义类词卡
 │   ├── pipeline.html         词源管线说明页
@@ -202,7 +202,8 @@ prepare／part 里，`med` 既是 medicus「治」又出现在 medius「中」�
 
 ```bash
 # 演示：双击 docs/index.html 即可，不需要服务器、不需要联网
-python build_plan.py          # 重新生成规划书（输出到 D:\AI coding\规划书\）
+python build_plan.py          # 重新生成规划书（默认输出到仓库同级的 规划书/，
+                              # 本机即 D:\AI coding\规划书；可用环境变量 YIFU_OUT_DIR 改落点）
 python 大赛/build_entry.py    # 生成参赛内容介绍（输出到 D:\AI+应用技能大赛\义符参赛\02_作品介绍文档\）
 python 大赛/to_pdf.py "D:/AI+应用技能大赛/义符参赛/02_作品介绍文档/义符_参赛内容介绍.docx"  # 转 PDF
 python 大赛/to_html.py        # 同一份内容生成网页版（发链接给同学看，不必传 docx）

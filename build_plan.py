@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 r"""生成《义符——基于母语义类系统的外语学习软件规划书》，照公文格式。
-规格沿用 D:\SRT项目\_reformat_gongwen.py（用户 2026-10-05 定死的那套）。"""
+规格沿用 SRT 项目整改报告那份排版脚本 _reformat_gongwen.py（用户 2026-10-05 定死的那套）。"""
 import os, io, sys, re, zipfile
 from docx import Document
 from docx.shared import Pt, Cm
@@ -11,7 +11,13 @@ from docx.oxml import OxmlElement
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 
-OUT_DIR = r'D:\AI coding\规划书'   # 2026-10-06 用户定：规划书统一放汇总目录
+HERE = os.path.dirname(os.path.abspath(__file__))
+
+# 2026-10-06 用户定：规划书统一放汇总目录。
+# 默认取**仓库的同级目录** `规划书/`——本机正好落在原先硬编码的那个位置
+# （仓库放在汇总目录下，同级即汇总目录），但换台机器也能跑。
+# 要换落点，设环境变量 YIFU_OUT_DIR。
+OUT_DIR = os.environ.get('YIFU_OUT_DIR') or os.path.join(os.path.dirname(HERE), '规划书')
 DST = os.path.join(OUT_DIR, '义符_产品规划书_v1.docx')
 
 FS, HT, KT, HZ = '仿宋', '黑体', '楷体', '华文中宋'
