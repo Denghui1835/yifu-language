@@ -190,8 +190,18 @@ prepare／part 里，`med` 既是 medicus「治」又出现在 medius「中」�
     ├── ielts_class.json      产出：雅思词 -> 类别
     ├── ielts_trees.json      产出：雅思词 -> 祖先链
     ├── demo_etym_audit.md    演示 30 词的词源核对记录（含逐词出处）
-    └── demo_etym_audit.tsv   同上，逐词原始记录
+    ├── demo_etym_audit.tsv   同上，逐词原始记录
+    ├── cards_zh_review.md    汉语侧人工复核记录（18 张 A 组卡：机器义类候选的裁决、
+    │                         汉语义符 11 处发现、以及如实记「未做的复核」）；
+    │                         data/yifu_cards.json 的 known_issues 逐条指回这份
+    └── yifu_cards.json       产出：义符卡内容层（30 词，附 provenance / review / known_issues）
 ```
+
+> ⚠️ **`data/` 下的记录不能「只存在于本机」。** 凡是**当证据引用**的东西
+> （复核记录、核对结论、逐条裁决），都要能指回仓库内的一个文件 ——
+> 指不到的，等于没有。`yifu_cards.json` 的 `known_issues` 里那 11 条，
+> 原先的 `source` 写的是「参赛工作目录 …（不在本仓库内）」，**谁点不进去**；
+> 现已随记录一起入库（Issue #31）。
 
 `data/etym_raw/`（约 90MB 的抓取缓存）不入库，随时可重抓。
 
