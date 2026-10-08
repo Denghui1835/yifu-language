@@ -32,13 +32,24 @@ PREFIX_WEAK = {'co', 'bi'}
 PREFIX = PREFIX_LONG | PREFIX_SHORT
 
 
+sys.path.insert(0, HERE)
+
+# ★ 义类词根表直接 import，**不再从 analyze_roots.py 的源码文本里抠**。
+#   那套写法（读 .py 文本 → 找 `ROOTS = {` → exec 切片）在 ROOTS 被抽到
+#   yilei_roots.py 之后就失效了：src.find('ROOTS = {') 返回 -1，切片成空串，
+#   exec('') 得到空命名空间，于是 ns['ROOTS'] 抛 KeyError —— 整个脚本跑不起来，
+#   连带 yilei_buckets.json 也再没法重新生成。
+#   yilei_roots.py 的注释自己写了这个模块就是为了「让统计脚本与卡片生产流水线
+#   共用同一份表」，当初只是这里没跟着改。
+from yilei_roots import ROOTS  # noqa: E402
+
+
 def load_roots():
-    src = io.open(os.path.join(HERE, 'analyze_roots.py'), encoding='utf-8').read()
-    i = src.find('ROOTS = {')
-    j = src.find('\n}', i)
-    ns = {}
-    exec(src[i:j + 2], ns)
-    return ns['ROOTS']
+    """返回义类词根表。
+
+    保留函数名是为了不动 main() 里的调用点；实现改成直接拿 import 进来的那一份。
+    """
+    return ROOTS
 
 
 CLASSICAL = {'la', 'la-lat', 'la-med', 'la-new', 'la-vul', 'la-ecc', 'la-ren',
