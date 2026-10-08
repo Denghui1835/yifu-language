@@ -37,8 +37,12 @@ OUT = os.path.join(HERE, 'yifu_cards.json')
 
 EN_AUDIT = 'data/demo_etym_audit.md'
 ZH_REVIEW = 'data/cards_zh_review.md'
-ZH_NOTE = ('字形构成照字面列出，未引《说文》等字源文献逐字求证 —— '
-           '见 data/demo_etym_audit.md 末节、' + ZH_REVIEW + ' 的「丙」节与 known_issues')
+# 汉语侧出处口径（2026-10-08，Issue #25 由项目方裁定）：接受「字形构成」口径 ——
+# 卡面只列字形拆解，不声称「本义出自某书」，不引《说文》等字源文献。
+ZH_NOTE = ('字形构成照字面列出（如 氵＋巨＋木），未引《说文》等字源文献逐字求证 —— '
+           '这是 2026-10-08 Issue #25 定的口径：大量现代简化字在《说文》里查不到，'
+           '文献级求证成本高、多半得不到结论；而卡面要教的是中英两边共用同一套义符机制，'
+           '字形构成足够支撑。见 data/demo_etym_audit.md 末节、' + ZH_REVIEW + ' 的「丙」节。')
 
 NOTE = ('义符卡内容层。字段结构照 docs/index.html 的 const DATA（阶段零演示 30 词），'
         '词条内容逐字取自该文件，未改写。每词带 provenance 指向词源出处；'
@@ -54,7 +58,7 @@ SOURCES = {
     'zh_review': ZH_REVIEW + '（18 张 A 组卡的人工复核记录：机器候选误判逐条裁决 + '
                  '汉语义符 11 处发现 + 如实记「未做的复核」；原为参赛工作目录 '
                  '01_对照测试/复核记录.md，Issue #31 入库）',
-    'zh': 'pending —— 尚无字源文献级出处',
+    'zh': '字形构成（照字面拆解，未引字源文献）—— 口径见 Issue #25（2026-10-08 裁定）',
 }
 
 # 汉语侧人工复核的发现，出自 data/cards_zh_review.md（Issue #31 入库，
@@ -76,6 +80,14 @@ KNOWN = [
     ('submarine', '乙-3', '表述含混（非错误）', '潜（氵＋替的声符）', '潜（氵＋替）', '没说清是什么'),
 ]
 KNOWN_BY_W = dict((k[0], k) for k in KNOWN)
+
+# 复核覆盖面：data/build_cards.py 的 PILOT 18 词，其汉语侧经人工复核（见 data/cards_zh_review.md）。
+# 其余 12 词汉语侧**从未被复核过**，review.hz 一律 pending 并在 known_issues 里如实标出。
+ZH_REVIEWED = set('''aqueduct aquamarine hydrate dehydrate maritime submarine
+manuscript manicure manipulate emancipate chiropractor chirography
+cordial accord discord concord psychiatrist empathy'''.split())
+ZH_UNREVIEWED = set('''aquarium aquatic hydrogen marine manual manufacture
+surgeon manage courage record psychology sympathy'''.split())
 
 # 英语侧经过修正的词（demo_etym_audit.md 的「修正 1 / 修正 2」）
 EN_NOTE = {
@@ -205,11 +217,16 @@ def build(data, today):
                     'en_status': 'reviewed', 'zh': 'pending', 'zh_note': ZH_NOTE}
             if w in EN_NOTE:
                 prov['en_note'] = EN_NOTE[w]
-            review = {'yilei': 'pending', 'hz': 'pending'}
+            review = {'yilei': 'pending',
+                      'hz': 'reviewed' if w in ZH_REVIEWED else 'pending'}
+            if w in ZH_UNREVIEWED:
+                review['hz_note'] = '汉语侧未经复核（本轮复核只覆盖 A 组的 18 张卡，本词不在其中）'
             if w in KNOWN_BY_W:
                 _, tag, kind, old, new, why = KNOWN_BY_W[w]
                 review['hz_finding'] = {
-                    'tag': tag, 'kind': kind, 'demo_value': old, 'reviewed_value': new, 'why': why,
+                    'tag': tag, 'kind': kind, 'before': old, 'after': new, 'why': why,
+                    'status': 'fixed',
+                    'fixed_in': 'docs/index.html 的 const DATA（2026-10-08，Issue #25）',
                     'source': ZH_REVIEW + '（本仓库内；原为参赛工作目录 01_对照测试/复核记录.md）',
                 }
             cards.append({'w': w, 'yilei': blk['name'], 'yilei_key': key,
@@ -225,22 +242,25 @@ def build(data, today):
         'yilei': yilei,
         'cards': cards,
         'known_issues': [{
-            'scope': '汉语侧（hz 字段），仅覆盖 30 词中的 18 个',
-            'what': ('有一轮人工复核查出 11 处汉语侧问题（字形拆解写错 1、部首与义类不符 9、'
-                     '表述含混 1），逐条列在下面。该轮记录**已入库**：' + ZH_REVIEW +
-                     '（原为参赛工作目录 01_对照测试/复核记录.md）。'
-                     '⚠️ 记录的对象是 `A组_义符卡.html` 的 18 张卡 —— 实测这些词**都在这 30 词之内**，'
-                     '所以本文件这 11 条就是记录「乙」节里落在本文件上的全部；'
-                     '记录「甲」节另有机器义类候选的裁决 4 条，那批属义类字段、不属 hz，故未列入下面。'),
-            'why_not_fixed_here': ('本卡的范围是「搬运 + 如实标注」，不改 docs/index.html；'
-                                   '且出处口径与这 11 处该怎么改，按 Issue #25 要由项目方裁决，'
-                                   '认领者不拍板。'
-                                   '故 30 词的 hz 一律标 pending，已知的 11 处逐条列在下面，由项目方裁决。'),
+            'status': 'decided —— 2026-10-08 由项目方裁定（Issue #25）',
+            'scope': '汉语侧（hz 字段）：30 词中 18 词经人工复核，另 12 词未经复核',
+            'decision_zh_source': ('接受「字形构成」口径：卡面只列字形拆解（如 氵＋巨＋木），'
+                                   '不声称「本义出自某书」，不引《说文》等字源文献。'
+                                   '理由：大量现代简化字在《说文》里查不到，文献级求证成本高、'
+                                   '多半得不到结论；而卡面要教的是中英两边共用同一套义符机制，'
+                                   '字形构成足够支撑。若日后要升级到文献口径，另立卡。'),
+            'decision_fixes': ('复核记录的 11 处已裁决并**全部修正**。改的是 docs/index.html 的 '
+                               'const DATA —— 本文件的 hz 逐字取自它，只改本文件会让演示页与卡片不一致；'
+                               '改完 DATA 再重生成本文件。修正后水义类一律氵、手义类一律扌、'
+                               '心义类一律含心，平行关系齐了。逐条见 resolved_items（status=fixed）。'),
+            'resolved_items': [{'w': k[0], 'tag': k[1], 'kind': k[2], 'before': k[3],
+                                'after': k[4], 'why': k[5], 'status': 'fixed'} for k in KNOWN],
+            'not_in_scope': ('复核记录「甲」节另有机器义类候选的裁决 4 条，那批属义类字段、'
+                             '不属 hz，故未列入本表。'),
             'unreviewed': ('30 词里另有 12 个（aquarium aquatic hydrogen marine manual manufacture '
                            'surgeon manage courage record psychology sympathy）**汉语侧从未被复核过**；'
-                           '复核过的那 18 个里就有 9 个部首不对，这 12 个不能假定没问题。'),
-            'items': [{'w': k[0], 'tag': k[1], 'kind': k[2], 'demo_value': k[3],
-                       'reviewed_value': k[4], 'why': k[5]} for k in KNOWN],
+                           '复核过的那 18 个里就有 9 个部首不对，这 12 个不能假定没问题。'
+                           '它们每张卡的 review.hz 仍是 pending，含义是「未经复核」。'),
         }],
     }
 
@@ -250,8 +270,10 @@ def write(out):
         json.dump(out, f, ensure_ascii=False, indent=1)
         f.write('\n')
     print('OK -> %s  (%d bytes)' % (os.path.abspath(OUT), os.path.getsize(OUT)))
-    print('义类 %d · 卡片 %d · known_issues %d 条'
-          % (len(out['yilei']), len(out['cards']), len(out['known_issues'][0]['items'])))
+    print('义类 %d · 卡片 %d · 已修正 %d 处 · 未经复核 %d 词'
+          % (len(out['yilei']), len(out['cards']),
+             len(out['known_issues'][0]['resolved_items']),
+              len([c for c in out['cards'] if c['review']['hz'] == 'pending'])))
 
 
 # ---------------------------------------------------------------- 漂移检查

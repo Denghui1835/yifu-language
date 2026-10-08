@@ -7,7 +7,7 @@
   "en_raw": "data/etym_raw/<词>.html（kaikki.org 抓取切片，每词一个文件）",
   "en_audit": "data/demo_etym_audit.md（30 词英语侧逐条核对，29/30 与维基词典一致，修正 2 处）",
   "zh_review": "data/cards_zh_review.md（18 张 A 组卡的人工复核记录：机器候选误判逐条裁决 + 汉语义符 11 处发现 + 如实记「未做的复核」；原为参赛工作目录 01_对照测试/复核记录.md，Issue #31 入库）",
-  "zh": "pending —— 尚无字源文献级出处"
+  "zh": "字形构成（照字面拆解，未引字源文献）—— 口径见 Issue #25（2026-10-08 裁定）"
  },
  "yilei": [
   {
@@ -307,11 +307,12 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
+    "zh_note": "字形构成照字面列出（如 氵＋巨＋木），未引《说文》等字源文献逐字求证 —— 这是 2026-10-08 Issue #25 定的口径：大量现代简化字在《说文》里查不到，文献级求证成本高、多半得不到结论；而卡面要教的是中英两边共用同一套义符机制，字形构成足够支撑。见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节。"
    },
    "review": {
     "yilei": "pending",
-    "hz": "pending"
+    "hz": "pending",
+    "hz_note": "汉语侧未经复核（本轮复核只覆盖 A 组的 18 张卡，本词不在其中）"
    }
   },
   {
@@ -346,11 +347,12 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
+    "zh_note": "字形构成照字面列出（如 氵＋巨＋木），未引《说文》等字源文献逐字求证 —— 这是 2026-10-08 Issue #25 定的口径：大量现代简化字在《说文》里查不到，文献级求证成本高、多半得不到结论；而卡面要教的是中英两边共用同一套义符机制，字形构成足够支撑。见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节。"
    },
    "review": {
     "yilei": "pending",
-    "hz": "pending"
+    "hz": "pending",
+    "hz_note": "汉语侧未经复核（本轮复核只覆盖 A 组的 18 张卡，本词不在其中）"
    }
   },
   {
@@ -373,7 +375,7 @@
    "result": "引导水的东西",
    "hz": {
     "c": "渠",
-    "note": "氵＋矩。古罗马的 aqueduct 就是罗马人的\"渠\""
+    "note": "氵＋巨＋木。古罗马的 aqueduct 就是罗马人的\"渠\""
    },
    "story": "<b>aqua</b> 加 <b>duct</b>。duct 出自拉丁 ducere（引导），同族还有 conduct、introduce、produce。古罗马用高架水道把水送进城里，那些石拱至今还立在法国和西班牙。",
    "rel": [
@@ -386,17 +388,19 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
+    "zh_note": "字形构成照字面列出（如 氵＋巨＋木），未引《说文》等字源文献逐字求证 —— 这是 2026-10-08 Issue #25 定的口径：大量现代简化字在《说文》里查不到，文献级求证成本高、多半得不到结论；而卡面要教的是中英两边共用同一套义符机制，字形构成足够支撑。见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节。"
    },
    "review": {
     "yilei": "pending",
-    "hz": "pending",
+    "hz": "reviewed",
     "hz_finding": {
      "tag": "乙-1",
      "kind": "字形拆解写错",
-     "demo_value": "渠（氵＋矩）",
-     "reviewed_value": "渠（氵＋巨＋木）",
+     "before": "渠（氵＋矩）",
+     "after": "渠（氵＋巨＋木）",
      "why": "渠的字形是 氵＋巨（声旁）＋木，没有「矩」这个成分",
+     "status": "fixed",
+     "fixed_in": "docs/index.html 的 const DATA（2026-10-08，Issue #25）",
      "source": "data/cards_zh_review.md（本仓库内；原为参赛工作目录 01_对照测试/复核记录.md）"
     }
    }
@@ -434,12 +438,12 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues",
+    "zh_note": "字形构成照字面列出（如 氵＋巨＋木），未引《说文》等字源文献逐字求证 —— 这是 2026-10-08 Issue #25 定的口径：大量现代简化字在《说文》里查不到，文献级求证成本高、多半得不到结论；而卡面要教的是中英两边共用同一套义符机制，字形构成足够支撑。见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节。",
     "en_note": "同 hydrogen，复核修正 1 处（表述不严），演示正文已改。"
    },
    "review": {
     "yilei": "pending",
-    "hz": "pending"
+    "hz": "reviewed"
    }
   },
   {
@@ -475,12 +479,13 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues",
+    "zh_note": "字形构成照字面列出（如 氵＋巨＋木），未引《说文》等字源文献逐字求证 —— 这是 2026-10-08 Issue #25 定的口径：大量现代简化字在《说文》里查不到，文献级求证成本高、多半得不到结论；而卡面要教的是中英两边共用同一套义符机制，字形构成足够支撑。见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节。",
     "en_note": "复核修正 1 处（表述不严）：原演示把氢的希腊词根一律归到「文艺复兴时期」，已改为「到近代给新发现的东西命名时用希腊词根几乎成了规矩（hydrogen 是 1783 年拉瓦西造的）」。"
    },
    "review": {
     "yilei": "pending",
-    "hz": "pending"
+    "hz": "pending",
+    "hz_note": "汉语侧未经复核（本轮复核只覆盖 A 组的 18 张卡，本词不在其中）"
    }
   },
   {
@@ -506,8 +511,8 @@
    ],
    "result": "把水去掉",
    "hz": {
-    "c": "干",
-    "note": "汉语说\"干\"，是水的缺席；英语用 de- 前缀把水\"拿走\""
+    "c": "涸",
+    "note": "氵＋固。汉语说\"涸\"，正是水的缺席；英语用 de- 前缀把水\"拿走\""
    },
    "story": "前缀 <b>de-</b> 表示\"去除、向下\"，加在水上就是脱水。汉语遇到同样的意思，用\"去掉水\"或单一个\"干\"字。有意思的是：汉语倾向于描述状态，英语倾向于描述动作的方向。",
    "rel": [
@@ -519,17 +524,19 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
+    "zh_note": "字形构成照字面列出（如 氵＋巨＋木），未引《说文》等字源文献逐字求证 —— 这是 2026-10-08 Issue #25 定的口径：大量现代简化字在《说文》里查不到，文献级求证成本高、多半得不到结论；而卡面要教的是中英两边共用同一套义符机制，字形构成足够支撑。见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节。"
    },
    "review": {
     "yilei": "pending",
-    "hz": "pending",
+    "hz": "reviewed",
     "hz_finding": {
      "tag": "乙-2",
      "kind": "部首不对",
-     "demo_value": "干",
-     "reviewed_value": "涸（氵＋固）",
+     "before": "干",
+     "after": "涸（氵＋固）",
      "why": "干无氵；「水干」就叫涸",
+     "status": "fixed",
+     "fixed_in": "docs/index.html 的 const DATA（2026-10-08，Issue #25）",
      "source": "data/cards_zh_review.md（本仓库内；原为参赛工作目录 01_对照测试/复核记录.md）"
     }
    }
@@ -567,11 +574,12 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
+    "zh_note": "字形构成照字面列出（如 氵＋巨＋木），未引《说文》等字源文献逐字求证 —— 这是 2026-10-08 Issue #25 定的口径：大量现代简化字在《说文》里查不到，文献级求证成本高、多半得不到结论；而卡面要教的是中英两边共用同一套义符机制，字形构成足够支撑。见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节。"
    },
    "review": {
     "yilei": "pending",
-    "hz": "pending"
+    "hz": "pending",
+    "hz_note": "汉语侧未经复核（本轮复核只覆盖 A 组的 18 张卡，本词不在其中）"
    }
   },
   {
@@ -606,12 +614,12 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues",
+    "zh_note": "字形构成照字面列出（如 氵＋巨＋木），未引《说文》等字源文献逐字求证 —— 这是 2026-10-08 Issue #25 定的口径：大量现代简化字在《说文》里查不到，文献级求证成本高、多半得不到结论；而卡面要教的是中英两边共用同一套义符机制，字形构成足够支撑。见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节。",
     "en_note": "复核修正 1 处：原演示说 maritime「没经过法语」，实为经中古法语（Borrowed from Middle French maritime）。演示正文已改，本条与 kaikki 一致。"
    },
    "review": {
     "yilei": "pending",
-    "hz": "pending"
+    "hz": "reviewed"
    }
   },
   {
@@ -638,7 +646,7 @@
    "result": "海面之下的",
    "hz": {
     "c": "潜",
-    "note": "氵＋替的声符。\"潜\"是没入水下，submarine 是\"海之下\"，结构一模一样"
+    "note": "氵＋替。\"潜\"是没入水下，submarine 是\"海之下\"，结构一模一样"
    },
    "story": "<b>sub-</b>（下）加 <b>marine</b>（海的）。汉语的\"潜\"是氵部；英语的 submarine 是 mar- 根。同一个动作，两边都把它挂到了\"水\"这个义类上，只是汉语把它压进了字形，英语把它摊开成拼写。",
    "rel": [
@@ -651,17 +659,19 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
+    "zh_note": "字形构成照字面列出（如 氵＋巨＋木），未引《说文》等字源文献逐字求证 —— 这是 2026-10-08 Issue #25 定的口径：大量现代简化字在《说文》里查不到，文献级求证成本高、多半得不到结论；而卡面要教的是中英两边共用同一套义符机制，字形构成足够支撑。见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节。"
    },
    "review": {
     "yilei": "pending",
-    "hz": "pending",
+    "hz": "reviewed",
     "hz_finding": {
      "tag": "乙-3",
      "kind": "表述含混（非错误）",
-     "demo_value": "潜（氵＋替的声符）",
-     "reviewed_value": "潜（氵＋替）",
+     "before": "潜（氵＋替的声符）",
+     "after": "潜（氵＋替）",
      "why": "没说清是什么",
+     "status": "fixed",
+     "fixed_in": "docs/index.html 的 const DATA（2026-10-08，Issue #25）",
      "source": "data/cards_zh_review.md（本仓库内；原为参赛工作目录 01_对照测试/复核记录.md）"
     }
    }
@@ -685,8 +695,8 @@
    ],
    "result": "海水一样的",
    "hz": {
-    "c": "蓝",
-    "note": "汉语用\"蓝\"这个颜色字，英语直接把\"水＋海\"拼成了颜色名"
+    "c": "海",
+    "note": "氵＋每。英语把 aqua（水）＋marine（海）直接拼成了颜色名"
    },
    "story": "一个词里同时装了 aqua 和 marine，两个词根都是\"水\"。字面就是\"海水色\"。拉丁 aqua marina 就是\"海水\"——宝石因颜色得名。这是个漂亮的例子：一个词能把同一义类叠两次，而汉语的\"浅蓝\"只保留了一个颜色义符。",
    "rel": [
@@ -698,17 +708,19 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
+    "zh_note": "字形构成照字面列出（如 氵＋巨＋木），未引《说文》等字源文献逐字求证 —— 这是 2026-10-08 Issue #25 定的口径：大量现代简化字在《说文》里查不到，文献级求证成本高、多半得不到结论；而卡面要教的是中英两边共用同一套义符机制，字形构成足够支撑。见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节。"
    },
    "review": {
     "yilei": "pending",
-    "hz": "pending",
+    "hz": "reviewed",
     "hz_finding": {
      "tag": "乙-2",
      "kind": "部首不对",
-     "demo_value": "蓝",
-     "reviewed_value": "海（氵＋每）",
+     "before": "蓝",
+     "after": "海（氵＋每）",
      "why": "蓝＝艹＋监，无氵；水义类应取氵部的字",
+     "status": "fixed",
+     "fixed_in": "docs/index.html 的 const DATA（2026-10-08，Issue #25）",
      "source": "data/cards_zh_review.md（本仓库内；原为参赛工作目录 01_对照测试/复核记录.md）"
     }
    }
@@ -746,11 +758,12 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
+    "zh_note": "字形构成照字面列出（如 氵＋巨＋木），未引《说文》等字源文献逐字求证 —— 这是 2026-10-08 Issue #25 定的口径：大量现代简化字在《说文》里查不到，文献级求证成本高、多半得不到结论；而卡面要教的是中英两边共用同一套义符机制，字形构成足够支撑。见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节。"
    },
    "review": {
     "yilei": "pending",
-    "hz": "pending"
+    "hz": "pending",
+    "hz_note": "汉语侧未经复核（本轮复核只覆盖 A 组的 18 张卡，本词不在其中）"
    }
   },
   {
@@ -791,11 +804,12 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
+    "zh_note": "字形构成照字面列出（如 氵＋巨＋木），未引《说文》等字源文献逐字求证 —— 这是 2026-10-08 Issue #25 定的口径：大量现代简化字在《说文》里查不到，文献级求证成本高、多半得不到结论；而卡面要教的是中英两边共用同一套义符机制，字形构成足够支撑。见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节。"
    },
    "review": {
     "yilei": "pending",
-    "hz": "pending"
+    "hz": "pending",
+    "hz_note": "汉语侧未经复核（本轮复核只覆盖 A 组的 18 张卡，本词不在其中）"
    }
   },
   {
@@ -817,8 +831,8 @@
    ],
    "result": "手写的东西",
    "hz": {
-    "c": "稿",
-    "note": "\"手稿\"是汉语照搬了这个构词法，手＋稿"
+    "c": "抄",
+    "note": "扌＋少。手义类取扌部的字；英语 manu（手）＋script（写）"
    },
    "story": "<b>manu</b> 加 <b>script</b>（写）。印刷术之前，书都是手抄的，所以叫 manuscript。今天打字了，这个词还留着。script 同族有 describe、prescribe、subscribe。",
    "rel": [
@@ -831,17 +845,19 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
+    "zh_note": "字形构成照字面列出（如 氵＋巨＋木），未引《说文》等字源文献逐字求证 —— 这是 2026-10-08 Issue #25 定的口径：大量现代简化字在《说文》里查不到，文献级求证成本高、多半得不到结论；而卡面要教的是中英两边共用同一套义符机制，字形构成足够支撑。见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节。"
    },
    "review": {
     "yilei": "pending",
-    "hz": "pending",
+    "hz": "reviewed",
     "hz_finding": {
      "tag": "乙-2",
      "kind": "部首不对",
-     "demo_value": "稿",
-     "reviewed_value": "抄（扌＋少）",
+     "before": "稿",
+     "after": "抄（扌＋少）",
      "why": "稿＝禾＋高，无扌；手义类应取扌部的字",
+     "status": "fixed",
+     "fixed_in": "docs/index.html 的 const DATA（2026-10-08，Issue #25）",
      "source": "data/cards_zh_review.md（本仓库内；原为参赛工作目录 01_对照测试/复核记录.md）"
     }
    }
@@ -878,11 +894,11 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
+    "zh_note": "字形构成照字面列出（如 氵＋巨＋木），未引《说文》等字源文献逐字求证 —— 这是 2026-10-08 Issue #25 定的口径：大量现代简化字在《说文》里查不到，文献级求证成本高、多半得不到结论；而卡面要教的是中英两边共用同一套义符机制，字形构成足够支撑。见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节。"
    },
    "review": {
     "yilei": "pending",
-    "hz": "pending"
+    "hz": "reviewed"
    }
   },
   {
@@ -921,11 +937,11 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
+    "zh_note": "字形构成照字面列出（如 氵＋巨＋木），未引《说文》等字源文献逐字求证 —— 这是 2026-10-08 Issue #25 定的口径：大量现代简化字在《说文》里查不到，文献级求证成本高、多半得不到结论；而卡面要教的是中英两边共用同一套义符机制，字形构成足够支撑。见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节。"
    },
    "review": {
     "yilei": "pending",
-    "hz": "pending"
+    "hz": "reviewed"
    }
   },
   {
@@ -951,8 +967,8 @@
    ],
    "result": "从手中放出来",
    "hz": {
-    "c": "释",
-    "note": "釆＋尺。\"释\"本义就是\"解开、放下\"，和 e- 的\"放出来\"同构"
+    "c": "挣",
+    "note": "扌＋争，\"挣脱\"。手义类取扌部的字；e- 表\"放出来\""
    },
    "story": "拉丁 <b>e-</b>（出来）加 <b>mancipium</b>（占有物，来自 manus 手）。字面是\"从手里放出来\"。古罗马解放奴隶用的就是这个词——把孩子从家长权里\"放出\"。manus 在这里从\"手\"引申成了\"掌握、所有权\"。",
    "rel": [
@@ -964,17 +980,19 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
+    "zh_note": "字形构成照字面列出（如 氵＋巨＋木），未引《说文》等字源文献逐字求证 —— 这是 2026-10-08 Issue #25 定的口径：大量现代简化字在《说文》里查不到，文献级求证成本高、多半得不到结论；而卡面要教的是中英两边共用同一套义符机制，字形构成足够支撑。见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节。"
    },
    "review": {
     "yilei": "pending",
-    "hz": "pending",
+    "hz": "reviewed",
     "hz_finding": {
      "tag": "乙-2",
      "kind": "部首不对",
-     "demo_value": "释",
-     "reviewed_value": "挣（扌＋争）",
+     "before": "释",
+     "after": "挣（扌＋争）",
      "why": "释无扌",
+     "status": "fixed",
+     "fixed_in": "docs/index.html 的 const DATA（2026-10-08，Issue #25）",
      "source": "data/cards_zh_review.md（本仓库内；原为参赛工作目录 01_对照测试/复核记录.md）"
     }
    }
@@ -1011,11 +1029,11 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
+    "zh_note": "字形构成照字面列出（如 氵＋巨＋木），未引《说文》等字源文献逐字求证 —— 这是 2026-10-08 Issue #25 定的口径：大量现代简化字在《说文》里查不到，文献级求证成本高、多半得不到结论；而卡面要教的是中英两边共用同一套义符机制，字形构成足够支撑。见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节。"
    },
    "review": {
     "yilei": "pending",
-    "hz": "pending"
+    "hz": "reviewed"
    }
   },
   {
@@ -1037,8 +1055,8 @@
    ],
    "result": "手写的痕迹",
    "hz": {
-    "c": "迹",
-    "note": "辶＋亦。\"笔迹\"的\"迹\"是痕迹，字面就是手的痕迹"
+    "c": "描",
+    "note": "扌＋苗。手义类取扌部的字；英语 chiro（手）＋graphy（写）"
    },
    "story": "<b>chiro</b>（手）加 <b>graphy</b>（写）。和 manuscript 说的是同一件事——手写的——只是 chirography 走希腊路线，manuscript 走拉丁路线。汉语的\"笔迹\"用的却是\"迹\"，强调的是留下的印子。",
    "rel": [
@@ -1050,17 +1068,19 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
+    "zh_note": "字形构成照字面列出（如 氵＋巨＋木），未引《说文》等字源文献逐字求证 —— 这是 2026-10-08 Issue #25 定的口径：大量现代简化字在《说文》里查不到，文献级求证成本高、多半得不到结论；而卡面要教的是中英两边共用同一套义符机制，字形构成足够支撑。见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节。"
    },
    "review": {
     "yilei": "pending",
-    "hz": "pending",
+    "hz": "reviewed",
     "hz_finding": {
      "tag": "乙-2",
      "kind": "部首不对",
-     "demo_value": "迹",
-     "reviewed_value": "描（扌＋苗）",
+     "before": "迹",
+     "after": "描（扌＋苗）",
      "why": "迹＝辶＋亦，无扌",
+     "status": "fixed",
+     "fixed_in": "docs/index.html 的 const DATA（2026-10-08，Issue #25）",
      "source": "data/cards_zh_review.md（本仓库内；原为参赛工作目录 01_对照测试/复核记录.md）"
     }
    }
@@ -1101,11 +1121,12 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
+    "zh_note": "字形构成照字面列出（如 氵＋巨＋木），未引《说文》等字源文献逐字求证 —— 这是 2026-10-08 Issue #25 定的口径：大量现代简化字在《说文》里查不到，文献级求证成本高、多半得不到结论；而卡面要教的是中英两边共用同一套义符机制，字形构成足够支撑。见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节。"
    },
    "review": {
     "yilei": "pending",
-    "hz": "pending"
+    "hz": "pending",
+    "hz_note": "汉语侧未经复核（本轮复核只覆盖 A 组的 18 张卡，本词不在其中）"
    }
   },
   {
@@ -1140,11 +1161,12 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
+    "zh_note": "字形构成照字面列出（如 氵＋巨＋木），未引《说文》等字源文献逐字求证 —— 这是 2026-10-08 Issue #25 定的口径：大量现代简化字在《说文》里查不到，文献级求证成本高、多半得不到结论；而卡面要教的是中英两边共用同一套义符机制，字形构成足够支撑。见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节。"
    },
    "review": {
     "yilei": "pending",
-    "hz": "pending"
+    "hz": "pending",
+    "hz_note": "汉语侧未经复核（本轮复核只覆盖 A 组的 18 张卡，本词不在其中）"
    }
   },
   {
@@ -1180,11 +1202,12 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
+    "zh_note": "字形构成照字面列出（如 氵＋巨＋木），未引《说文》等字源文献逐字求证 —— 这是 2026-10-08 Issue #25 定的口径：大量现代简化字在《说文》里查不到，文献级求证成本高、多半得不到结论；而卡面要教的是中英两边共用同一套义符机制，字形构成足够支撑。见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节。"
    },
    "review": {
     "yilei": "pending",
-    "hz": "pending"
+    "hz": "pending",
+    "hz_note": "汉语侧未经复核（本轮复核只覆盖 A 组的 18 张卡，本词不在其中）"
    }
   },
   {
@@ -1220,11 +1243,11 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
+    "zh_note": "字形构成照字面列出（如 氵＋巨＋木），未引《说文》等字源文献逐字求证 —— 这是 2026-10-08 Issue #25 定的口径：大量现代简化字在《说文》里查不到，文献级求证成本高、多半得不到结论；而卡面要教的是中英两边共用同一套义符机制，字形构成足够支撑。见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节。"
    },
    "review": {
     "yilei": "pending",
-    "hz": "pending"
+    "hz": "reviewed"
    }
   },
   {
@@ -1260,11 +1283,12 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
+    "zh_note": "字形构成照字面列出（如 氵＋巨＋木），未引《说文》等字源文献逐字求证 —— 这是 2026-10-08 Issue #25 定的口径：大量现代简化字在《说文》里查不到，文献级求证成本高、多半得不到结论；而卡面要教的是中英两边共用同一套义符机制，字形构成足够支撑。见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节。"
    },
    "review": {
     "yilei": "pending",
-    "hz": "pending"
+    "hz": "pending",
+    "hz_note": "汉语侧未经复核（本轮复核只覆盖 A 组的 18 张卡，本词不在其中）"
    }
   },
   {
@@ -1286,8 +1310,8 @@
    ],
    "result": "心朝着同一个方向",
    "hz": {
-    "c": "契",
-    "note": "汉语的\"契合\"说的是两块玉的齿口对上，英语说的是两颗心对上"
+    "c": "恰",
+    "note": "忄＋合。心义类取含心的字；英语 ac-＋cor（心）"
    },
    "story": "<b>ac-</b>（朝着）加 <b>cord</b>（心）。字面是\"心往一处去\"。所以达成 accord 就是达成\"同心\"。同族的 concord（和睦）是 con-（共同）加 cord，discord（不和）是 dis-（分开）加 cord——三个词只差一个前缀，全靠\"心\"在中间。",
    "rel": [
@@ -1301,17 +1325,19 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
+    "zh_note": "字形构成照字面列出（如 氵＋巨＋木），未引《说文》等字源文献逐字求证 —— 这是 2026-10-08 Issue #25 定的口径：大量现代简化字在《说文》里查不到，文献级求证成本高、多半得不到结论；而卡面要教的是中英两边共用同一套义符机制，字形构成足够支撑。见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节。"
    },
    "review": {
     "yilei": "pending",
-    "hz": "pending",
+    "hz": "reviewed",
     "hz_finding": {
      "tag": "乙-2",
      "kind": "部首不对",
-     "demo_value": "契",
-     "reviewed_value": "恰（忄＋合）",
+     "before": "契",
+     "after": "恰（忄＋合）",
      "why": "契无心；心义类应取含心（忄／心）的字",
+     "status": "fixed",
+     "fixed_in": "docs/index.html 的 const DATA（2026-10-08，Issue #25）",
      "source": "data/cards_zh_review.md（本仓库内；原为参赛工作目录 01_对照测试/复核记录.md）"
     }
    }
@@ -1335,8 +1361,8 @@
    ],
    "result": "心分开了",
    "hz": {
-    "c": "隙",
-    "note": "汉语说\"有嫌隙\"，是裂开了一道缝；英语说\"心分开了\""
+    "c": "悖",
+    "note": "忄＋孛。心义类取含心的字；英语 dis-（分开）＋cor（心）"
    },
    "story": "<b>dis-</b>（分开）加 <b>cord</b>（心）——心分开了，就是不和。音乐里的 discord 是\"不协和音\"，同样形容\"合不到一起\"。和 accord、concord 摆在一起看，cord 这根\"心\"是多清楚。",
    "rel": [
@@ -1349,17 +1375,19 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
+    "zh_note": "字形构成照字面列出（如 氵＋巨＋木），未引《说文》等字源文献逐字求证 —— 这是 2026-10-08 Issue #25 定的口径：大量现代简化字在《说文》里查不到，文献级求证成本高、多半得不到结论；而卡面要教的是中英两边共用同一套义符机制，字形构成足够支撑。见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节。"
    },
    "review": {
     "yilei": "pending",
-    "hz": "pending",
+    "hz": "reviewed",
     "hz_finding": {
      "tag": "乙-2",
      "kind": "部首不对",
-     "demo_value": "隙",
-     "reviewed_value": "悖（忄＋孛）",
+     "before": "隙",
+     "after": "悖（忄＋孛）",
      "why": "隙无心",
+     "status": "fixed",
+     "fixed_in": "docs/index.html 的 const DATA（2026-10-08，Issue #25）",
      "source": "data/cards_zh_review.md（本仓库内；原为参赛工作目录 01_对照测试/复核记录.md）"
     }
    }
@@ -1383,8 +1411,8 @@
    ],
    "result": "心在一起",
    "hz": {
-    "c": "和",
-    "note": "禾＋口，本义是声音相和，引申为和睦"
+    "c": "怡",
+    "note": "忄＋台。心义类取含心的字；英语 con-（共同）＋cor（心）"
    },
    "story": "<b>con-</b>（共同）加 <b>cord</b>（心）。accord、concord、discord 这三个词是同一根\"心\"上长出来的三根枝：朝着同一个方向、在一起、分开。记住 cord 是心，这三个词一次全收。",
    "rel": [
@@ -1397,17 +1425,19 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
+    "zh_note": "字形构成照字面列出（如 氵＋巨＋木），未引《说文》等字源文献逐字求证 —— 这是 2026-10-08 Issue #25 定的口径：大量现代简化字在《说文》里查不到，文献级求证成本高、多半得不到结论；而卡面要教的是中英两边共用同一套义符机制，字形构成足够支撑。见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节。"
    },
    "review": {
     "yilei": "pending",
-    "hz": "pending",
+    "hz": "reviewed",
     "hz_finding": {
      "tag": "乙-2",
      "kind": "部首不对",
-     "demo_value": "和",
-     "reviewed_value": "怡（忄＋台）",
+     "before": "和",
+     "after": "怡（忄＋台）",
      "why": "和＝禾＋口，无心",
+     "status": "fixed",
+     "fixed_in": "docs/index.html 的 const DATA（2026-10-08，Issue #25）",
      "source": "data/cards_zh_review.md（本仓库内；原为参赛工作目录 01_对照测试/复核记录.md）"
     }
    }
@@ -1444,11 +1474,12 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
+    "zh_note": "字形构成照字面列出（如 氵＋巨＋木），未引《说文》等字源文献逐字求证 —— 这是 2026-10-08 Issue #25 定的口径：大量现代简化字在《说文》里查不到，文献级求证成本高、多半得不到结论；而卡面要教的是中英两边共用同一套义符机制，字形构成足够支撑。见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节。"
    },
    "review": {
     "yilei": "pending",
-    "hz": "pending"
+    "hz": "pending",
+    "hz_note": "汉语侧未经复核（本轮复核只覆盖 A 组的 18 张卡，本词不在其中）"
    }
   },
   {
@@ -1474,8 +1505,8 @@
    ],
    "result": "治疗心灵的人",
    "hz": {
-    "c": "疗",
-    "note": "病字旁。汉语把\"治病\"归到\"病\"这个义类，英语把它归到 iatros（医者）"
+    "c": "愈",
+    "note": "俞＋心。心义类取含心的字；\"病好了\"叫愈，对应 iatros（医者）"
    },
    "story": "希腊 <b>iatros</b> 是\"医生\"。所以 psychiatrist 的中间一段是\"治疗\"。同族有 pediatrics（儿科，pais 儿童加 iatros）——注意这里的 ped- 是\"儿童\"那个 ped-，不是\"脚\"那个（见规划书第二章的假同源陷阱）。",
    "rel": [
@@ -1487,17 +1518,19 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
+    "zh_note": "字形构成照字面列出（如 氵＋巨＋木），未引《说文》等字源文献逐字求证 —— 这是 2026-10-08 Issue #25 定的口径：大量现代简化字在《说文》里查不到，文献级求证成本高、多半得不到结论；而卡面要教的是中英两边共用同一套义符机制，字形构成足够支撑。见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节。"
    },
    "review": {
     "yilei": "pending",
-    "hz": "pending",
+    "hz": "reviewed",
     "hz_finding": {
      "tag": "乙-2",
      "kind": "部首不对",
-     "demo_value": "疗",
-     "reviewed_value": "愈（俞＋心）",
+     "before": "疗",
+     "after": "愈（俞＋心）",
      "why": "疗＝疒＋了，是病字旁（属「医」义类，不属「心」）；心组六张里只有它带疒，平行关系断在这里",
+     "status": "fixed",
+     "fixed_in": "docs/index.html 的 const DATA（2026-10-08，Issue #25）",
      "source": "data/cards_zh_review.md（本仓库内；原为参赛工作目录 01_对照测试/复核记录.md）"
     }
    }
@@ -1534,11 +1567,12 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
+    "zh_note": "字形构成照字面列出（如 氵＋巨＋木），未引《说文》等字源文献逐字求证 —— 这是 2026-10-08 Issue #25 定的口径：大量现代简化字在《说文》里查不到，文献级求证成本高、多半得不到结论；而卡面要教的是中英两边共用同一套义符机制，字形构成足够支撑。见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节。"
    },
    "review": {
     "yilei": "pending",
-    "hz": "pending"
+    "hz": "pending",
+    "hz_note": "汉语侧未经复核（本轮复核只覆盖 A 组的 18 张卡，本词不在其中）"
    }
   },
   {
@@ -1573,110 +1607,123 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
+    "zh_note": "字形构成照字面列出（如 氵＋巨＋木），未引《说文》等字源文献逐字求证 —— 这是 2026-10-08 Issue #25 定的口径：大量现代简化字在《说文》里查不到，文献级求证成本高、多半得不到结论；而卡面要教的是中英两边共用同一套义符机制，字形构成足够支撑。见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节。"
    },
    "review": {
     "yilei": "pending",
-    "hz": "pending"
+    "hz": "reviewed"
    }
   }
  ],
  "known_issues": [
   {
-   "scope": "汉语侧（hz 字段），仅覆盖 30 词中的 18 个",
-   "what": "有一轮人工复核查出 11 处汉语侧问题（字形拆解写错 1、部首与义类不符 9、表述含混 1），逐条列在下面。该轮记录**已入库**：data/cards_zh_review.md（原为参赛工作目录 01_对照测试/复核记录.md）。⚠️ 记录的对象是 `A组_义符卡.html` 的 18 张卡 —— 实测这些词**都在这 30 词之内**，所以本文件这 11 条就是记录「乙」节里落在本文件上的全部；记录「甲」节另有机器义类候选的裁决 4 条，那批属义类字段、不属 hz，故未列入下面。",
-   "why_not_fixed_here": "本卡的范围是「搬运 + 如实标注」，不改 docs/index.html；且出处口径与这 11 处该怎么改，按 Issue #25 要由项目方裁决，认领者不拍板。故 30 词的 hz 一律标 pending，已知的 11 处逐条列在下面，由项目方裁决。",
-   "unreviewed": "30 词里另有 12 个（aquarium aquatic hydrogen marine manual manufacture surgeon manage courage record psychology sympathy）**汉语侧从未被复核过**；复核过的那 18 个里就有 9 个部首不对，这 12 个不能假定没问题。",
-   "items": [
+   "status": "decided —— 2026-10-08 由项目方裁定（Issue #25）",
+   "scope": "汉语侧（hz 字段）：30 词中 18 词经人工复核，另 12 词未经复核",
+   "decision_zh_source": "接受「字形构成」口径：卡面只列字形拆解（如 氵＋巨＋木），不声称「本义出自某书」，不引《说文》等字源文献。理由：大量现代简化字在《说文》里查不到，文献级求证成本高、多半得不到结论；而卡面要教的是中英两边共用同一套义符机制，字形构成足够支撑。若日后要升级到文献口径，另立卡。",
+   "decision_fixes": "复核记录的 11 处已裁决并**全部修正**。改的是 docs/index.html 的 const DATA —— 本文件的 hz 逐字取自它，只改本文件会让演示页与卡片不一致；改完 DATA 再重生成本文件。修正后水义类一律氵、手义类一律扌、心义类一律含心，平行关系齐了。逐条见 resolved_items（status=fixed）。",
+   "resolved_items": [
     {
      "w": "aqueduct",
      "tag": "乙-1",
      "kind": "字形拆解写错",
-     "demo_value": "渠（氵＋矩）",
-     "reviewed_value": "渠（氵＋巨＋木）",
-     "why": "渠的字形是 氵＋巨（声旁）＋木，没有「矩」这个成分"
+     "before": "渠（氵＋矩）",
+     "after": "渠（氵＋巨＋木）",
+     "why": "渠的字形是 氵＋巨（声旁）＋木，没有「矩」这个成分",
+     "status": "fixed"
     },
     {
      "w": "aquamarine",
      "tag": "乙-2",
      "kind": "部首不对",
-     "demo_value": "蓝",
-     "reviewed_value": "海（氵＋每）",
-     "why": "蓝＝艹＋监，无氵；水义类应取氵部的字"
+     "before": "蓝",
+     "after": "海（氵＋每）",
+     "why": "蓝＝艹＋监，无氵；水义类应取氵部的字",
+     "status": "fixed"
     },
     {
      "w": "dehydrate",
      "tag": "乙-2",
      "kind": "部首不对",
-     "demo_value": "干",
-     "reviewed_value": "涸（氵＋固）",
-     "why": "干无氵；「水干」就叫涸"
+     "before": "干",
+     "after": "涸（氵＋固）",
+     "why": "干无氵；「水干」就叫涸",
+     "status": "fixed"
     },
     {
      "w": "manuscript",
      "tag": "乙-2",
      "kind": "部首不对",
-     "demo_value": "稿",
-     "reviewed_value": "抄（扌＋少）",
-     "why": "稿＝禾＋高，无扌；手义类应取扌部的字"
+     "before": "稿",
+     "after": "抄（扌＋少）",
+     "why": "稿＝禾＋高，无扌；手义类应取扌部的字",
+     "status": "fixed"
     },
     {
      "w": "emancipate",
      "tag": "乙-2",
      "kind": "部首不对",
-     "demo_value": "释",
-     "reviewed_value": "挣（扌＋争）",
-     "why": "释无扌"
+     "before": "释",
+     "after": "挣（扌＋争）",
+     "why": "释无扌",
+     "status": "fixed"
     },
     {
      "w": "chirography",
      "tag": "乙-2",
      "kind": "部首不对",
-     "demo_value": "迹",
-     "reviewed_value": "描（扌＋苗）",
-     "why": "迹＝辶＋亦，无扌"
+     "before": "迹",
+     "after": "描（扌＋苗）",
+     "why": "迹＝辶＋亦，无扌",
+     "status": "fixed"
     },
     {
      "w": "accord",
      "tag": "乙-2",
      "kind": "部首不对",
-     "demo_value": "契",
-     "reviewed_value": "恰（忄＋合）",
-     "why": "契无心；心义类应取含心（忄／心）的字"
+     "before": "契",
+     "after": "恰（忄＋合）",
+     "why": "契无心；心义类应取含心（忄／心）的字",
+     "status": "fixed"
     },
     {
      "w": "discord",
      "tag": "乙-2",
      "kind": "部首不对",
-     "demo_value": "隙",
-     "reviewed_value": "悖（忄＋孛）",
-     "why": "隙无心"
+     "before": "隙",
+     "after": "悖（忄＋孛）",
+     "why": "隙无心",
+     "status": "fixed"
     },
     {
      "w": "concord",
      "tag": "乙-2",
      "kind": "部首不对",
-     "demo_value": "和",
-     "reviewed_value": "怡（忄＋台）",
-     "why": "和＝禾＋口，无心"
+     "before": "和",
+     "after": "怡（忄＋台）",
+     "why": "和＝禾＋口，无心",
+     "status": "fixed"
     },
     {
      "w": "psychiatrist",
      "tag": "乙-2",
      "kind": "部首不对",
-     "demo_value": "疗",
-     "reviewed_value": "愈（俞＋心）",
-     "why": "疗＝疒＋了，是病字旁（属「医」义类，不属「心」）；心组六张里只有它带疒，平行关系断在这里"
+     "before": "疗",
+     "after": "愈（俞＋心）",
+     "why": "疗＝疒＋了，是病字旁（属「医」义类，不属「心」）；心组六张里只有它带疒，平行关系断在这里",
+     "status": "fixed"
     },
     {
      "w": "submarine",
      "tag": "乙-3",
      "kind": "表述含混（非错误）",
-     "demo_value": "潜（氵＋替的声符）",
-     "reviewed_value": "潜（氵＋替）",
-     "why": "没说清是什么"
+     "before": "潜（氵＋替的声符）",
+     "after": "潜（氵＋替）",
+     "why": "没说清是什么",
+     "status": "fixed"
     }
-   ]
+   ],
+   "not_in_scope": "复核记录「甲」节另有机器义类候选的裁决 4 条，那批属义类字段、不属 hz，故未列入本表。",
+   "unreviewed": "30 词里另有 12 个（aquarium aquatic hydrogen marine manual manufacture surgeon manage courage record psychology sympathy）**汉语侧从未被复核过**；复核过的那 18 个里就有 9 个部首不对，这 12 个不能假定没问题。它们每张卡的 review.hz 仍是 pending，含义是「未经复核」。"
   }
  ]
 }
