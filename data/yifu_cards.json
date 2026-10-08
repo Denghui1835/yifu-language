@@ -6,6 +6,7 @@
   "demo": "docs/index.html 的 const DATA（阶段零演示，3 义类 × 10 词）",
   "en_raw": "data/etym_raw/<词>.html（kaikki.org 抓取切片，每词一个文件）",
   "en_audit": "data/demo_etym_audit.md（30 词英语侧逐条核对，29/30 与维基词典一致，修正 2 处）",
+  "zh_review": "data/cards_zh_review.md（18 张 A 组卡的人工复核记录：机器候选误判逐条裁决 + 汉语义符 11 处发现 + 如实记「未做的复核」；原为参赛工作目录 01_对照测试/复核记录.md，Issue #31 入库）",
   "zh": "pending —— 尚无字源文献级出处"
  },
  "yilei": [
@@ -306,7 +307,7 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
    },
    "review": {
     "yilei": "pending",
@@ -345,7 +346,7 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
    },
    "review": {
     "yilei": "pending",
@@ -385,7 +386,7 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
    },
    "review": {
     "yilei": "pending",
@@ -396,7 +397,7 @@
      "demo_value": "渠（氵＋矩）",
      "reviewed_value": "渠（氵＋巨＋木）",
      "why": "渠的字形是 氵＋巨（声旁）＋木，没有「矩」这个成分",
-     "source": "参赛工作目录 01_对照测试/复核记录.md（不在本仓库内）"
+     "source": "data/cards_zh_review.md（本仓库内；原为参赛工作目录 01_对照测试/复核记录.md）"
     }
    }
   },
@@ -433,7 +434,7 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues",
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues",
     "en_note": "同 hydrogen，复核修正 1 处（表述不严），演示正文已改。"
    },
    "review": {
@@ -474,7 +475,7 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues",
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues",
     "en_note": "复核修正 1 处（表述不严）：原演示把氢的希腊词根一律归到「文艺复兴时期」，已改为「到近代给新发现的东西命名时用希腊词根几乎成了规矩（hydrogen 是 1783 年拉瓦西造的）」。"
    },
    "review": {
@@ -518,7 +519,7 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
    },
    "review": {
     "yilei": "pending",
@@ -529,7 +530,7 @@
      "demo_value": "干",
      "reviewed_value": "涸（氵＋固）",
      "why": "干无氵；「水干」就叫涸",
-     "source": "参赛工作目录 01_对照测试/复核记录.md（不在本仓库内）"
+     "source": "data/cards_zh_review.md（本仓库内；原为参赛工作目录 01_对照测试/复核记录.md）"
     }
    }
   },
@@ -566,7 +567,7 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
    },
    "review": {
     "yilei": "pending",
@@ -605,7 +606,7 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues",
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues",
     "en_note": "复核修正 1 处：原演示说 maritime「没经过法语」，实为经中古法语（Borrowed from Middle French maritime）。演示正文已改，本条与 kaikki 一致。"
    },
    "review": {
@@ -650,7 +651,7 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
    },
    "review": {
     "yilei": "pending",
@@ -661,7 +662,7 @@
      "demo_value": "潜（氵＋替的声符）",
      "reviewed_value": "潜（氵＋替）",
      "why": "没说清是什么",
-     "source": "参赛工作目录 01_对照测试/复核记录.md（不在本仓库内）"
+     "source": "data/cards_zh_review.md（本仓库内；原为参赛工作目录 01_对照测试/复核记录.md）"
     }
    }
   },
@@ -697,7 +698,7 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
    },
    "review": {
     "yilei": "pending",
@@ -708,7 +709,7 @@
      "demo_value": "蓝",
      "reviewed_value": "海（氵＋每）",
      "why": "蓝＝艹＋监，无氵；水义类应取氵部的字",
-     "source": "参赛工作目录 01_对照测试/复核记录.md（不在本仓库内）"
+     "source": "data/cards_zh_review.md（本仓库内；原为参赛工作目录 01_对照测试/复核记录.md）"
     }
    }
   },
@@ -745,7 +746,7 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
    },
    "review": {
     "yilei": "pending",
@@ -790,7 +791,7 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
    },
    "review": {
     "yilei": "pending",
@@ -830,7 +831,7 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
    },
    "review": {
     "yilei": "pending",
@@ -841,7 +842,7 @@
      "demo_value": "稿",
      "reviewed_value": "抄（扌＋少）",
      "why": "稿＝禾＋高，无扌；手义类应取扌部的字",
-     "source": "参赛工作目录 01_对照测试/复核记录.md（不在本仓库内）"
+     "source": "data/cards_zh_review.md（本仓库内；原为参赛工作目录 01_对照测试/复核记录.md）"
     }
    }
   },
@@ -877,7 +878,7 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
    },
    "review": {
     "yilei": "pending",
@@ -920,7 +921,7 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
    },
    "review": {
     "yilei": "pending",
@@ -963,7 +964,7 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
    },
    "review": {
     "yilei": "pending",
@@ -974,7 +975,7 @@
      "demo_value": "释",
      "reviewed_value": "挣（扌＋争）",
      "why": "释无扌",
-     "source": "参赛工作目录 01_对照测试/复核记录.md（不在本仓库内）"
+     "source": "data/cards_zh_review.md（本仓库内；原为参赛工作目录 01_对照测试/复核记录.md）"
     }
    }
   },
@@ -1010,7 +1011,7 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
    },
    "review": {
     "yilei": "pending",
@@ -1049,7 +1050,7 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
    },
    "review": {
     "yilei": "pending",
@@ -1060,7 +1061,7 @@
      "demo_value": "迹",
      "reviewed_value": "描（扌＋苗）",
      "why": "迹＝辶＋亦，无扌",
-     "source": "参赛工作目录 01_对照测试/复核记录.md（不在本仓库内）"
+     "source": "data/cards_zh_review.md（本仓库内；原为参赛工作目录 01_对照测试/复核记录.md）"
     }
    }
   },
@@ -1100,7 +1101,7 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
    },
    "review": {
     "yilei": "pending",
@@ -1139,7 +1140,7 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
    },
    "review": {
     "yilei": "pending",
@@ -1179,7 +1180,7 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
    },
    "review": {
     "yilei": "pending",
@@ -1219,7 +1220,7 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
    },
    "review": {
     "yilei": "pending",
@@ -1259,7 +1260,7 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
    },
    "review": {
     "yilei": "pending",
@@ -1300,7 +1301,7 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
    },
    "review": {
     "yilei": "pending",
@@ -1311,7 +1312,7 @@
      "demo_value": "契",
      "reviewed_value": "恰（忄＋合）",
      "why": "契无心；心义类应取含心（忄／心）的字",
-     "source": "参赛工作目录 01_对照测试/复核记录.md（不在本仓库内）"
+     "source": "data/cards_zh_review.md（本仓库内；原为参赛工作目录 01_对照测试/复核记录.md）"
     }
    }
   },
@@ -1348,7 +1349,7 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
    },
    "review": {
     "yilei": "pending",
@@ -1359,7 +1360,7 @@
      "demo_value": "隙",
      "reviewed_value": "悖（忄＋孛）",
      "why": "隙无心",
-     "source": "参赛工作目录 01_对照测试/复核记录.md（不在本仓库内）"
+     "source": "data/cards_zh_review.md（本仓库内；原为参赛工作目录 01_对照测试/复核记录.md）"
     }
    }
   },
@@ -1396,7 +1397,7 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
    },
    "review": {
     "yilei": "pending",
@@ -1407,7 +1408,7 @@
      "demo_value": "和",
      "reviewed_value": "怡（忄＋台）",
      "why": "和＝禾＋口，无心",
-     "source": "参赛工作目录 01_对照测试/复核记录.md（不在本仓库内）"
+     "source": "data/cards_zh_review.md（本仓库内；原为参赛工作目录 01_对照测试/复核记录.md）"
     }
    }
   },
@@ -1443,7 +1444,7 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
    },
    "review": {
     "yilei": "pending",
@@ -1486,7 +1487,7 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
    },
    "review": {
     "yilei": "pending",
@@ -1497,7 +1498,7 @@
      "demo_value": "疗",
      "reviewed_value": "愈（俞＋心）",
      "why": "疗＝疒＋了，是病字旁（属「医」义类，不属「心」）；心组六张里只有它带疒，平行关系断在这里",
-     "source": "参赛工作目录 01_对照测试/复核记录.md（不在本仓库内）"
+     "source": "data/cards_zh_review.md（本仓库内；原为参赛工作目录 01_对照测试/复核记录.md）"
     }
    }
   },
@@ -1533,7 +1534,7 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
    },
    "review": {
     "yilei": "pending",
@@ -1572,7 +1573,7 @@
     "en_audit": "data/demo_etym_audit.md",
     "en_status": "reviewed",
     "zh": "pending",
-    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节与 known_issues"
+    "zh_note": "字形构成照字面列出，未引《说文》等字源文献逐字求证 —— 见 data/demo_etym_audit.md 末节、data/cards_zh_review.md 的「丙」节与 known_issues"
    },
    "review": {
     "yilei": "pending",
@@ -1583,8 +1584,8 @@
  "known_issues": [
   {
    "scope": "汉语侧（hz 字段），仅覆盖 30 词中的 18 个",
-   "what": "有一轮人工复核对其中 18 个词做过「义类 ↔ 汉语义符部首是否对得上」的检查，发现 11 处问题（字形拆解写错 1、部首与义类不符 9、表述含混 1）。该轮记录在参赛工作目录 01_对照测试/复核记录.md，**不在本仓库内**。",
-   "why_not_fixed_here": "本卡的范围是「搬运 + 如实标注」，不改 docs/index.html；且该记录不在仓库里，本文件不宜把它当已入库证据。故 30 词的 hz 一律标 pending，已知的 11 处逐条列在下面，由项目方裁决。",
+   "what": "有一轮人工复核查出 11 处汉语侧问题（字形拆解写错 1、部首与义类不符 9、表述含混 1），逐条列在下面。该轮记录**已入库**：data/cards_zh_review.md（原为参赛工作目录 01_对照测试/复核记录.md）。⚠️ 记录的对象是 `A组_义符卡.html` 的 18 张卡 —— 实测这些词**都在这 30 词之内**，所以本文件这 11 条就是记录「乙」节里落在本文件上的全部；记录「甲」节另有机器义类候选的裁决 4 条，那批属义类字段、不属 hz，故未列入下面。",
+   "why_not_fixed_here": "本卡的范围是「搬运 + 如实标注」，不改 docs/index.html；且出处口径与这 11 处该怎么改，按 Issue #25 要由项目方裁决，认领者不拍板。故 30 词的 hz 一律标 pending，已知的 11 处逐条列在下面，由项目方裁决。",
    "unreviewed": "30 词里另有 12 个（aquarium aquatic hydrogen marine manual manufacture surgeon manage courage record psychology sympathy）**汉语侧从未被复核过**；复核过的那 18 个里就有 9 个部首不对，这 12 个不能假定没问题。",
    "items": [
     {

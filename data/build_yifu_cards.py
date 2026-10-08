@@ -26,6 +26,8 @@ r"""义符 · 卡片内容层生成器 —— 由 docs/index.html 的 const DATA
   * `review`     —— 义类归属与汉语侧的复核状态（拿不准一律 pending，不猜）；
   * `known_issues` —— 汉语侧已发现但未裁决的问题（`KNOWN` 表）。
 `KNOWN` 与 `EN_NOTE` 两张表是**内容来源**，所以随脚本一起入库 —— 它们原先只存在于作者本机。
+汉语侧那份复核记录**全文**也已入库（`data/cards_zh_review.md`，Issue #31）——
+`KNOWN` 里每条的 `source` 指的就是它。
 """
 import io, os, re, sys, json, datetime
 
@@ -34,8 +36,9 @@ SRC = os.path.join(HERE, '..', 'docs', 'index.html')
 OUT = os.path.join(HERE, 'yifu_cards.json')
 
 EN_AUDIT = 'data/demo_etym_audit.md'
+ZH_REVIEW = 'data/cards_zh_review.md'
 ZH_NOTE = ('字形构成照字面列出，未引《说文》等字源文献逐字求证 —— '
-           '见 data/demo_etym_audit.md 末节与 known_issues')
+           '见 data/demo_etym_audit.md 末节、' + ZH_REVIEW + ' 的「丙」节与 known_issues')
 
 NOTE = ('义符卡内容层。字段结构照 docs/index.html 的 const DATA（阶段零演示 30 词），'
         '词条内容逐字取自该文件，未改写。每词带 provenance 指向词源出处；'
@@ -48,10 +51,14 @@ SOURCES = {
     'demo': 'docs/index.html 的 const DATA（阶段零演示，3 义类 × 10 词）',
     'en_raw': 'data/etym_raw/<词>.html（kaikki.org 抓取切片，每词一个文件）',
     'en_audit': EN_AUDIT + '（30 词英语侧逐条核对，29/30 与维基词典一致，修正 2 处）',
+    'zh_review': ZH_REVIEW + '（18 张 A 组卡的人工复核记录：机器候选误判逐条裁决 + '
+                 '汉语义符 11 处发现 + 如实记「未做的复核」；原为参赛工作目录 '
+                 '01_对照测试/复核记录.md，Issue #31 入库）',
     'zh': 'pending —— 尚无字源文献级出处',
 }
 
-# 汉语侧人工复核的发现（参赛工作目录 01_对照测试/复核记录.md，不在本仓库内）
+# 汉语侧人工复核的发现，出自 data/cards_zh_review.md（Issue #31 入库，
+# 原为参赛工作目录 01_对照测试/复核记录.md）的「乙」节
 # 乙-1 字形拆解写错 1 处 · 乙-2 拿的字不带该义类的部首 9 处 · 乙-3 表述含混 1 处（非错误）
 KNOWN = [
     ('aqueduct', '乙-1', '字形拆解写错', '渠（氵＋矩）', '渠（氵＋巨＋木）',
@@ -203,7 +210,7 @@ def build(data, today):
                 _, tag, kind, old, new, why = KNOWN_BY_W[w]
                 review['hz_finding'] = {
                     'tag': tag, 'kind': kind, 'demo_value': old, 'reviewed_value': new, 'why': why,
-                    'source': '参赛工作目录 01_对照测试/复核记录.md（不在本仓库内）',
+                    'source': ZH_REVIEW + '（本仓库内；原为参赛工作目录 01_对照测试/复核记录.md）',
                 }
             cards.append({'w': w, 'yilei': blk['name'], 'yilei_key': key,
                           'ipa': c['ipa'], 'root': c['root'], 'mean': c['mean'],
@@ -219,11 +226,15 @@ def build(data, today):
         'cards': cards,
         'known_issues': [{
             'scope': '汉语侧（hz 字段），仅覆盖 30 词中的 18 个',
-            'what': ('有一轮人工复核对其中 18 个词做过「义类 ↔ 汉语义符部首是否对得上」的检查，'
-                     '发现 11 处问题（字形拆解写错 1、部首与义类不符 9、表述含混 1）。'
-                     '该轮记录在参赛工作目录 01_对照测试/复核记录.md，**不在本仓库内**。'),
+            'what': ('有一轮人工复核查出 11 处汉语侧问题（字形拆解写错 1、部首与义类不符 9、'
+                     '表述含混 1），逐条列在下面。该轮记录**已入库**：' + ZH_REVIEW +
+                     '（原为参赛工作目录 01_对照测试/复核记录.md）。'
+                     '⚠️ 记录的对象是 `A组_义符卡.html` 的 18 张卡 —— 实测这些词**都在这 30 词之内**，'
+                     '所以本文件这 11 条就是记录「乙」节里落在本文件上的全部；'
+                     '记录「甲」节另有机器义类候选的裁决 4 条，那批属义类字段、不属 hz，故未列入下面。'),
             'why_not_fixed_here': ('本卡的范围是「搬运 + 如实标注」，不改 docs/index.html；'
-                                   '且该记录不在仓库里，本文件不宜把它当已入库证据。'
+                                   '且出处口径与这 11 处该怎么改，按 Issue #25 要由项目方裁决，'
+                                   '认领者不拍板。'
                                    '故 30 词的 hz 一律标 pending，已知的 11 处逐条列在下面，由项目方裁决。'),
             'unreviewed': ('30 词里另有 12 个（aquarium aquatic hydrogen marine manual manufacture '
                            'surgeon manage courage record psychology sympathy）**汉语侧从未被复核过**；'
