@@ -86,6 +86,17 @@ def main():
         ip = line.find('[')
         if ip >= 0:
             head, tail = line[:ip], line[ip:]
+            # ★ 源件有个别行的音标段没收尾（缺 ']'）。全表 3896 行**只有一处**：
+            #     weatherman ['weath·er·man || n.气象员,预报天气的人
+            #   对照写法正常的 offence[of·fence || ə'fens] 可知，'||' 是
+            #   「点分形式 || 真音标」的分隔符 —— 这行 '||' 后面那半截真音标在源件里就是丢的。
+            #   照原样往下走的话，正则匹配不到闭合的 `[...]`，半截音标串会整段落进 def
+            #   （check_data 的 W011 报的就是这个）。
+            #   这里把 '||' 当作音标段的收尾切一刀：残串照来源件原样留着。
+            #   ★ 不替它补一个真音标 —— 那正是「凭印象补」。
+            if ']' not in tail:
+                bar = tail.find('||')
+                tail = (tail[:bar].rstrip() + ']' + tail[bar + 2:]) if bar >= 0 else tail + ']'
         else:
             cut = re.search(r'[一-鿿　-〿＀-￯]', line)
             head = line[:cut.start()] if cut else line
