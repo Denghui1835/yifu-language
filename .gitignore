@@ -24,3 +24,18 @@ data/etym_raw_ielts/
 data/etym/
 data/*.log
 data/fresh3500.txt
+
+# 参赛材料：含大赛官方指南的复印件（版权归主办方）与未提交的参赛正文（含真实姓名）
+# 如需公开，逐项确认后再放开，别整目录 push
+大赛/*.pdf
+大赛/*.docx
+大赛/*.html
+
+# 构建脚本的 stdout 日志（可重跑生成，非源文件）
+data/_lookup_out.txt
+data/_pipeline_out.txt
+*_out.txt
+
+# 参赛材料脚本：build_entry.py 内嵌参赛正文，含团队负责人真实姓名
+# 与上方 pdf/docx/html 同因，暂不入库；如需公开须先逐项确认
+大赛/

@@ -1,0 +1,1645 @@
+{
+ "schema": 1,
+ "built": "2026-10-07",
+ "note": "流水线草稿。status=draft 的卡不得进成品库；每字段的复核签字记在 review.fields。",
+ "cards": [
+  {
+   "w": "aqueduct",
+   "len": 8,
+   "pilot_yilei": "水",
+   "ipa": "/ˈæk.wɪˌdʌkt/",
+   "gloss_en": [
+    "An artificial channel that is constructed to convey water from one location to another.",
+    "A structure carrying water over a river or depression, especially an ancient structure.",
+    "( anatomy ) A structure conveying fluid, such as the cerebral aqueduct or vestibular aqueduct."
+   ],
+   "pos_all": [
+    "Noun"
+   ],
+   "def_zh": null,
+   "etym": {
+    "prose": "Adapted borrowing from Latin aquaeductus (“conveyance of water”), from aqua (“water”) + dūcō (“to lead”, “to bring”); compare the French aqueduc.",
+    "tree": "Proto-Indo-European *h₂ékʷeh₂\nProto-Italic *akʷā\nLatin aquae\nLatin ductus\nLatin aquaeductusbor.\nEnglish aqueduct",
+    "ancestors": [
+     {
+      "lang": "Proto-Indo-European",
+      "term": "*h₂ékʷeh₂",
+      "code": "ine-pro"
+     },
+     {
+      "lang": "Proto-Italic",
+      "term": "*akʷā",
+      "code": "itc-pro"
+     },
+     {
+      "lang": "Latin",
+      "term": "aquae",
+      "code": "la"
+     },
+     {
+      "lang": "Latin",
+      "term": "ductus",
+      "code": "la"
+     },
+     {
+      "lang": "Latin",
+      "term": "aquaeductus",
+      "code": "la"
+     },
+     {
+      "lang": "English",
+      "term": "aqueduct",
+      "code": "en"
+     }
+    ],
+    "chain_from": "tree-text"
+   },
+   "proposal": {
+    "yilei": [
+     {
+      "yilei": "水",
+      "root": "aqua",
+      "root_len": 4,
+      "hit_in": "aquae"
+     },
+     {
+      "yilei": "水",
+      "root": "aqu",
+      "root_len": 3,
+      "hit_in": "aqueduct"
+     },
+     {
+      "yilei": "引",
+      "root": "duc",
+      "root_len": 3,
+      "hit_in": "aqueduct"
+     },
+     {
+      "yilei": "引",
+      "root": "duct",
+      "root_len": 4,
+      "hit_in": "aqueduct"
+     }
+    ],
+    "prefix": null,
+    "suffix": null,
+    "han_fu": null
+   },
+   "etym_class": "classical",
+   "src": {
+    "site": "kaikki.org",
+    "path": "etym_raw/aqueduct.html",
+    "url": "https://kaikki.org/dictionary/English/",
+    "fetched": "2026-10-07"
+   },
+   "flags": [
+    {
+     "code": "ambiguous_yilei",
+     "msg": "义类候选多于一个：引、水"
+    },
+    {
+     "code": "short_root",
+     "msg": "含 3 字母短词根，假阳性风险高，必须逐条核对"
+    }
+   ],
+   "status": "draft",
+   "review": {
+    "by": null,
+    "at": null,
+    "fields": {},
+    "notes": []
+   }
+  },
+  {
+   "w": "aquamarine",
+   "len": 10,
+   "pilot_yilei": "水",
+   "ipa": "/ˌæk.wə.məˈɹiːn/",
+   "gloss_en": [
+    "Of a bluish-green colour.",
+    "The bluish-green colour of the sea."
+   ],
+   "pos_all": [
+    "Adjective",
+    "Noun"
+   ],
+   "def_zh": null,
+   "etym": {
+    "prose": "From Latin aqua marīna (“sea water”), adjective form from mare (“sea”).",
+    "tree": "Proto-Indo-European *h₂ékʷeh₂\nProto-Italic *akʷā\nLatin aqua\nProto-Indo-European *mer-?\nProto-Indo-European *móri\nProto-Italic *mari\nLatin mare\nProto-Indo-European *-nós\nProto-Indo-European *-iHnos\nProto-Italic *-īnos\nLatin -īnus\nLatin marīnus\nLatin aqua marīnader.\nEnglish aquamarine",
+    "ancestors": [
+     {
+      "lang": "Proto-Indo-European",
+      "term": "*h₂ékʷeh₂",
+      "code": "ine-pro"
+     },
+     {
+      "lang": "Proto-Italic",
+      "term": "*akʷā",
+      "code": "itc-pro"
+     },
+     {
+      "lang": "Latin",
+      "term": "aqua",
+      "code": "la"
+     },
+     {
+      "lang": "Proto-Indo-European",
+      "term": "*mer-",
+      "code": "ine-pro"
+     },
+     {
+      "lang": "Proto-Indo-European",
+      "term": "*móri",
+      "code": "ine-pro"
+     },
+     {
+      "lang": "Proto-Italic",
+      "term": "*mari",
+      "code": "itc-pro"
+     },
+     {
+      "lang": "Latin",
+      "term": "mare",
+      "code": "la"
+     },
+     {
+      "lang": "Proto-Indo-European",
+      "term": "*-nós",
+      "code": "ine-pro"
+     },
+     {
+      "lang": "Proto-Indo-European",
+      "term": "*-iHnos",
+      "code": "ine-pro"
+     },
+     {
+      "lang": "Proto-Italic",
+      "term": "*-īnos",
+      "code": "itc-pro"
+     },
+     {
+      "lang": "Latin",
+      "term": "-īnus",
+      "code": "la"
+     },
+     {
+      "lang": "Latin",
+      "term": "marīnus",
+      "code": "la"
+     },
+     {
+      "lang": "Latin aqua",
+      "term": "marīna",
+      "code": ""
+     },
+     {
+      "lang": "English",
+      "term": "aquamarine",
+      "code": "en"
+     }
+    ],
+    "chain_from": "tree-text"
+   },
+   "proposal": {
+    "yilei": [
+     {
+      "yilei": "水",
+      "root": "aqua",
+      "root_len": 4,
+      "hit_in": "aquamarine"
+     },
+     {
+      "yilei": "水",
+      "root": "aqu",
+      "root_len": 3,
+      "hit_in": "aquamarine"
+     },
+     {
+      "yilei": "水",
+      "root": "marin",
+      "root_len": 5,
+      "hit_in": "aquamarine"
+     }
+    ],
+    "prefix": null,
+    "suffix": null,
+    "han_fu": null
+   },
+   "etym_class": "classical",
+   "src": {
+    "site": "kaikki.org",
+    "path": "etym_raw/aquamarine.html",
+    "url": "https://kaikki.org/dictionary/English/",
+    "fetched": "2026-10-07"
+   },
+   "flags": [
+    {
+     "code": "short_root",
+     "msg": "含 3 字母短词根，假阳性风险高，必须逐条核对"
+    }
+   ],
+   "status": "draft",
+   "review": {
+    "by": null,
+    "at": null,
+    "fields": {},
+    "notes": []
+   }
+  },
+  {
+   "w": "hydrate",
+   "len": 7,
+   "pilot_yilei": "水",
+   "ipa": "/haɪˈdɹeɪt/",
+   "gloss_en": [
+    "( chemistry ) A solid compound containing or linked to water molecules.",
+    "(inorganic chemistry, rare) Water."
+   ],
+   "pos_all": [
+    "Noun"
+   ],
+   "def_zh": null,
+   "etym": {
+    "prose": "Ancient Greek ῡ̆̔́δωρ (hū̆́dōr) Ancient Greek ὑδρο- (hudro-)lbor. French hydr- Proto-Indo-European *-h₂ Proto-Indo-European *-éh₂ Proto-Indo-European *-tós Proto-Indo-European *-eh₂tos Proto-Italic *-ātos Latin -ātuslbor. French -ate French hydratebor. English hydrate From French hydrate, from Ancient Greek ὕδωρ (húdōr, “water”) + -ate.",
+    "tree": "Proto-Indo-European *wed-\nProto-Indo-European *-r̥\nProto-Indo-European *wódr̥\nProto-Hellenic *údōr",
+    "ancestors": [
+     {
+      "lang": "Proto-Indo-European",
+      "term": "*wed-",
+      "code": "ine-pro"
+     },
+     {
+      "lang": "Proto-Indo-European",
+      "term": "*-r̥",
+      "code": "ine-pro"
+     },
+     {
+      "lang": "Proto-Indo-European",
+      "term": "*wódr̥",
+      "code": "ine-pro"
+     },
+     {
+      "lang": "Proto-Hellenic",
+      "term": "*údōr",
+      "code": "grk-pro"
+     }
+    ],
+    "chain_from": "tree-text"
+   },
+   "proposal": {
+    "yilei": [
+     {
+      "yilei": "水",
+      "root": "hydr",
+      "root_len": 4,
+      "hit_in": "hydrate"
+     }
+    ],
+    "prefix": null,
+    "suffix": "ate",
+    "han_fu": null
+   },
+   "etym_class": "classical",
+   "src": {
+    "site": "kaikki.org",
+    "path": "etym_raw/hydrate.html",
+    "url": "https://kaikki.org/dictionary/English/",
+    "fetched": "2026-10-07"
+   },
+   "flags": [],
+   "status": "draft",
+   "review": {
+    "by": null,
+    "at": null,
+    "fields": {},
+    "notes": []
+   }
+  },
+  {
+   "w": "dehydrate",
+   "len": 9,
+   "pilot_yilei": "水",
+   "ipa": "/diːhaɪˈdɹeɪt/",
+   "gloss_en": [
+    "( transitive ) To remove water from; to dry up."
+   ],
+   "pos_all": [
+    "Verb"
+   ],
+   "def_zh": null,
+   "etym": {
+    "prose": "Ancient Greek ῡ̆̔́δωρ (hū̆́dōr) Ancient Greek ὑδρο- (hudro-)lbor. French hydr- Proto-Indo-European *-h₂ Proto-Indo-European *-éh₂ Proto-Indo-European *-tós Proto-Indo-European *-eh₂tos Proto-Italic *-ātos Latin -ātuslbor. French -ate French hydratebor. English hydrate English dehydrate From de- + hydrate.",
+    "tree": "Proto-Indo-European *de\nProto-Indo-European *-h₁\nProto-Indo-European *déh₁\nProto-Italic *dē\nLatin dē\nLatin dē-der.\nEnglish de-\nProto-Indo-European *wed-\nProto-Indo-European *-r̥\nProto-Indo-European *wódr̥\nProto-Hellenic *údōr",
+    "ancestors": [
+     {
+      "lang": "Proto-Indo-European",
+      "term": "*de",
+      "code": "ine-pro"
+     },
+     {
+      "lang": "Proto-Indo-European",
+      "term": "*-h₁",
+      "code": "ine-pro"
+     },
+     {
+      "lang": "Proto-Indo-European",
+      "term": "*déh₁",
+      "code": "ine-pro"
+     },
+     {
+      "lang": "Proto-Italic",
+      "term": "*dē",
+      "code": "itc-pro"
+     },
+     {
+      "lang": "Latin",
+      "term": "dē",
+      "code": "la"
+     },
+     {
+      "lang": "Latin",
+      "term": "dē-",
+      "code": "la"
+     },
+     {
+      "lang": "English",
+      "term": "de-",
+      "code": "en"
+     },
+     {
+      "lang": "Proto-Indo-European",
+      "term": "*wed-",
+      "code": "ine-pro"
+     },
+     {
+      "lang": "Proto-Indo-European",
+      "term": "*-r̥",
+      "code": "ine-pro"
+     },
+     {
+      "lang": "Proto-Indo-European",
+      "term": "*wódr̥",
+      "code": "ine-pro"
+     },
+     {
+      "lang": "Proto-Hellenic",
+      "term": "*údōr",
+      "code": "grk-pro"
+     }
+    ],
+    "chain_from": "tree-text"
+   },
+   "proposal": {
+    "yilei": [
+     {
+      "yilei": "水",
+      "root": "hydr",
+      "root_len": 4,
+      "hit_in": "dehydrate"
+     }
+    ],
+    "prefix": "de",
+    "suffix": "ate",
+    "han_fu": null
+   },
+   "etym_class": "classical",
+   "src": {
+    "site": "kaikki.org",
+    "path": "etym_raw/dehydrate.html",
+    "url": "https://kaikki.org/dictionary/English/",
+    "fetched": "2026-10-07"
+   },
+   "flags": [],
+   "status": "draft",
+   "review": {
+    "by": null,
+    "at": null,
+    "fields": {},
+    "notes": []
+   }
+  },
+  {
+   "w": "maritime",
+   "len": 8,
+   "pilot_yilei": "水",
+   "ipa": "/ˈmæɹ.ɪˌtaɪm/",
+   "gloss_en": [
+    "Relating to or connected with the sea or its uses (as navigation, commerce, etc.).",
+    "Bordering on the sea; living near the seacoast; coastal.",
+    "(zoology) Inhabiting the seashore; living coastwise; littoral. (distinguished from marine)",
+    "Of or relating to a sailor or seaman; nautical."
+   ],
+   "pos_all": [
+    "Adjective"
+   ],
+   "def_zh": null,
+   "etym": {
+    "prose": "Borrowed from Middle French maritime, from Latin maritimus.",
+    "tree": "",
+    "ancestors": [
+     {
+      "lang": "原始印欧语",
+      "term": "*mer- (sea)",
+      "code": "ine-pro"
+     },
+     {
+      "lang": "拉丁语",
+      "term": "maritimus",
+      "code": "la"
+     }
+    ],
+    "chain_from": "templates"
+   },
+   "proposal": {
+    "yilei": [
+     {
+      "yilei": "水",
+      "root": "maritim",
+      "root_len": 7,
+      "hit_in": "maritime"
+     }
+    ],
+    "prefix": null,
+    "suffix": null,
+    "han_fu": null
+   },
+   "etym_class": "classical",
+   "src": {
+    "site": "kaikki.org",
+    "path": "etym_raw/maritime.html",
+    "url": "https://kaikki.org/dictionary/English/",
+    "fetched": "2026-10-07"
+   },
+   "flags": [],
+   "status": "draft",
+   "review": {
+    "by": null,
+    "at": null,
+    "fields": {},
+    "notes": []
+   }
+  },
+  {
+   "w": "submarine",
+   "len": 9,
+   "pilot_yilei": "水",
+   "ipa": "/sʌb.məˈɹiːn/",
+   "gloss_en": [
+    "Being, relating to, or made for use underwater, especially beneath the sea.",
+    "Hidden or undisclosed."
+   ],
+   "pos_all": [
+    "Adjective"
+   ],
+   "def_zh": null,
+   "etym": {
+    "prose": "From sub- + marine.",
+    "tree": "Proto-Indo-European *upó\nProto-Italic *supo\nLatin sub\nLatin sub-der.\nEnglish sub-\nProto-Indo-European *mer-?\nProto-Indo-European *móri\nProto-Italic *mari\nLatin mare\nProto-Indo-European *-nós\nProto-Indo-European *-iHnos\nProto-Italic *-īnos\nLatin -īnus\nLatin marīnus\nOld French marin\nMiddle French marinbor.\nMiddle English marin\nEnglish marine\nEnglish submarine",
+    "ancestors": [
+     {
+      "lang": "Proto-Indo-European",
+      "term": "*upó",
+      "code": "ine-pro"
+     },
+     {
+      "lang": "Proto-Italic",
+      "term": "*supo",
+      "code": "itc-pro"
+     },
+     {
+      "lang": "Latin",
+      "term": "sub",
+      "code": "la"
+     },
+     {
+      "lang": "Latin",
+      "term": "sub-",
+      "code": "la"
+     },
+     {
+      "lang": "English",
+      "term": "sub-",
+      "code": "en"
+     },
+     {
+      "lang": "Proto-Indo-European",
+      "term": "*mer-",
+      "code": "ine-pro"
+     },
+     {
+      "lang": "Proto-Indo-European",
+      "term": "*móri",
+      "code": "ine-pro"
+     },
+     {
+      "lang": "Proto-Italic",
+      "term": "*mari",
+      "code": "itc-pro"
+     },
+     {
+      "lang": "Latin",
+      "term": "mare",
+      "code": "la"
+     },
+     {
+      "lang": "Proto-Indo-European",
+      "term": "*-nós",
+      "code": "ine-pro"
+     },
+     {
+      "lang": "Proto-Indo-European",
+      "term": "*-iHnos",
+      "code": "ine-pro"
+     },
+     {
+      "lang": "Proto-Italic",
+      "term": "*-īnos",
+      "code": "itc-pro"
+     },
+     {
+      "lang": "Latin",
+      "term": "-īnus",
+      "code": "la"
+     },
+     {
+      "lang": "Latin",
+      "term": "marīnus",
+      "code": "la"
+     },
+     {
+      "lang": "Old French",
+      "term": "marin",
+      "code": "fro"
+     },
+     {
+      "lang": "Middle French",
+      "term": "marin",
+      "code": "frm"
+     },
+     {
+      "lang": "Middle English",
+      "term": "marin",
+      "code": "enm"
+     },
+     {
+      "lang": "English",
+      "term": "marine",
+      "code": "en"
+     },
+     {
+      "lang": "English",
+      "term": "submarine",
+      "code": "en"
+     }
+    ],
+    "chain_from": "tree-text"
+   },
+   "proposal": {
+    "yilei": [
+     {
+      "yilei": "水",
+      "root": "marin",
+      "root_len": 5,
+      "hit_in": "submarine"
+     }
+    ],
+    "prefix": "sub",
+    "suffix": null,
+    "han_fu": null
+   },
+   "etym_class": "classical",
+   "src": {
+    "site": "kaikki.org",
+    "path": "etym_raw/submarine.html",
+    "url": "https://kaikki.org/dictionary/English/",
+    "fetched": "2026-10-07"
+   },
+   "flags": [],
+   "status": "draft",
+   "review": {
+    "by": null,
+    "at": null,
+    "fields": {},
+    "notes": []
+   }
+  },
+  {
+   "w": "manuscript",
+   "len": 10,
+   "pilot_yilei": "手",
+   "ipa": "/ˈmæn.jəˌskɹɪpt/",
+   "gloss_en": [
+    "Handwritten, or by extension manually typewritten, as opposed to being mechanically reproduced."
+   ],
+   "pos_all": [
+    "Adjective"
+   ],
+   "def_zh": null,
+   "etym": {
+    "prose": "1597, from Medieval Latin manūscrīptus, a calque of Germanic origin, equivalent to Latin manū (ablative of manus (“hand”)) + Latin scrīptus (past participle of scribere (“to write”)). Not found in Classical Latin.",
+    "tree": "",
+    "ancestors": [
+     {
+      "lang": "中世纪拉丁",
+      "term": "manūscrīptus",
+      "code": "la-med"
+     }
+    ],
+    "chain_from": "templates"
+   },
+   "proposal": {
+    "yilei": [
+     {
+      "yilei": "手",
+      "root": "manu",
+      "root_len": 4,
+      "hit_in": "manuscript"
+     },
+     {
+      "yilei": "写",
+      "root": "script",
+      "root_len": 6,
+      "hit_in": "manuscript"
+     },
+     {
+      "yilei": "手写",
+      "root": "script",
+      "root_len": 6,
+      "hit_in": "manuscript"
+     }
+    ],
+    "prefix": null,
+    "suffix": null,
+    "han_fu": null
+   },
+   "etym_class": "classical",
+   "src": {
+    "site": "kaikki.org",
+    "path": "etym_raw/manuscript.html",
+    "url": "https://kaikki.org/dictionary/English/",
+    "fetched": "2026-10-07"
+   },
+   "flags": [
+    {
+     "code": "ambiguous_yilei",
+     "msg": "义类候选多于一个：写、手、手写"
+    }
+   ],
+   "status": "draft",
+   "review": {
+    "by": null,
+    "at": null,
+    "fields": {},
+    "notes": []
+   }
+  },
+  {
+   "w": "manicure",
+   "len": 8,
+   "pilot_yilei": "手",
+   "ipa": "/ˈmæ.nɪ.kjʊɹ/",
+   "gloss_en": [
+    "A cosmetic treatment for the fingernails."
+   ],
+   "pos_all": [
+    "Noun"
+   ],
+   "def_zh": null,
+   "etym": {
+    "prose": "From French manucure, coming from Latin manus, hand, and cura, care.",
+    "tree": "Proto-Indo-European *(s)meh₂-der.\nProto-Italic *manus\nLatin manus\nProto-Indo-European *kʷey-\nProto-Indo-European *kʷeys-der.\nProto-Italic *kʷoizā\nLatin cūra\nFrench manucurebor.\nEnglish manicure",
+    "ancestors": [
+     {
+      "lang": "Proto-Indo-European",
+      "term": "*(s)meh₂-",
+      "code": "ine-pro"
+     },
+     {
+      "lang": "Proto-Italic",
+      "term": "*manus",
+      "code": "itc-pro"
+     },
+     {
+      "lang": "Latin",
+      "term": "manus",
+      "code": "la"
+     },
+     {
+      "lang": "Proto-Indo-European",
+      "term": "*kʷey-",
+      "code": "ine-pro"
+     },
+     {
+      "lang": "Proto-Indo-European",
+      "term": "*kʷeys-",
+      "code": "ine-pro"
+     },
+     {
+      "lang": "Proto-Italic",
+      "term": "*kʷoizā",
+      "code": "itc-pro"
+     },
+     {
+      "lang": "Latin",
+      "term": "cūra",
+      "code": "la"
+     },
+     {
+      "lang": "French",
+      "term": "manucure",
+      "code": "fr"
+     },
+     {
+      "lang": "English",
+      "term": "manicure",
+      "code": "en"
+     }
+    ],
+    "chain_from": "tree-text"
+   },
+   "proposal": {
+    "yilei": [
+     {
+      "yilei": "手",
+      "root": "manu",
+      "root_len": 4,
+      "hit_in": "*manus"
+     },
+     {
+      "yilei": "手",
+      "root": "mani",
+      "root_len": 4,
+      "hit_in": "manicure"
+     },
+     {
+      "yilei": "医",
+      "root": "cur",
+      "root_len": 3,
+      "hit_in": "manicure"
+     }
+    ],
+    "prefix": null,
+    "suffix": "ure",
+    "han_fu": null
+   },
+   "etym_class": "classical",
+   "src": {
+    "site": "kaikki.org",
+    "path": "etym_raw/manicure.html",
+    "url": "https://kaikki.org/dictionary/English/",
+    "fetched": "2026-10-07"
+   },
+   "flags": [
+    {
+     "code": "ambiguous_yilei",
+     "msg": "义类候选多于一个：医、手"
+    },
+    {
+     "code": "short_root",
+     "msg": "含 3 字母短词根，假阳性风险高，必须逐条核对"
+    }
+   ],
+   "status": "draft",
+   "review": {
+    "by": null,
+    "at": null,
+    "fields": {},
+    "notes": []
+   }
+  },
+  {
+   "w": "manipulate",
+   "len": 10,
+   "pilot_yilei": "手",
+   "ipa": "/məˈnɪp.jʊ.leɪt/",
+   "gloss_en": [
+    "( transitive ) To move, arrange or operate something using the hands",
+    "( transitive ) To influence, manage, direct, control or tamper with something",
+    "(transitive, medicine) To handle and move a body part, either as an examination or for a therapeutic purpose",
+    "( transitive ) To influence or control someone in order to achieve a specific purpose, especially one that is unknown to the one being manipulated and beneficial to the manipulator; to use"
+   ],
+   "pos_all": [
+    "Verb"
+   ],
+   "def_zh": null,
+   "etym": {
+    "prose": "Back-formation from manipulation.",
+    "tree": "",
+    "ancestors": [],
+    "chain_from": "none"
+   },
+   "proposal": {
+    "yilei": [
+     {
+      "yilei": "手",
+      "root": "mani",
+      "root_len": 4,
+      "hit_in": "manipulate"
+     }
+    ],
+    "prefix": null,
+    "suffix": "ate",
+    "han_fu": null
+   },
+   "etym_class": "unknown",
+   "src": {
+    "site": "kaikki.org",
+    "path": "etym_raw/manipulate.html",
+    "url": "https://kaikki.org/dictionary/English/",
+    "fetched": "2026-10-07"
+   },
+   "flags": [
+    {
+     "code": "no_chain",
+     "msg": "祖先链为空"
+    }
+   ],
+   "status": "draft",
+   "review": {
+    "by": null,
+    "at": null,
+    "fields": {},
+    "notes": []
+   }
+  },
+  {
+   "w": "emancipate",
+   "len": 10,
+   "pilot_yilei": "手",
+   "ipa": "/ɪˈmæn(t)sɪpət/",
+   "gloss_en": [
+    "(obsolete except poetic) Synonym of emancipated (“having been set free from someone's control, or from some constraint; at liberty, free”).",
+    "( transitive )",
+    "To set free (a person or group) from the oppression or restraint of another; to liberate.",
+    "To cause (a place) to be free from the colonization or rule of another entity.",
+    "(also reflexive) Often followed by from: chiefly with reference to slavery in the United States, and in Central and South America: to set free (oneself or someone) from imprisonment, or from serfdom or slavery."
+   ],
+   "pos_all": [
+    "Adjective",
+    "Verb"
+   ],
+   "def_zh": null,
+   "etym": {
+    "prose": "Learned borrowing from Latin ēmancipātus (“liberated, emancipated”) + English -ate (suffix forming verbs, and adjectives with the sense ‘characterized by the specified thing’). Ēmancipātus is the perfect passive participle of ēmancipō (“to declare (someone) free and independent of another’s power, emancipate; to give (something) from one’s authority or power into that of another, to alienate, transfer; to cause (oneself or someone) to become another’s slave; to make (someone) subservient”), from ē- (a variant of ex- (prefix meaning ‘away; out’)) + mancipō (“to sell; to transfer”) (from manceps (“owner, possessor; purchaser; etc.”) + -ō (suffix forming infinitives of first-conjugation verbs)). The verb emancipate has verb sense 1.1 (“to set free”) and verb sense 1.3 (“(obsolete) to place under one’s control”) which are contradictory. The Latin word ēmancipō had the same senses, and the Oxford English Dictionary notes that according to the Latin grammarian Paulus Festus (fl. 8th century) this is because both actions were effected by the legal process of mancipation.",
+    "tree": "",
+    "ancestors": [
+     {
+      "lang": "原始印欧语",
+      "term": "*(s)meh₂-",
+      "code": "ine-pro"
+     },
+     {
+      "lang": "拉丁语",
+      "term": "ēmancipātus",
+      "code": "la"
+     }
+    ],
+    "chain_from": "templates"
+   },
+   "proposal": {
+    "yilei": [
+     {
+      "yilei": "拿",
+      "root": "cip",
+      "root_len": 3,
+      "hit_in": "emancipate"
+     }
+    ],
+    "prefix": null,
+    "suffix": "ate",
+    "han_fu": null
+   },
+   "etym_class": "classical",
+   "src": {
+    "site": "kaikki.org",
+    "path": "etym_raw/emancipate.html",
+    "url": "https://kaikki.org/dictionary/English/",
+    "fetched": "2026-10-07"
+   },
+   "flags": [
+    {
+     "code": "short_root",
+     "msg": "含 3 字母短词根，假阳性风险高，必须逐条核对"
+    },
+    {
+     "code": "pilot_mismatch",
+     "msg": "设计义类「手」与流水线候选「拿」不一致，需人工判谁对"
+    }
+   ],
+   "status": "draft",
+   "review": {
+    "by": null,
+    "at": null,
+    "fields": {},
+    "notes": []
+   }
+  },
+  {
+   "w": "chiropractor",
+   "len": 12,
+   "pilot_yilei": "手",
+   "ipa": "/ˈkaɪ.ɹəˌpɹæk.tə(ɹ)/",
+   "gloss_en": [
+    "A health-care practitioner who specializes in chiropractic."
+   ],
+   "pos_all": [
+    "Noun"
+   ],
+   "def_zh": null,
+   "etym": {
+    "prose": "From Ancient Greek χείρ (kheír, “hand”) + πρᾶξις (prâxis, “action, activity, practice”).",
+    "tree": "",
+    "ancestors": [
+     {
+      "lang": "原始印欧语",
+      "term": "*ǵʰes-",
+      "code": "ine-pro"
+     },
+     {
+      "lang": "希腊语",
+      "term": "χείρ",
+      "code": "grc"
+     }
+    ],
+    "chain_from": "templates"
+   },
+   "proposal": {
+    "yilei": [
+     {
+      "yilei": "手",
+      "root": "chir",
+      "root_len": 4,
+      "hit_in": "chiropractor"
+     },
+     {
+      "yilei": "手",
+      "root": "chiro",
+      "root_len": 5,
+      "hit_in": "chiropractor"
+     },
+     {
+      "yilei": "动",
+      "root": "act",
+      "root_len": 3,
+      "hit_in": "chiropractor"
+     },
+     {
+      "yilei": "手写",
+      "root": "chiro",
+      "root_len": 5,
+      "hit_in": "chiropractor"
+     }
+    ],
+    "prefix": null,
+    "suffix": null,
+    "han_fu": null
+   },
+   "etym_class": "classical",
+   "src": {
+    "site": "kaikki.org",
+    "path": "etym_raw/chiropractor.html",
+    "url": "https://kaikki.org/dictionary/English/",
+    "fetched": "2026-10-07"
+   },
+   "flags": [
+    {
+     "code": "ambiguous_yilei",
+     "msg": "义类候选多于一个：动、手、手写"
+    },
+    {
+     "code": "short_root",
+     "msg": "含 3 字母短词根，假阳性风险高，必须逐条核对"
+    }
+   ],
+   "status": "draft",
+   "review": {
+    "by": null,
+    "at": null,
+    "fields": {},
+    "notes": []
+   }
+  },
+  {
+   "w": "chirography",
+   "len": 11,
+   "pilot_yilei": "手",
+   "ipa": "/kʌɪˈrɒɡrəfi/",
+   "gloss_en": [
+    "Synonym of handwriting or penmanship, one's personal skill at writing.",
+    "Synonym of calligraphy, the art of beautiful writing.",
+    "Synonym of autograph, writing in one's own hand.",
+    "Synonym of palmistry, fortune-telling based on one's hand."
+   ],
+   "pos_all": [
+    "Noun"
+   ],
+   "def_zh": null,
+   "etym": {
+    "prose": "From chirograph + -y under influence from geography &c., from French chirographe, from Latin chirographus and chirographum, from Ancient Greek χειρόγραφος (kheirógraphos) and χειρόγραφον (kheirógraphon), from χειρο- (kheiro-, “hand-”) + γραφος (graphos, “writing, written thing”). Equivalent to chiro- (“hand”) + -graphy (“writing”) and handwriting.",
+    "tree": "",
+    "ancestors": [
+     {
+      "lang": "法语",
+      "term": "chirographe",
+      "code": "fr"
+     },
+     {
+      "lang": "拉丁语",
+      "term": "chirographus",
+      "code": "la"
+     },
+     {
+      "lang": "希腊语",
+      "term": "χειρόγραφος",
+      "code": "grc"
+     }
+    ],
+    "chain_from": "templates"
+   },
+   "proposal": {
+    "yilei": [
+     {
+      "yilei": "手",
+      "root": "chir",
+      "root_len": 4,
+      "hit_in": "chirography"
+     },
+     {
+      "yilei": "手",
+      "root": "chiro",
+      "root_len": 5,
+      "hit_in": "chirography"
+     },
+     {
+      "yilei": "写",
+      "root": "graph",
+      "root_len": 5,
+      "hit_in": "chirography"
+     },
+     {
+      "yilei": "手写",
+      "root": "chiro",
+      "root_len": 5,
+      "hit_in": "chirography"
+     }
+    ],
+    "prefix": null,
+    "suffix": "graphy",
+    "han_fu": null
+   },
+   "etym_class": "classical",
+   "src": {
+    "site": "kaikki.org",
+    "path": "etym_raw/chirography.html",
+    "url": "https://kaikki.org/dictionary/English/",
+    "fetched": "2026-10-07"
+   },
+   "flags": [
+    {
+     "code": "ambiguous_yilei",
+     "msg": "义类候选多于一个：写、手、手写"
+    }
+   ],
+   "status": "draft",
+   "review": {
+    "by": null,
+    "at": null,
+    "fields": {},
+    "notes": []
+   }
+  },
+  {
+   "w": "cordial",
+   "len": 7,
+   "pilot_yilei": "心",
+   "ipa": "/ˈkɔː.di.əl/",
+   "gloss_en": [
+    "Hearty; sincere; warm; affectionate.",
+    "Radiating warmth and friendliness; genial.",
+    "( rare ) Tending to revive, cheer, or invigorate; giving strength or spirits.",
+    "( obsolete ) Proceeding from the heart.",
+    "(UK, Australia, New Zealand) A concentrated non-carbonated soft drink which is diluted with water before drinking."
+   ],
+   "pos_all": [
+    "Adjective",
+    "Noun"
+   ],
+   "def_zh": null,
+   "etym": {
+    "prose": "Inherited from Middle English cordial, from Old French cordial, from Medieval Latin cordiālis (“of the heart”), from cor (“heart”).",
+    "tree": "",
+    "ancestors": [
+     {
+      "lang": "原始印欧语",
+      "term": "*ḱerd-",
+      "code": "ine-pro"
+     },
+     {
+      "lang": "中古英语",
+      "term": "cordial",
+      "code": "enm"
+     },
+     {
+      "lang": "古法语",
+      "term": "cordial",
+      "code": "fro"
+     },
+     {
+      "lang": "中世纪拉丁",
+      "term": "cordiālis",
+      "code": "la-med"
+     }
+    ],
+    "chain_from": "templates"
+   },
+   "proposal": {
+    "yilei": [
+     {
+      "yilei": "心",
+      "root": "cord",
+      "root_len": 4,
+      "hit_in": "cordial"
+     }
+    ],
+    "prefix": null,
+    "suffix": null,
+    "han_fu": null
+   },
+   "etym_class": "classical",
+   "src": {
+    "site": "kaikki.org",
+    "path": "etym_raw/cordial.html",
+    "url": "https://kaikki.org/dictionary/English/",
+    "fetched": "2026-10-07"
+   },
+   "flags": [],
+   "status": "draft",
+   "review": {
+    "by": null,
+    "at": null,
+    "fields": {},
+    "notes": []
+   }
+  },
+  {
+   "w": "accord",
+   "len": 6,
+   "pilot_yilei": "心",
+   "ipa": "/əˈkɔːd/",
+   "gloss_en": [
+    "Agreement of opinion, will, or action.",
+    "( music ) Agreement in pitch and tone; harmony, musical concord.",
+    "Agreement or harmony of things in general.",
+    "(countable, perfumery) A distinctive mixture of fragrances or the odor thereof.",
+    "( law ) An agreement between parties in controversy, by which satisfaction for an injury is stipulated, and which, when executed, prevents a lawsuit.",
+    "( international law ) An international agreement."
+   ],
+   "pos_all": [
+    "Noun",
+    "Verb"
+   ],
+   "def_zh": null,
+   "etym": {
+    "prose": "From Middle English accorden, acorden, borrowed from Old French acorder (compare modern French accord and accorder), from Vulgar Latin *accordāre, from Latin concordāre via prefix substitution (with Latin ad-), ultimately from Proto-Indo-European *ḱḗr ~ *ḱr̥d-, and thus distantly related to English heart (via Proto-Germanic *hertô).",
+    "tree": "",
+    "ancestors": [
+     {
+      "lang": "中古英语",
+      "term": "accorden",
+      "code": "enm"
+     },
+     {
+      "lang": "古法语",
+      "term": "acorder",
+      "code": "fro"
+     },
+     {
+      "lang": "俗拉丁",
+      "term": "*accordāre",
+      "code": "la-vul"
+     },
+     {
+      "lang": "拉丁语",
+      "term": "concordo",
+      "code": "la"
+     },
+     {
+      "lang": "拉丁语",
+      "term": "ad-",
+      "code": "la"
+     },
+     {
+      "lang": "原始印欧语",
+      "term": "*ḱḗr ~ *ḱr̥d-",
+      "code": "ine-pro"
+     }
+    ],
+    "chain_from": "templates"
+   },
+   "proposal": {
+    "yilei": [
+     {
+      "yilei": "心",
+      "root": "cord",
+      "root_len": 4,
+      "hit_in": "accord"
+     }
+    ],
+    "prefix": "ac",
+    "suffix": null,
+    "han_fu": null
+   },
+   "etym_class": "classical",
+   "src": {
+    "site": "kaikki.org",
+    "path": "etym_raw/accord.html",
+    "url": "https://kaikki.org/dictionary/English/",
+    "fetched": "2026-10-07"
+   },
+   "flags": [],
+   "status": "draft",
+   "review": {
+    "by": null,
+    "at": null,
+    "fields": {},
+    "notes": []
+   }
+  },
+  {
+   "w": "discord",
+   "len": 7,
+   "pilot_yilei": "心",
+   "ipa": "/ˈdɪskɔɹd/",
+   "gloss_en": [
+    "Lack of concord, agreement, harmony; disaccord.",
+    "Tension or strife resulting from a lack of agreement; dissension.",
+    "Any harsh noise, or confused mingling of sounds."
+   ],
+   "pos_all": [
+    "Noun"
+   ],
+   "def_zh": null,
+   "etym": {
+    "prose": "Circa 1230, Middle English descorde, discorde; from Anglo-Norman, Old French descort (derivative of descorder), descorde (“disagreement”); from Latin discordia, from discors (“disagreeing, disagreement”), from dis- (“apart”) + cor, cordis (“heart”). Verb derives from Middle English discorden, from Anglo-Norman, Old French descorder, from Latin discordāre, from discord-, as above.",
+    "tree": "",
+    "ancestors": [
+     {
+      "lang": "原始印欧语",
+      "term": "*ḱerd-",
+      "code": "ine-pro"
+     },
+     {
+      "lang": "中古英语",
+      "term": "descorde",
+      "code": "enm"
+     },
+     {
+      "lang": "xno",
+      "term": "-",
+      "code": "xno"
+     },
+     {
+      "lang": "古法语",
+      "term": "descort",
+      "code": "fro"
+     },
+     {
+      "lang": "拉丁语",
+      "term": "discordia",
+      "code": "la"
+     },
+     {
+      "lang": "中古英语",
+      "term": "discorden",
+      "code": "enm"
+     },
+     {
+      "lang": "xno",
+      "term": "-",
+      "code": "xno"
+     },
+     {
+      "lang": "古法语",
+      "term": "descorder",
+      "code": "fro"
+     },
+     {
+      "lang": "拉丁语",
+      "term": "discordāre",
+      "code": "la"
+     }
+    ],
+    "chain_from": "templates"
+   },
+   "proposal": {
+    "yilei": [
+     {
+      "yilei": "心",
+      "root": "cord",
+      "root_len": 4,
+      "hit_in": "discord"
+     },
+     {
+      "yilei": "教",
+      "root": "disc",
+      "root_len": 4,
+      "hit_in": "discord"
+     }
+    ],
+    "prefix": "dis",
+    "suffix": null,
+    "han_fu": null
+   },
+   "etym_class": "classical",
+   "src": {
+    "site": "kaikki.org",
+    "path": "etym_raw/discord.html",
+    "url": "https://kaikki.org/dictionary/English/",
+    "fetched": "2026-10-07"
+   },
+   "flags": [
+    {
+     "code": "ambiguous_yilei",
+     "msg": "义类候选多于一个：心、教"
+    }
+   ],
+   "status": "draft",
+   "review": {
+    "by": null,
+    "at": null,
+    "fields": {},
+    "notes": []
+   }
+  },
+  {
+   "w": "concord",
+   "len": 7,
+   "pilot_yilei": "心",
+   "ipa": "/ˈkɒnkɔːd/",
+   "gloss_en": [
+    "A state of agreement; harmony; union.",
+    "( obsolete ) An agreement by stipulation; a compact; a covenant; a treaty or league.",
+    "( grammar ) Agreement of words with one another, in gender, number, person, or case.",
+    "(law, obsolete) An agreement between the parties to a fine of land in reference to the manner in which it should pass, being an acknowledgment that the land in question belonged to the complainant. See fine."
+   ],
+   "pos_all": [
+    "Noun"
+   ],
+   "def_zh": null,
+   "etym": {
+    "prose": "From French concorde, Latin concordia, from concors (“of the same mind, agreeing”); con- + cor, cordis (“heart”). See heart, and compare accord.",
+    "tree": "",
+    "ancestors": [
+     {
+      "lang": "原始印欧语",
+      "term": "*ḱerd-",
+      "code": "ine-pro"
+     },
+     {
+      "lang": "法语",
+      "term": "concorde",
+      "code": "fr"
+     },
+     {
+      "lang": "拉丁语",
+      "term": "concordia",
+      "code": "la"
+     }
+    ],
+    "chain_from": "templates"
+   },
+   "proposal": {
+    "yilei": [
+     {
+      "yilei": "心",
+      "root": "cord",
+      "root_len": 4,
+      "hit_in": "concord"
+     }
+    ],
+    "prefix": "con",
+    "suffix": null,
+    "han_fu": null
+   },
+   "etym_class": "classical",
+   "src": {
+    "site": "kaikki.org",
+    "path": "etym_raw/concord.html",
+    "url": "https://kaikki.org/dictionary/English/",
+    "fetched": "2026-10-07"
+   },
+   "flags": [],
+   "status": "draft",
+   "review": {
+    "by": null,
+    "at": null,
+    "fields": {},
+    "notes": []
+   }
+  },
+  {
+   "w": "psychiatrist",
+   "len": 12,
+   "pilot_yilei": "心",
+   "ipa": "/ˌsaɪˈkaɪ.ə.tɹɪst/",
+   "gloss_en": [
+    "A medical doctor specializing in psychiatry."
+   ],
+   "pos_all": [
+    "Noun"
+   ],
+   "def_zh": null,
+   "etym": {
+    "prose": "Ancient Greek -ῐ́ζω (-ĭ́zō) Proto-Hellenic *-tās Ancient Greek -τής (-tḗs) Ancient Greek -ῐστής (-ĭstḗs)bor. Latin -istader. Old French -istebor. Middle English -ist English -ist English psychiatrist From psychiatry + -ist.",
+    "tree": "French psych-\nFrench -iatre\nFrench psychiatre\nProto-Indo-European *-(i)yós\nProto-Italic *-ijos\nProto-Italic *-ios\nOld Latin -ios\nLatin -ius\nLatin -ia\nOld French -ie\nMiddle French -ie\nFrench -ie\nFrench psychiatriebor.\nEnglish psychiatry\nProto-Indo-European *-id-\nProto-Indo-European *-yéti\nProto-Indo-European *-idyéti\nProto-Hellenic *-íd͏̌d͏̌ō",
+    "ancestors": [
+     {
+      "lang": "French",
+      "term": "psych-",
+      "code": "fr"
+     },
+     {
+      "lang": "French",
+      "term": "-iatre",
+      "code": "fr"
+     },
+     {
+      "lang": "French",
+      "term": "psychiatre",
+      "code": "fr"
+     },
+     {
+      "lang": "Proto-Indo-European",
+      "term": "*-(i)yós",
+      "code": "ine-pro"
+     },
+     {
+      "lang": "Proto-Italic",
+      "term": "*-ijos",
+      "code": "itc-pro"
+     },
+     {
+      "lang": "Proto-Italic",
+      "term": "*-ios",
+      "code": "itc-pro"
+     },
+     {
+      "lang": "Old Latin",
+      "term": "-ios",
+      "code": "itc-ola"
+     },
+     {
+      "lang": "Latin",
+      "term": "-ius",
+      "code": "la"
+     },
+     {
+      "lang": "Latin",
+      "term": "-ia",
+      "code": "la"
+     },
+     {
+      "lang": "Old French",
+      "term": "-ie",
+      "code": "fro"
+     },
+     {
+      "lang": "Middle French",
+      "term": "-ie",
+      "code": "frm"
+     },
+     {
+      "lang": "French",
+      "term": "-ie",
+      "code": "fr"
+     },
+     {
+      "lang": "French",
+      "term": "psychiatrie",
+      "code": "fr"
+     },
+     {
+      "lang": "English",
+      "term": "psychiatry",
+      "code": "en"
+     },
+     {
+      "lang": "Proto-Indo-European",
+      "term": "*-id-",
+      "code": "ine-pro"
+     },
+     {
+      "lang": "Proto-Indo-European",
+      "term": "*-yéti",
+      "code": "ine-pro"
+     },
+     {
+      "lang": "Proto-Indo-European",
+      "term": "*-idyéti",
+      "code": "ine-pro"
+     },
+     {
+      "lang": "Proto-Hellenic",
+      "term": "*-íd͏̌d͏̌ō",
+      "code": "grk-pro"
+     }
+    ],
+    "chain_from": "tree-text"
+   },
+   "proposal": {
+    "yilei": [
+     {
+      "yilei": "心",
+      "root": "psych",
+      "root_len": 5,
+      "hit_in": "psychiatrist"
+     },
+     {
+      "yilei": "医",
+      "root": "iatr",
+      "root_len": 4,
+      "hit_in": "psychiatrist"
+     }
+    ],
+    "prefix": null,
+    "suffix": "ist",
+    "han_fu": null
+   },
+   "etym_class": "classical",
+   "src": {
+    "site": "kaikki.org",
+    "path": "etym_raw/psychiatrist.html",
+    "url": "https://kaikki.org/dictionary/English/",
+    "fetched": "2026-10-07"
+   },
+   "flags": [
+    {
+     "code": "ambiguous_yilei",
+     "msg": "义类候选多于一个：医、心"
+    }
+   ],
+   "status": "draft",
+   "review": {
+    "by": null,
+    "at": null,
+    "fields": {},
+    "notes": []
+   }
+  },
+  {
+   "w": "empathy",
+   "len": 7,
+   "pilot_yilei": "心",
+   "ipa": "/ˈɛmpəθi/",
+   "gloss_en": [
+    "Identification with or understanding of the thoughts, feelings, or emotional state of another person.",
+    "The capacity to understand another person's point of view or the result of such understanding."
+   ],
+   "pos_all": [
+    "Noun"
+   ],
+   "def_zh": null,
+   "etym": {
+    "prose": "A twentieth-century borrowing from Ancient Greek ἐμπάθεια (empátheia, literally “passion”) (formed from ἐν (en, “in, at”) + πάθος (páthos, “feeling”)), equivalent to em- + -pathy, coined by Edward Bradford Titchener in 1909 to translate German Einfühlung. The modern word in Greek εμπάθεια (empátheia) has an opposite meaning denoting strong negative feelings and prejudice against someone.",
+    "tree": "",
+    "ancestors": [
+     {
+      "lang": "希腊语",
+      "term": "ἐμπάθεια",
+      "code": "grc"
+     }
+    ],
+    "chain_from": "templates"
+   },
+   "proposal": {
+    "yilei": [
+     {
+      "yilei": "心",
+      "root": "path",
+      "root_len": 4,
+      "hit_in": "empathy"
+     }
+    ],
+    "prefix": null,
+    "suffix": null,
+    "han_fu": null
+   },
+   "etym_class": "classical",
+   "src": {
+    "site": "kaikki.org",
+    "path": "etym_raw/empathy.html",
+    "url": "https://kaikki.org/dictionary/English/",
+    "fetched": "2026-10-07"
+   },
+   "flags": [],
+   "status": "draft",
+   "review": {
+    "by": null,
+    "at": null,
+    "fields": {},
+    "notes": []
+   }
+  }
+ ]
+}

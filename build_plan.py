@@ -32,8 +32,8 @@ A = C.append
 # ---------- 封面 ----------
 A(('title', '义符'))
 A(('subtitle', '——基于母语义类系统的多端外语学习软件规划书'))
-A(('info', '文档版本：v1.0'))
-A(('info', '编制日期：2026年10月6日'))
+A(('info', '文档版本：v1.1'))
+A(('info', '编制日期：2026年10月7日'))
 A(('info', '文档性质：产品规划书（立项前论证）'))
 A(('blank', ''))
 
@@ -133,6 +133,7 @@ A(('caption', '表4　目标用户分层'))
 A(('table', [
     ['用户群', '特征', '核心诉求'],
     ['备考型大学生', '四六级、考研英语，词汇量大但死记硬背', '提高背词效率，减少遗忘'],
+    ['留学备考者', '雅思、托福，词汇偏学术，长难词密集', '攻克学术长难词，提升阅读猜词能力'],
     ['英语中级学习者', '能读不能猜，遇生词即卡', '获得猜词与推义能力'],
     ['语言兴趣者', '对词源、历史典故有兴趣', '内容深度与趣味'],
     ['语文教育关注者', '关心汉字文化传承', '反向加深对母语的理解'],
@@ -149,6 +150,12 @@ A(('table', [
     ['通用背词应用', '主流单词记忆应用', '词库规模、复习算法', '记忆挂钩只有中文释义与图片'],
 ]))
 A(('p', '空白点正是"对齐"这一层：把汉语义符与英语词根挂到同一个义类节点上，用母语已内化的机制去驱动外语学习。这一层目前没有成熟产品。'))
+
+A(('h1', '（五）词汇范围：高考词表与雅思词表'))
+A(('p', '词汇范围经过一次扩充，最终定为两批：高考 3500 词与雅思词表，合计约 5708 词。这次扩充不是拍脑袋，而是由第七章的实测数据推动的。'))
+A(('p', '实测发现，义符机制在学术类词汇上的命中率显著高于日常词汇：雅思词表可挂古典词根的比例为 68.7%，而高考词表为 52.8%，高出约 16 个百分点；在 7 字母以上的长词区间，这一差距进一步拉大到近八成可拆。原因是学术英语的拉丁与希腊借词密度天然高于日常英语，而高考词表里含有大量 go、eat、house 一类没有词根可拆的日耳曼基础词。'))
+A(('p', '这带来一个重要的定位修正：义符的天然主场不是高考词汇，而是学术与留学类词汇。因此两批词表服务的是不同人群——高考词表对应备考型中学生与大学生，雅思词表对应留学备考者；两批不是替代关系，而是同一引擎的两套词表。'))
+A(('p', '两份词表只重叠 1696 词（高考独有 2145 词，雅思独有 1867 词），是真正的增量。相应地，内容生产量也随之增加，这一点已计入第七章的规模估算。'))
 
 # ---------- 四 ----------
 A(('h0', '四、核心数据架构：义类映射引擎'))
@@ -227,9 +234,18 @@ A(('li', '隶变：汉字的断骨手术，从古文字到今文字的分水岭�
 A(('li', '维京人的礼物：为什么英语的"他们"是 they。'))
 A(('p', '价值：内容是长期粘性来源，也是社交传播的载体。故事线可做成图文卡片，便于分享。'))
 
+A(('p', '内容形态可以进一步升级为动态短片。词与字的演变本身就是有时间轴、有因果、有转折的叙事——拉丁 cor 经古法语 corage 变成 courage，甲骨文的"水"经隶变收缩为三点水，这些都可以做成两三分钟的动画短片：一条时间轴并排推进，左边是汉字从甲骨文到偏旁，右边是英文词从拉丁词根到现代拼写。动态形式比图文更适合社交传播，也是把"演变"这一记忆钩子做到极致的方式。'))
+A(('p', '需要说明的是，短片只是故事线内容的另一种呈现载体，不新增数据需求——它消费的仍是同一份词源与字源数据。因此它属于内容形态的升级，而非独立的功能模块，可以在故事线内容积累到一定量之后再启动。'))
+
 A(('h1', '（五）四者的数据流闭环'))
 A(('p', '四个功能共用同一份词条库，数据流为：图谱漫游用于发现，拆解器用于查询，词卡用于记忆，故事线用于深化与留存，再回流到图谱进行再次发现。'))
 A(('p', '拆解器的查询记录可以反哺词卡，查过的词自动进入复习队列；词卡的学习数据可以反哺图谱，已掌握的义类标记为完成。这个闭环是产品设计的核心，四个功能必须共享一个数据层，不能各自为政。'))
+
+A(('h1', '（六）远期形态设想'))
+A(('p', '以下设想不列入本期开发范围，仅作为形态演进的方向记录，避免过早投入。'))
+A(('li', '沉浸式漫游：语义图谱漫游目前是二维界面。远期可发展为可沉浸式浏览的三维语义空间，用户在各义类节点之间穿行，每一个节点是一个由义符与词根共同构成的场景。若扩展现实或智能眼镜设备成熟，这一形态可提供远超屏幕的认知冲击。'))
+A(('li', '论文与学术产出：义符对齐机制本身是一个可检验的认知语言学假设，其对照实验数据（见第九章）具备独立发表价值。学术产出既是产品的可信度背书，也可反向吸引合作者。'))
+A(('p', '这两项都以阶段零验证通过为前提。在核心机制被证实之前，投入远期形态是不理性的。'))
 
 # ---------- 六 ----------
 A(('h0', '六、技术方案：三端跨平台架构'))
@@ -362,15 +378,73 @@ A(('table', [
 ]))
 
 A(('h1', '（二）关键判断点'))
-A(('p', '阶段零是整个项目最重要的一步。如果交互式演示的试用者没有表现出明显的"啊哈"反应，说明对齐这个机制不成立或不够强，此时应当果断调整方向，而不是继续投入做一个完整的应用。这是本规划书建议的第一件事，也是最省钱的验证方式——用一两周时间，避免几个月白做。'))
+A(('p', '阶段零是整个项目最重要的一步。如果交互式演示的试用者没有表现出明显的"啊哈"反应，说明对齐这个机制不成立或不够强，此时应当果断调整方向，而不是继续投入做一个完整的应用。这是本规划书建议的第一件事，也是最省钱的验证方式——用一两周时间，避免几个月白做。阶段零的具体实验方案见第九章，建议与之合并执行：演示用来看反应，对照实验用来量效果，两者共用同一批被试即可。'))
 A(('p', '另一个判断点在三端发布之前。网页端跑通后，应当先观察真实使用数据，再决定是否投入打包桌面端与手机端。若网页端的使用形态已经满足需求，桌面端可以延后。'))
 
 # ---------- 九 ----------
-A(('h0', '九、风险与对策'))
+A(('h0', '九、阶段零：机制验证实验方案'))
+A(('p', '第九章之前的所有设计都建立在一个尚未验证的假设之上：同时给出义类归属与汉语义符对照，能提高记忆保持率。这一章给出验证它的具体方案。这是本规划书中最重要的一章——若实验证伪，后续投入都应重新评估。'))
+
+A(('h1', '（一）为什么要做真实验，而不是收集反馈'))
+A(('p', '产品验证最容易犯的错误是收集"感觉不错"。试用者看到三点水与 aqua- 并列在同一个节点上，几乎一定会说"这个想法很妙"——但这只证明机制好懂，不证明它有用。真正要回答的是：用过这套方法的人，一周之后还记得住吗？记得比用传统方法的人多吗？'))
+A(('p', '好懂与有用是两件事。因此阶段零必须是一次带对照组的量化实验，而不是一次访谈。'))
+
+A(('h1', '（二）实验设计'))
+A(('p', '采用随机对照设计，唯一变量是词卡上是否附加义类锚点。其余一切严格控制为等量。'))
+A(('caption', '表16　实验分组设计'))
+A(('table', [
+    ['要素', '实验组', '对照组'],
+    ['学习材料', '单词、音标、中文释义、义类归属、汉语义符对照、词根拆解', '单词、音标、中文释义'],
+    ['学习词数', '40 个', '40 个（同一批词）'],
+    ['学习时长', '15 分钟', '15 分钟'],
+    ['复习次数', '相同', '相同'],
+    ['测试时点', '即时、7 天后', '即时、7 天后'],
+]))
+A(('p', '对照组代表现行主流做法，即词卡只有拼写与中文释义。实验组是在其基础上增加义类锚点。两者唯一的差别就是是否给出"这个义类在汉语里对应哪个义符"。'))
+
+A(('h1', '（三）被试与材料'))
+A(('li', '被试：40 至 60 人，同一年级或同一英语水平层次，随机分为两组。样本少于 30 人时组间差异难以达到统计显著，应尽量凑足。'))
+A(('li', '选词：从可挂古典词根的词中随机抽取 40 个中长词（7 字母以上）。选这一区间是因为该区间义符命中率最高，也是学习者的真实痛点；短词多为已知的日耳曼基础词，测不出差异。'))
+A(('li', '筛除已知词：实验前先做一次前测，剔除被试已经认识的词，避免天花板效应。'))
+A(('li', '预注册：选词规则、测试题目与判定标准必须在实验开始前固定并记录，不得在看到数据后调整，否则结论不可信。'))
+
+A(('h1', '（四）测量指标'))
+A(('p', '不止测一个指标，尤其是第三个——它是义符机制独有的价值，普通背诵法无法预测它。'))
+A(('caption', '表17　三项测量指标'))
+A(('table', [
+    ['指标', '测法', '考察什么'],
+    ['回忆率', '给中文释义，写出英文单词', '基本记忆效果'],
+    ['再认率', '给英文单词，选择正确中文释义', '识别能力'],
+    ['迁移率', '给一个未学过但同词根的新词，猜其义', '举一反三能力'],
+]))
+A(('p', '迁移率是本次实验的关键指标。义符机制的主张从来不只是"记得更牢"，而是"建立了一个能推演的结构"——学过 manu 是手，见到没学过的 manuscript 应当能猜出与手有关。这是普通背诵法给不了的能力，也是产品差异化价值的直接证据。'))
+
+A(('h1', '（五）流程与时间'))
+A(('li', '第一步：前测筛词，确定被试不认识的 40 个词。'))
+A(('li', '第二步：随机分组，学习 15 分钟，两组材料除义类锚点外完全相同。'))
+A(('li', '第三步：即时后测，测回忆与再认。'))
+A(('li', '第四步：间隔 7 天，进行延迟后测，测回忆、再认与迁移。'))
+A(('p', '整个实验可在 1 至 2 周内完成，被试在学生群体中招募，测试通过线上问卷定时投放即可，无需专门场地，成本接近于零。'))
+
+A(('h1', '（六）预期结果与判定标准'))
+A(('p', '预期差异不会出现在即时后测上。学习后立刻测，两组都可能记住大部分词，差距有限。真正的差异应当出现在两个地方：一是 7 天延迟后测的保持率，二是迁移题。'))
+A(('p', '预先设定的判定标准为：7 天延迟回忆率实验组高出对照组 10 个百分点以上，且迁移题得分显著更优，则核心假设成立。若延迟后测两组无差异，则说明义类锚点没有产生记忆增益，"好懂"并未转化为"有用"——此时应停止功能扩张，重新检视机制本身，而不是靠增加功能来掩盖。'))
+
+A(('h1', '（七）效度风险与反制'))
+A(('li', '霍桑效应：被试知道自己在被测试，可能更努力。反制方式是双盲，两组都不知道自己是不是实验组，都以为自己用的是新方法。'))
+A(('li', '新奇效应：新方法刚接触时显得有趣，效果被高估。反制方式是延迟后测——7 天后新奇感已经消退，测的是真实保持。'))
+A(('li', '材料偏差：选词无意中偏向实验组。反制方式是随机选词并在实验前预注册。'))
+A(('li', '伦理：需取得知情同意；实验结束后，对照组应获得实验组的材料，保证公平。'))
+
+A(('h1', '（八）实验的复用价值'))
+A(('p', '这套实验不只为验证产品，它产出的对照数据本身具备学术价值。义符对齐机制是否提升记忆保持率，是一个可以独立发表的认知语言学问题，而市面上几乎没有针对汉语母语者的此类对照数据。实验数据既能为产品决策提供依据，也能成为论文的实证基础，还为招募合作者提供了可信度背书。'))
+
+# ---------- 十 ----------
+A(('h0', '十、风险与对策'))
 
 A(('h1', '（一）需求验证风险'))
 A(('p', '等级：最高。本项目的核心假设，即义符与词根对齐能显著提高记忆效率，目前没有实证支持，属于待验证假设。如果这个假设不成立，例如用户虽然觉得有意思但实际记忆效果并不优于传统方法，产品价值会大幅缩水。'))
-A(('p', '对策：阶段零必须做真的对照测试，而不只是收集"感觉不错"的反馈。建议设置对照组的简单记忆测试，用数据而非印象做决策。'))
+A(('p', '对策：阶段零必须做真的对照测试，而不只是收集"感觉不错"的反馈。具体实验方案见第九章，判定标准为 7 天延迟回忆率实验组高出对照组 10 个百分点以上，用数据而非印象做决策。'))
 
 A(('h1', '（二）内容准确性风险'))
 A(('p', '等级：高。词源和字源是硬知识，一旦出错会严重损害产品信誉。'))
@@ -382,7 +456,7 @@ A(('p', '对策：界面从第一天起按响应式设计，先在手机窄屏�
 
 A(('h1', '（四）上架与合规风险'))
 A(('p', '等级：中。国内移动应用需完成备案；苹果应用商店需要开发者账号；部分应用商店对教育类目有资质要求。'))
-A(('caption', '表16　上架与合规事项'))
+A(('caption', '表18　上架与合规事项'))
 A(('table', [
     ['事项', '要求', '说明'],
     ['移动应用备案', '必须', '国内上架的应用需完成备案，否则无法发布'],
@@ -400,9 +474,9 @@ A(('h1', '（六）个人开发者产能风险'))
 A(('p', '等级：现实且紧迫。内容生产（1000 词加 100 条典故）加上三端开发，对个人是相当大的工作量。'))
 A(('p', '对策：人工智能辅助起草加分批发布；不追求一次性完备；优先保证首批内容质量；三端按网页、桌面、手机的顺序渐进交付，每一步都有可用产出。'))
 
-# ---------- 十 ----------
-A(('h0', '十、预算与资源'))
-A(('caption', '表17　预算估算'))
+# ---------- 十一 ----------
+A(('h0', '十一、预算与资源'))
+A(('caption', '表19　预算估算'))
 A(('table', [
     ['项目', '估算', '说明'],
     ['网页端部署', '每年数百元以内', '域名与对象存储，早期可用免费额度'],
@@ -414,8 +488,8 @@ A(('table', [
     ['数据来源', '主要使用开放来源', '需订阅的词典暂不使用'],
 ]))
 
-# ---------- 十一 ----------
-A(('h0', '十一、待决事项'))
+# ---------- 十二 ----------
+A(('h0', '十二、待决事项'))
 A(('p', '以下事项需确认后才能进入实施。'))
 A(('li', '产品名：义符为暂定名，需在表3所列备选中确定。'))
 A(('li', '项目落地目录：本机存放位置，当前暂用 D 盘义符目录。'))
@@ -425,13 +499,16 @@ A(('li', '首批义类范围：是否采用附录A的十二个义类。'))
 A(('li', '义类体系规模：实测显示现有 55 个义类仅能覆盖 335 个可挂古典词根的词，'
      '与一本高考词表的需要差距很大，义类表需扩充到何规模、如何分批冻结，需先定。'))
 A(('li', '是否先做阶段零的网页演示：建议做，成本最低、信息量最大。'))
+A(('li', '是否执行阶段零对照实验：建议按第九章方案执行，这是全项目唯一未验证的核心假设，也是最高风险项。'))
+A(('li', '词汇范围：本稿定为高考词表加雅思词表两批（合计约 5708 词），是否确认。'))
+A(('li', '远期形态：第五章第（六）节的沉浸式漫游与论文产出，是否纳入规划范围，暂建议不纳入本期。'))
 A(('li', '内容来源授权：是否使用需订阅的词典，暂建议不使用。'))
 
 # ---------- 附录 ----------
 A(('pagebreak', ''))
 A(('h0', '附录A　义类映射表（首批12条）'))
 A(('p', '本表为产品的核心数据骨架，应在内容生产的第一步完成并冻结，后续所有词条挂靠其上。'))
-A(('caption', '表18　义类映射表完整版'))
+A(('caption', '表20　义类映射表完整版'))
 A(('table', [
     ['编号', '义类', '汉语义符', '英语词根（来源）', '典型例词'],
     ['S01', '水·液体', '氵 水', 'aqua-（拉）, hydr-（希）, mar-（拉）', 'aquarium, hydrogen, marine'],
@@ -449,7 +526,7 @@ A(('table', [
 ]))
 
 A(('h0', '附录B　词条数据模型字段表'))
-A(('caption', '表19　词条字段定义'))
+A(('caption', '表21　词条字段定义'))
 A(('table', [
     ['字段名', '类型', '必填', '说明'],
     ['拼写', '字符串', '是', '标准拼写，唯一键'],
@@ -476,326 +553,12 @@ A(('p', '本引擎具有天然的双向性，除汉语母语者学外语之外�
 A(('p', '方向一是反向应用：对外汉语教学。同一套义类映射，反过来可以帮外国人理解汉字的义符系统。汉字难学的核心障碍之一正是义符不可感知，而本产品恰好把义符显式化了。'))
 A(('p', '方向二是多语种扩展：由于义类节点与语言无关，加入法语、西班牙语几乎可以直接复用拉丁词根部分；加入日语则需要额外处理同形异义问题。'))
 
-doc_init = None
-
 # ============================================================
-# 渲染
+# 渲染（排版机器已抽到 gongwen.py，规划书与参赛材料共用一套）
 # ============================================================
-doc = Document()
+import gongwen
 
-# --- 页面设置 ---
-for s in doc.sections:
-    s.top_margin, s.bottom_margin = Cm(3.7), Cm(3.5)
-    s.left_margin, s.right_margin = Cm(2.8), Cm(2.6)
-
-# --- Normal 基线 ---
-n = doc.styles['Normal']
-n.font.size = Pt(SZ)
-rpr = n.element.get_or_add_rPr()
-rf = rpr.get_or_add_rFonts()
-rf.set(qn('w:eastAsia'), FS); rf.set(qn('w:ascii'), WEST); rf.set(qn('w:hAnsi'), WEST)
-
-def set_run(run, ea, size=SZ, bold=False):
-    run.font.size = Pt(size)
-    run.bold = bold
-    rpr = run._element.get_or_add_rPr()
-    rf = rpr.get_or_add_rFonts()
-    rf.set(qn('w:eastAsia'), ea)
-    rf.set(qn('w:ascii'), WEST); rf.set(qn('w:hAnsi'), WEST)
-
-def set_ind(p, first_chars=None, left=None, hanging=None):
-    pPr = p._p.get_or_add_pPr()
-    ind = pPr.find(qn('w:ind'))
-    if ind is None:
-        ind = OxmlElement('w:ind'); pPr.append(ind)
-    for k in ('w:firstLine', 'w:firstLineChars', 'w:left', 'w:leftChars',
-              'w:hanging', 'w:hangingChars'):
-        if ind.get(qn(k)) is not None:
-            del ind.attrib[qn(k)]
-    if first_chars is not None:
-        ind.set(qn('w:firstLineChars'), str(first_chars))
-        ind.set(qn('w:firstLine'), str(int(first_chars * 3.2)))
-    if left is not None:
-        ind.set(qn('w:left'), str(left)); ind.set(qn('w:leftChars'), '0')
-    if hanging is not None:
-        ind.set(qn('w:hanging'), str(hanging)); ind.set(qn('w:hangingChars'), '0')
-
-def set_line(p, pt=LS, before=0, after=0):
-    pf = p.paragraph_format
-    pf.line_spacing = Pt(pt)
-    pf.space_before = Pt(before)
-    pf.space_after = Pt(after)
-
-def set_outline(p, lvl):
-    pPr = p._p.get_or_add_pPr()
-    old = pPr.find(qn('w:outlineLvl'))
-    if old is not None:
-        pPr.remove(old)
-    e = OxmlElement('w:outlineLvl')
-    e.set(qn('w:val'), str(lvl))
-    rpr = pPr.find(qn('w:rPr'))
-    if rpr is not None:
-        rpr.addprevious(e)
-    else:
-        pPr.append(e)
-
-def set_page_break_before(p):
-    pPr = p._p.get_or_add_pPr()
-    old = pPr.find(qn('w:pageBreakBefore'))
-    if old is not None:
-        pPr.remove(old)
-    e = OxmlElement('w:pageBreakBefore')
-    st = pPr.find(qn('w:pStyle'))
-    if st is not None:
-        st.addnext(e)
-    else:
-        pPr.insert(0, e)
-
-BOLD_RE = re.compile(r'\*\*(.+?)\*\*')
-def emit_runs(p, text, ea, size=SZ, bold_all=False):
-    """支持 **加粗** 内联标记。"""
-    pos = 0
-    for m in BOLD_RE.finditer(text):
-        if m.start() > pos:
-            set_run(p.add_run(text[pos:m.start()]), ea, size=size, bold=bold_all)
-        set_run(p.add_run(m.group(1)), ea, size=size, bold=True)
-        pos = m.end()
-    if pos < len(text):
-        set_run(p.add_run(text[pos:]), ea, size=size, bold=bold_all)
-    if not text:
-        set_run(p.add_run(''), ea, size=size, bold=bold_all)
-
-# --- 列宽：按内容分配（短列窄、长列宽，绝不均分）---
-def col_widths(rows):
-    ncol = len(rows[0])
-    weights = []
-    for ci in range(ncol):
-        mx = 0
-        for r in rows:
-            if ci >= len(r):
-                continue
-            cell = r[ci]
-            w = 0.0
-            for ch in cell:
-                w += 1.0 if ord(ch) > 0x2E80 else 0.55
-            mx = max(mx, w)
-        weights.append(max(mx, 2.0))
-    total = sum(weights)
-    MIN = 1.6   # cm
-    widths = [TEXTW * (w / total) for w in weights]
-    # 抬升过窄列，等比压缩其余
-    for _ in range(3):
-        deficit = sum(max(0.0, MIN - w) for w in widths)
-        if deficit < 0.01:
-            break
-        widths = [w if w >= MIN else MIN for w in widths]
-        over = sum(w for w in widths if w > MIN)
-        target = float(TEXTW) - MIN * sum(1 for w in widths if w <= MIN)
-        if over > 0:
-            widths = [w if w <= MIN else w * (target / over) for w in widths]
-    s = sum(widths)
-    return [int(float(TEXTW) * (w / s)) for w in widths]
-
-def add_table(rows):
-    t = doc.add_table(rows=len(rows), cols=len(rows[0]))
-    t.style = 'Table Grid'
-    t.alignment = WD_TABLE_ALIGNMENT.CENTER
-    t.autofit = False
-    ws = col_widths(rows)
-    for ri, row in enumerate(rows):
-        for ci, val in enumerate(row):
-            cell = t.cell(ri, ci)
-            cell.width = ws[ci]
-            cp = cell.paragraphs[0]
-            for r in list(cp.runs):
-                r._element.getparent().remove(r._element)
-            set_run(cp.add_run(val), HT if ri == 0 else FS,
-                    size=TBLZ, bold=(ri == 0))
-            set_ind(cp, first_chars=0)
-            set_line(cp, TBL_LS)
-    return t
-
-def add_toc_field(p):
-    def mkfld(kind, dirty=False):
-        r = p.add_run()
-        fc = OxmlElement('w:fldChar')
-        fc.set(qn('w:fldCharType'), kind)
-        if dirty:
-            fc.set(qn('w:dirty'), 'true')
-        r._r.append(fc)
-    mkfld('begin', dirty=True)
-    r = p.add_run()
-    it = OxmlElement('w:instrText')
-    it.set(qn('xml:space'), 'preserve')
-    it.text = ' TOC \\o "1-2" \\h \\z \\u '
-    r._r.append(it)
-    mkfld('separate')
-    p.add_run('（在 WPS 中按 Ctrl+A 后按 F9 更新域，生成目录）')
-    mkfld('end')
-    for r in p.runs:
-        set_run(r, FS)
-
-# --- 主渲染 ---
-li_no = 0
-toc_anchor = None
-title_done = False
-
-for kind, payload in C:
-    if kind == 'title':
-        p = doc.add_paragraph(); emit_runs(p, payload, HZ, size=22)
-        p.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        set_ind(p, first_chars=0); set_line(p, 34, after=6)
-        title_done = True
-        continue
-    if kind == 'subtitle':
-        p = doc.add_paragraph(); emit_runs(p, payload, KT)
-        p.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        set_ind(p, first_chars=0); set_line(p, LS, after=18)
-        continue
-    if kind == 'info':
-        p = doc.add_paragraph(); emit_runs(p, payload, FS)
-        p.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        set_ind(p, first_chars=0); set_line(p, LS)
-        continue
-    if kind == 'blank':
-        p = doc.add_paragraph(); set_ind(p, first_chars=0); set_line(p, LS)
-        toc_anchor = p
-        continue
-    if kind == 'pagebreak':
-        p = doc.add_paragraph(); set_ind(p, first_chars=0); set_line(p, LS)
-        set_page_break_before(p)
-        continue
-    if kind == 'h0':
-        li_no = 0
-        p = doc.add_paragraph(); emit_runs(p, payload, HT)
-        p.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        set_ind(p, first_chars=0); set_line(p, LS, before=14, after=8)
-        set_outline(p, 0)
-        continue
-    if kind == 'h1':
-        li_no = 0
-        p = doc.add_paragraph(); emit_runs(p, payload, HT)
-        set_ind(p, first_chars=200); set_line(p, LS, before=8, after=4)
-        set_outline(p, 1)
-        continue
-    if kind == 'h2':
-        li_no = 0
-        p = doc.add_paragraph(); emit_runs(p, payload, KT)
-        set_ind(p, first_chars=200); set_line(p, LS, before=6, after=2)
-        set_outline(p, 2)
-        continue
-    if kind == 'p':
-        p = doc.add_paragraph(); emit_runs(p, payload, FS)
-        set_ind(p, first_chars=200); set_line(p, LS)
-        continue
-    if kind == 'li':
-        li_no += 1
-        p = doc.add_paragraph()
-        emit_runs(p, '%d. %s' % (li_no, payload), FS)
-        set_ind(p, first_chars=0, left=640, hanging=640)
-        set_line(p, LS)
-        continue
-    if kind == 'caption':
-        li_no = 0
-        p = doc.add_paragraph(); emit_runs(p, payload, HT, size=TBLZ)
-        p.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        set_ind(p, first_chars=0); set_line(p, TBL_LS, before=8, after=3)
-        continue
-    if kind == 'table':
-        add_table(payload)
-        p = doc.add_paragraph(); set_ind(p, first_chars=0); set_line(p, 10)
-        continue
-
-# --- 页脚页码「— 1 —」---
-def page_footer(section):
-    section.footer.is_linked_to_previous = False
-    p = section.footer.paragraphs[0]
-    for r in list(p.runs):
-        r._element.getparent().remove(r._element)
-    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    def mk(txt=None, field=False):
-        r = p.add_run(txt or '')
-        set_run(r, '宋体', size=14)
-        if field:
-            a = OxmlElement('w:fldChar'); a.set(qn('w:fldCharType'), 'begin')
-            b = OxmlElement('w:instrText'); b.set(qn('xml:space'), 'preserve'); b.text = ' PAGE '
-            c = OxmlElement('w:fldChar'); c.set(qn('w:fldCharType'), 'end')
-            r._r.append(a); r._r.append(b); r._r.append(c)
-        return r
-    mk('— '); mk(field=True); mk(' —')
-    set_line(p, 14)
-
-for s in doc.sections:
-    page_footer(s)
-
-# --- 目录（放在正文前）---
-if toc_anchor is not None:
-    p_title = doc.add_paragraph()
-    p_title.add_run('目　录')
-    p_title.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    set_ind(p_title, first_chars=0); set_line(p_title, 34, after=12)
-    for r in p_title.runs:
-        set_run(r, HZ, size=22)
-    set_page_break_before(p_title)
-
-    p_toc = doc.add_paragraph()
-    add_toc_field(p_toc)
-    set_ind(p_toc, first_chars=0); set_line(p_toc, LS)
-
-    anchor_el = toc_anchor._p
-    for el in (p_toc._p, p_title._p):
-        el.getparent().remove(el)
-        anchor_el.addnext(el)
-
-    # 正文首页（第一个 h0）另起一页
-    for p in doc.paragraphs:
-        if p.text.strip().startswith('一、项目背景'):
-            set_page_break_before(p)
-            break
-
-# --- 收尾：抹掉样式名，统一字体 ---
-for p in doc.paragraphs:
-    if p.style.name != 'Normal':
-        p.style = doc.styles['Normal']
-for p in doc.paragraphs:
-    for r in p.runs:
-        rpr = r._element.get_or_add_rPr()
-        rf = rpr.find(qn('w:rFonts'))
-        if rf is None:
-            rf = OxmlElement('w:rFonts'); rpr.insert(0, rf)
-        if rf.get(qn('w:eastAsia')) == '微软雅黑':
-            rf.set(qn('w:eastAsia'), FS)
-
-os.makedirs(OUT_DIR, exist_ok=True)
-doc.save(DST)
-
-# --- 清掉模板带的孤立字体引用（WPS「缺失字体」告警的两个来源）---
-def patch_zip(path):
-    tmp = path + '.tmp'
-    zin = zipfile.ZipFile(path, 'r')
-    zout = zipfile.ZipFile(tmp, 'w', zipfile.ZIP_DEFLATED)
-    for it in zin.infolist():
-        data = zin.read(it.filename)
-        name = it.filename
-        if name in ('word/styles.xml', 'word/stylesWithEffects.xml'):
-            s = data.decode('utf-8')
-            for f in ('Courier',):
-                s = s.replace('w:ascii="%s"' % f, 'w:ascii="Times New Roman"')
-                s = s.replace('w:hAnsi="%s"' % f, 'w:hAnsi="Times New Roman"')
-                s = s.replace('w:eastAsia="%s"' % f, 'w:eastAsia="Times New Roman"')
-                s = s.replace('w:cs="%s"' % f, 'w:cs="Times New Roman"')
-            s = s.replace('"微软雅黑"', '"仿宋"')
-            data = s.encode('utf-8')
-        elif name == 'word/theme/theme1.xml':
-            s = data.decode('utf-8')
-            # 脚本字体表里 26 个本机没有的字体（泰文/天城文等）→ 整表清空
-            s = re.sub(r'<a:font script="[^"]*" typeface="[^"]*"\s*/>', '', s)
-            data = s.encode('utf-8')
-        zout.writestr(it, data)
-    zin.close(); zout.close()
-    os.replace(tmp, path)
-
-patch_zip(DST)
-
-print('OK ->', DST)
-print('段落', len(doc.paragraphs), '表格', len(doc.tables))
+if __name__ == '__main__':
+    doc = gongwen.build(C, DST)
+    print('OK ->', DST)
+    print('段落', len(doc.paragraphs), '表格', len(doc.tables))
