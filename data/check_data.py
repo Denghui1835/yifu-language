@@ -95,7 +95,11 @@ class Report(object):
 
     @property
     def failed(self):
-        return any(i['sev'] == 'ERROR' for i in self.items)
+        # ★ count 过滤不能少：add() 是无条件 append 的 —— 每个 ERROR 类检查项都会进 items，
+        #   哪怕一条都没命中。只看 sev 的话，只要脚本里存在任何一个 ERROR 类检查，
+        #   退出码就恒为 1（报告印「错误 0 类」、退出码却是 1，就是这么来的）。
+        #   口径与 render() 统计「错误 N 类」时的 len([i for i in errs if i['count']]) 保持一致。
+        return any(i['sev'] == 'ERROR' and i['count'] for i in self.items)
 
 
 # ---- 各文件加载 -----------------------------------------------------------
