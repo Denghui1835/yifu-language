@@ -1,9 +1,12 @@
 {
- "total": 3645,
- "prefix": 614,
- "suffix": 606,
- "prefix_or_suffix": 994,
- "root": 778,
- "union": 1379,
- "rest": 2266
+ "note": "analyze_roots.py 的启发式词根子串匹配覆盖率 —— 粗口径，仅供参考，不得直接引用为结论。词源定性的权威口径见 etym_class.json；按义类分桶的权威口径见 yilei_buckets.json。",
+ "source": "gaokao3500.json",
+ "key": "hw",
+ "total": 3841,
+ "prefix": 622,
+ "suffix": 615,
+ "prefix_or_suffix": 1009,
+ "root": 798,
+ "union": 1410,
+ "rest": 2431
 }
