@@ -108,6 +108,13 @@ main{
 .hz .p{font-size:10px;color:var(--ink3);transform:scale(.92)}
 .hz.hot .c,.hz.hot .p{color:#fff}
 
+/* 本词对照格：点英文词时，这里放它在汉语里的对应字 */
+#hzxbox:empty{display:none}
+.hzxrow{display:flex;flex-direction:column;align-items:flex-start;gap:9px;margin-top:18px}
+.hzxrow .lab{font-size:11.5px;color:var(--ink3);letter-spacing:.08em;line-height:1.65}
+.hzxrow .hz{width:66px;flex:0 0 66px;cursor:default}
+.hzxrow .hz:hover{transform:none;border-color:var(--zhu)}
+
 /* 词根卡片（右） */
 .root{
   padding:12px 15px;margin-bottom:11px;border-radius:13px;
@@ -456,6 +463,7 @@ main{
     <div class="sidehead"><i></i>汉语义符</div>
     <div id="fus"></div>
     <div class="sidehead" style="margin-top:26px"><i></i>同义类汉字</div>
+    <div id="hzxbox"></div>
     <div class="hgrid" id="hgrid"></div>
   </section>
 
@@ -917,6 +925,7 @@ function renderAll(){
 function clearHighlight(){
   document.querySelectorAll('.hot').forEach(e=>e.classList.remove('hot'));
   $('#wires').innerHTML = '';
+  $('#hzxbox').innerHTML = '';
 }
 
 function pickWord(i){
@@ -932,15 +941,32 @@ function pickWord(i){
   // 命中的义符（全部点亮 —— 这就是"啊哈"）
   d.fu.forEach((f,j)=> $('#fu'+j).classList.add('hot'));
 
-  // 随机挑一个同义类汉字作为对照
-  const ci = i % d.chars.length;
-  $('#hz'+ci)?.classList.add('hot');
+  // 汉语对应字：用词卡里写好的 w.hz.c，不按位置瞎指。
+  // 该字若已经在"同义类汉字"里就直接点亮，否则单开一格"本词对照"。
+  const ci = d.chars.findIndex(c => c.c === w.hz.c);
+  let target;
+  if(ci >= 0){
+    target = $('#hz'+ci);
+    target?.classList.add('hot');
+  }else{
+    target = addXrefChip(w.hz.c);
+  }
 
   $('#disc').classList.add('pulse');
   setTimeout(()=>$('#disc').classList.remove('pulse'), 620);
 
-  drawWires(i, ci);
+  drawWires($('#w'+i), target);
   openDetail(w);
+}
+
+/* 在"同义类汉字"上方插一格：本词在汉语里对应的那个字 */
+function addXrefChip(ch){
+  $('#hzxbox').innerHTML =
+    `<div class="hzxrow">
+       <div class="lab">本词对照　这个词在汉语里对应的字</div>
+       <div class="hz hot" id="hzx"><div class="c">${esc(ch)}</div></div>
+     </div>`;
+  return $('#hzx');
 }
 
 function pickChar(i){
@@ -955,12 +981,12 @@ function pickChar(i){
   openCharDetail(c, d);
 }
 
-function drawWires(wi, ci){
+function drawWires(wEl, hEl){
   const svg = $('#wires'), board = $('#board');
   if(window.innerWidth <= 900) return;
   const bb = board.getBoundingClientRect();
   svg.setAttribute('viewBox', `0 0 ${bb.width} ${bb.height}`);
-  const wEl = $('#w'+wi), hEl = $('#hz'+ci), disc = $('#disc');
+  const disc = $('#disc');
   if(!wEl || !hEl || !disc) return;
   const r = e => {
     const x = e.getBoundingClientRect();
