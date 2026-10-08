@@ -1,7 +1,7 @@
 {
  "schema": 1,
  "built": "2026-10-08",
- "note": "义符卡内容层。字段结构照 docs/index.html 的 const DATA（阶段零演示 30 词），词条内容逐字取自该文件，未改写。每词带 provenance 指向词源出处；拿不准的字段按 Issue #1 的要求标 pending，不猜。生成方式：node 取出 index.html 里 DATA 对象字面量转 JSON（eval 后 JSON.stringify），再补 provenance 与 review 两节 —— 词条正文一字未动。",
+ "note": "义符卡内容层。字段结构照 docs/index.html 的 const DATA（阶段零演示 30 词），词条内容逐字取自该文件，未改写。每词带 provenance 指向词源出处；拿不准的字段按 Issue #1 的要求标 pending，不猜。生成方式：python data/build_yifu_cards.py（把 index.html 里 DATA 对象字面量解析成 JSON，再补 provenance 与 review 两节 —— 词条正文一字未动）；跑 python data/build_yifu_cards.py --check 可校验本文件与 index.html 是否还一致。",
  "sources": {
   "demo": "docs/index.html 的 const DATA（阶段零演示，3 义类 × 10 词）",
   "en_raw": "data/etym_raw/<词>.html（kaikki.org 抓取切片，每词一个文件）",

@@ -177,7 +177,9 @@ prepare／part 里，`med` 既是 medicus「治」又出现在 medius「中」�
     ├── yilei_roots.py        义类词根表（ROOTS，54 个义类）；卡片生产与统计共用这一份
     ├── analyze_roots.py      按词根统计覆盖率（用上面的 ROOTS 表）
     ├── bucket_yilei.py       按义类分桶（启发式，精度约 70%，见上）
-    ├── build_cards.py        产出义类词卡 -> docs/data/cards.json
+    ├── build_cards.py        产出义类词卡 -> docs/data/cards.json（18 词试点批）
+    ├── build_yifu_cards.py   卡片内容层生成器：由 docs/index.html 的 const DATA 产出
+    │                         data/yifu_cards.json；带 --check，校验那份与 index.html 是否还一致
     ├── build_lookup.py       产出查词索引 -> docs/data/lookup.json
     ├── check_data.py         数据卫生检查；退出码非 0 即有问题
     ├── etym_class.json       产出：词 -> 类别
@@ -199,6 +201,12 @@ prepare／part 里，`med` 既是 medicus「治」又出现在 medius「中」�
 > 改过 `data/` 之后，这两处要**逐条对着实际值重核再重跑**，不能只跑一边。
 > 这条已经踩过两次：词表截断修正（PR #14）与义类分桶重跑（Issue #17）之后，
 > 两份文档的数字各自过期了一轮（Issue #20 / PR #21、Issue #22）。
+>
+> ⚠️ **同一类病的第三处：卡片层。** `data/yifu_cards.json` 的词条正文是从
+> `docs/index.html` 的 `const DATA` 来的，**改 `index.html` 就要重跑**
+> `python data/build_yifu_cards.py`。这条不用靠人记 ——
+> `python data/build_yifu_cards.py --check` 会把不一致的**具体词与具体字段**指名报出来，
+> 一致时退出 0、不一致时退出非 0。
 
 ## 跑起来
 
