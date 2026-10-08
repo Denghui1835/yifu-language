@@ -59,31 +59,33 @@
 
 | 类别 | 词数 | 占比 |
 |---|---:|---:|
-| 古典来源（拉丁／古希腊） | 1811 | 47.1% |
+| 古典来源（拉丁／古希腊） | 1815 | 47.3% |
 | 罗曼斯来源（古法语等，多可追至拉丁） | 216 | 5.6% |
-| **→ 可挂古典词根（合计）** | **2027** | **52.8%** |
+| **→ 可挂古典词根（合计）** | **2031** | **52.9%** |
 | 日耳曼底层 | 1483 | 38.6% |
 | 其它来源 | 4 | 0.1% |
-| 抓不到词源 | 327 | 8.5% |
+| 抓不到词源 | 323 | 8.4% |
 
 > **表里数字怎么来的（复算命令，2026-10 复核）**
 > ① 各类词数与总数：
 > `python -c "import json,collections;print(dict(collections.Counter(json.load(open('data/etym_class.json',encoding='utf-8')).values())))"`
-> → `{'classical': 1811, 'germanic': 1483, 'unknown': 327, 'romance': 216, 'other': 4}`
+> → `{'classical': 1815, 'germanic': 1483, 'unknown': 323, 'romance': 216, 'other': 4}`
 > ② 总条目数：
 > `python -c "import json;print(len(json.load(open('data/gaokao3500.json',encoding='utf-8'))))"`
 > → `3841`
-> ③ 占比 = 该类词数 ÷ 3841。合计 = 古典 + 罗曼斯 = 1811 + 216 = 2027。
+> ③ 占比 = 该类词数 ÷ 3841。合计 = 古典 + 罗曼斯 = 1815 + 216 = 2031。
 
-抽出 51 词人工核对，**51/51 与维基词典一致**。
+抽查 30 词逐条核对演变链（记录见 `data/demo_etym_audit.md`，含逐词原始出处），
+**29/30 与维基词典一致，查出并修正 2 处**。分类定性另做过一轮 51 词抽查、结论
+51/51 一致，但**该轮记录未入库、不可复现**，故此处不作为证据引用。
 
 **长度分层**（越长越可拆，但会到顶）：
 
 | 词长 | 可挂古典词根 |
 |---|---:|
-| 1–3 字母 | 27.8% |
-| 4–6 字母 | 47.5% |
-| 7–9 字母 | 62.9% |
+| 1–3 字母 | 27.9% |
+| 4–6 字母 | 47.6% |
+| 7–9 字母 | 63.0% |
 | 10 字母以上 | 60.0% |
 
 短词是日耳曼基础词（go、eat、house），本来就不难；长词才是学生的真痛点，
@@ -94,17 +96,20 @@
 > 合成词与专名占比升高，古典词根比例不再上升。早期正则版给出的
 > 「4 字母以上 40%／7 字母以上 60%／10 字母以上 70%」全部作废。
 
-**义类分桶（估算，勿当结论）。** 2027 个可挂古典词根的词里，按现有 54 个义类做
-词根匹配，**只有 335 个能归入**，1692 个匹配不上。手工抽检 60 个归入词，
-精度仅约 **70%**——3 字母词根歧义严重（`par` 既是「相等」又出现在
+**义类分桶（估算，勿当结论）。** 2031 个可挂古典词根的词里，按现有 54 个义类做
+词根匹配（`data/yilei_roots.py` 的 `ROOTS` 表，`grep -c "^ '[^']*':\[" data/yilei_roots.py` 得 54；
+**其中只有 43 个真的分到了词，另 11 个为空**，数 `data/yilei_buckets.json` 的键即知），
+**只有 335 个能归入**，1696 个匹配不上。手工抽检 60 个归入词，
+精度仅约 **70%**（该轮抽检记录未入库）——3 字母词根歧义严重（`par` 既是「相等」又出现在
 prepare／part 里，`med` 既是 medicus「治」又出现在 medius「中」里），
 启发式修不掉。
 
 **这本身是重要结论**：义类层必须是**人工校订的词典数据**，不能靠推导生成。
 335 只说明「方向可行、缺口巨大」，不代表最终覆盖率。
 
-> 义类数 = `data/analyze_roots.py` 里 `ROOTS` 字典的顶层键数：
-> `python -c "import ast;t=ast.parse(open('data/analyze_roots.py',encoding='utf-8').read());print(len([n for n in t.body if isinstance(n,ast.Assign) and getattr(n.targets[0],'id','')=='ROOTS'][0].value.keys))"` → `54`
+> 义类数 = `data/yilei_roots.py` 里 `ROOTS` 字典的顶层键数（该表原在 `analyze_roots.py`，
+> 后抽成独立模块与卡片生产流水线共用）：
+> `python -c "import ast;t=ast.parse(open('data/yilei_roots.py',encoding='utf-8').read());print(len([n for n in t.body if isinstance(n,ast.Assign) and getattr(n.targets[0],'id','')=='ROOTS'][0].value.keys))"` → `54`
 > 归入词数 335 出自 `data/yilei_buckets.json`：`python -c "import json;d=json.load(open('data/yilei_buckets.json',encoding='utf-8'));print(sum(len(v) for v in d.values()))"` → `335`。
 
 ### 四、扩到雅思词汇：义符命中率反而更高
@@ -113,25 +118,28 @@ prepare／part 里，`med` 既是 medicus「治」又出现在 medius「中」�
 
 | | 高考 3500 | 雅思词表 |
 |---|---:|---:|
-| 可挂古典词根 | 2027（52.8%） | **2449（68.7%）** |
+| 可挂古典词根 | 2031（52.9%） | **2449（68.7%）** |
 | 日耳曼底层 | 38.6% | 25.0% |
-| 抓不到词源 | 8.5% | 6.0% |
+| 抓不到词源 | 8.4% | 6.0% |
 
 长度分层差距更明显：
 
 | 词长 | 高考 | 雅思 |
 |---|---:|---:|
-| 1–3 字母 | 27.8% | 35.8% |
-| 4–6 字母 | 47.5% | 60.3% |
-| 7–9 字母 | 62.9% | **78.9%** |
+| 1–3 字母 | 27.9% | 35.8% |
+| 4–6 字母 | 47.6% | 60.3% |
+| 7–9 字母 | 63.0% | **78.9%** |
 | 10 字母以上 | 60.0% | **80.1%** |
 
 **雅思词汇比高考词汇更适合义符机制**——高出约 16 个百分点，长词区间接近八成可拆。
 原因是学术英语的拉丁／希腊借词密度天然高于日常英语（高考词表里有大量 go／eat／house
 这类日耳曼基础词）。
 
-两份词表**只重叠 1696 词**（高考独有 2145、雅思独有 1867），合起来约 5708 词——
-扩到雅思是真扩量，不是把同一批词换个封面。
+两份词表**只重叠 1705 词**（高考独有 2136、雅思独有 1858），合起来约 5699 词——
+扩到雅思是真扩量，不是把同一批词换个封面。比对键取词头 `hw`（与 `data/check_data.py`
+的查词键一致），用
+`python -c "import json;g=json.load(open('data/gaokao3500.json',encoding='utf-8'));i=json.load(open('data/ielts_words.json',encoding='utf-8'));a=set(r['hw'].lower() for r in g);b=set(r['hw'].lower() for r in i);print(len(a&b),len(a-b),len(b-a),len(a|b))"`
+数出，输出为 `1705 2136 1858 5699`。
 
 > 这条数据支持一个产品判断：义符机制在**学术／留学类词汇**上比在高考词汇上更成立。
 
@@ -145,9 +153,10 @@ prepare／part 里，`med` 既是 medicus「治」又出现在 medius「中」�
 ├── build_plan.py             规划书生成脚本；内容全部结构化在文件顶部的 C 列表里，
 │                             改内容只动那个列表再重跑，不用碰排版代码
 │                             产出到 D:\AI coding\规划书\义符_产品规划书_v1.docx（公文格式）
-├── docs/
-│   └── index.html            阶段零交互演示（单文件、零依赖、离线可跑，双击即可）
-│                             这个目录同时也是 GitHub Pages 的发布源
+├── docs/                     GitHub Pages 的发布源
+│   ├── index.html            交互演示（单文件、零依赖、离线可跑）：义类漫游 / 词根拆解器 / 义类词卡
+│   ├── pipeline.html         词源管线说明页
+│   └── data/                 cards.json（义类词卡）、lookup.json（查词索引），由 data/ 下脚本产出
 ├── 大赛/                     AI+教育大赛：生成脚本与官方指南（**成果不落这里**）
 │   ├── build_entry.py        参赛内容介绍生成脚本（只改顶部 C 列表）
 │   ├── to_pdf.py             docx -> PDF（走本机 WPS 的 COM，顺带刷新目录域）
@@ -163,8 +172,12 @@ prepare／part 里，`med` 既是 medicus「治」又出现在 medius「中」�
     ├── fetch_raw.py          从 kaikki.org 抓逐词词源页 HTML 切片 -> etym_raw/
     ├── etym_parse.py         离线解析 HTML：词性分段、词源树、内嵌 JSON 祖先链
     ├── analyze_etym.py       逐词定性（classical/romance/germanic/unknown）+ 派生回退
-    ├── analyze_roots.py      义类词根表（ROOTS）
+    ├── yilei_roots.py        义类词根表（ROOTS，54 个义类）；卡片生产与统计共用这一份
+    ├── analyze_roots.py      按词根统计覆盖率（用上面的 ROOTS 表）
     ├── bucket_yilei.py       按义类分桶（启发式，精度约 70%，见上）
+    ├── build_cards.py        产出义类词卡 -> docs/data/cards.json
+    ├── build_lookup.py       产出查词索引 -> docs/data/lookup.json
+    ├── check_data.py         数据卫生检查；退出码非 0 即有问题
     ├── etym_class.json       产出：词 -> 类别
     ├── etym_trees.json       产出：词 -> 祖先链节点（给演变时间轴用）
     ├── yilei_buckets.json    产出：义类 -> 词表
@@ -172,7 +185,8 @@ prepare／part 里，`med` 既是 medicus「治」又出现在 medius「中」�
     ├── ielts_coverage.py     雅思词表跑同一条管线，实测义符命中率
     ├── ielts_class.json      产出：雅思词 -> 类别
     ├── ielts_trees.json      产出：雅思词 -> 祖先链
-    └── demo_etym_audit.md    演示 30 词的词源核对记录（含逐词出处）
+    ├── demo_etym_audit.md    演示 30 词的词源核对记录（含逐词出处）
+    └── demo_etym_audit.tsv   同上，逐词原始记录
 ```
 
 `data/etym_raw/`（约 90MB 的抓取缓存）不入库，随时可重抓。
@@ -209,10 +223,10 @@ python data/bucket_yilei.py   # 义类分桶
 - [x] 产品规划书 v1.1（12 章 + 4 附录，含义类映射表、词条数据模型、阶段零对照实验方案、风险与路线图）
 - [x] 阶段零交互演示：3 义类（水／手／心）× 10 词 = 30 词
 - [x] 高考 3500 词表入库并结构化（3841 条）
-- [x] 词源管线：kaikki 逐词抓取 → 解析 → 定性（51/51 人工核对一致）
+- [x] 词源管线：kaikki 逐词抓取 → 解析 → 定性（演示 30 词逐条核对，29/30 一致，修正 2 处）
 - [x] 长度分层统计，拿到可对外用的真数
 - [x] 义类分桶首轮（估算，精度约 70%）
-- [x] AI+教育大赛参赛内容介绍（30页/17表，七章严格照报名系统的指定小标题）
+- [x] AI+教育大赛参赛内容介绍（32 页 / 17 表，八章严格照报名系统的指定小标题）
 
 **待办**
 
