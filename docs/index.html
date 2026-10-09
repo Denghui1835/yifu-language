@@ -1507,10 +1507,15 @@ function loadStudyStore(){
     try{
       const o = JSON.parse(raw);
       if(o && typeof o === 'object'){
+        /* plan 要挡一道：renderStudy 会直接读 plan.yileiOrder.length 与 plan.minutes，
+           一份形状不对的旧数据会让整个学习计划页渲染时抛错、整页空白。 */
+        const pl = (o.plan && typeof o.plan === 'object'
+                    && Array.isArray(o.plan.yileiOrder)
+                    && isFinite(Number(o.plan.minutes))) ? o.plan : null;
         STUDY = {
           srs:(o.srs && typeof o.srs==='object') ? o.srs : {},
           log:(o.log && typeof o.log==='object') ? o.log : {},
-          plan:o.plan || null
+          plan:pl
         };
       }
     }catch(e){ /* 数据损坏则退回默认内存态 */ }
@@ -1538,7 +1543,8 @@ function logToday(){
 }
 function bumpLog(field, n){
   const l = logToday(); l[field] = (l[field]||0) + (n||1);
-  if(!l.done && (l.reviewed + l.learned) > 0) { /* done 由「完成今日任务」或达标时置真 */ }
+  /* done 只由「完成今日任务并打卡」按钮显式置真，不在这里自动判达标——
+     否则用户只是随手翻两张卡，日历上就会亮成「已打卡」。 */
 }
 
 function yileiNames(){
@@ -2033,10 +2039,15 @@ function guideAsk(q0){
   if(!q) return;
   GUIDE_LOG.push({role:'u', text:q});
   const seq = ++GUIDE_SEQ;
-  const at = GUIDE_LOG.length - 1 + 1;         /* 答复要落在这个位置 */
-  GUIDE_LOG.push({role:'a', pending:true});
+  GUIDE_LOG.push({role:'a', pending:true, seq:seq});
+  const at = GUIDE_LOG.length - 1;             /* 答复要落在自己这个占位的位置 */
   guideRender();
   const land = plan => {
+    /* 先认领自己的占位气泡。若它已经不在了（整段对话被清空），或那个下标上已是
+       别人的条目（清空后重新提问、新对话长到了同一个位置），就什么都不写——
+       否则会在清空后凭空冒出一条答复，或把别人的气泡盖掉。 */
+    const cur = GUIDE_LOG[at];
+    if(!cur || cur.seq !== seq) return;
     if(seq !== GUIDE_SEQ){
       /* 已有更新的提问。这条作废，但必须把占位气泡收掉——
          否则「正在解析问法…」会永远停在那里。 */
@@ -2057,7 +2068,7 @@ function initGuide(){
   $('#gSamples').querySelectorAll('.chip').forEach(c=> c.onclick = ()=>{ inp.value = c.dataset.gs; guideAsk(c.dataset.gs); });
   inp.addEventListener('keydown', e=>{ if(e.key==='Enter') guideAsk(inp.value); });
   $('#gGo').onclick = ()=> guideAsk(inp.value);
-  $('#gClear').onclick = ()=>{ GUIDE_LOG.length = 0; guideRender(); };
+  $('#gClear').onclick = ()=>{ GUIDE_SEQ++; GUIDE_LOG.length = 0; guideRender(); };
   guideRender();
 }
 
@@ -2132,24 +2143,17 @@ function buildPlanLocal(){
   for(let i=0; i<span; i++){
     schedule.push({day:dayKeyAdd(today,i), yilei:yileiOrder[i % yileiOrder.length], newWords:dailyNew});
   }
-  return {minutes:minutes, span:span, goal:goal, deadline:dayKeyAdd(today, span),
-          dailyNew:dailyNew, startDate:today, yileiOrder:yileiOrder, schedule:schedule,
-          byModel:false, narrative:''};
+  const p = {minutes:minutes, span:span, goal:goal, deadline:dayKeyAdd(today, Math.max(0, span-1)),
+             dailyNew:dailyNew, startDate:today, yileiOrder:yileiOrder, schedule:schedule};
+  /* 到期日＝排程的最后一个学习日（不是它之后那天），这样「周期 N 天」与到期日自洽。 */
+  p.narrative = planSummary(p);
+  return p;
 }
-function planNarrative(p){
-  /* 模型的唯一用武之地：把本机算好的数字写成几句人话。失败/未配置 → 本地模板。 */
-  const local = '按每天 '+p.minutes+' 分钟、'+p.span+' 天，为你排到 '+p.yileiOrder.length
+/* 计划说明由本机模板生成。模型在本作品里只承担「把一句自然话翻译成一次工具调用」，
+   不参与学习计划的文字——参赛文档里对模型职责的界定就是这一条，代码须与之一致。 */
+function planSummary(p){
+  return '按每天 '+p.minutes+' 分钟、'+p.span+' 天，为你排到 '+p.yileiOrder.length
     + ' 个义类，每天新学约 '+p.dailyNew+' 个词，并在到期时自动安排复习。到期日 '+p.deadline+'。';
-  if(typeof modelReady !== 'function' || !modelReady()) return Promise.resolve(local);
-  const fact = '每天可用时间='+p.minutes+'分钟；周期='+p.span+'天；每日新词='+p.dailyNew
-    +'个；覆盖义类数='+p.yileiOrder.length+'；到期日='+p.deadline+'；目标='+(GOAL_TXT[p.goal]||'');
-  return callModel([
-    {role:'system', content:'你是学习助手。下面给出的是已经算好的事实，你只能用它写 2 到 3 句鼓励性的计划说明，'
-      +'不许改动任何数字，不许新增任何词汇或词源知识，直接输出正文，不要标题、不要列表。'},
-    {role:'user', content:fact}
-  ], {timeoutMs:8000, maxTokens:200, temperature:0.5})
-    .then(r=> (r && r.text ? r.text.trim() : local))
-    .catch(()=> local);
 }
 
 function renderStudy(){
@@ -2191,8 +2195,11 @@ function renderStudy(){
   const t = computeToday();
   const done = todayDone();
   const all = t.review.concat(t.fresh);
-  const lg = STUDY.log[todayKey()] || {reviewed:0, learned:0, quizOk:0, quizNo:0, done:false};
-  const acted = (lg.reviewed||0) + (lg.learned||0);
+  const tk = todayKey();
+  /* 进度＝今日任务里「今天确实过了一遍」的词数（翻卡与小测都会写 last，故都算）。
+     原先用 log 的 reviewed+learned 会把小测漏掉，和旁边那行「小测也计入」对不上；
+     而且小测答的未必是今天的任务词，分子分母来源不同，本来就不该那样加。 */
+  const acted = all.filter(w=> STUDY.srs[w] && STUDY.srs[w].last === tk).length;
   const st = streakDays();
   const miss = missedDays(30);
 
@@ -2201,8 +2208,7 @@ function renderStudy(){
     + '<div class="kvrow"><span class="k">目标</span><span class="v">'+esc(GOAL_TXT[p.goal]||'日常积累')+'</span></div>'
     + '<div class="kvrow"><span class="k">每天</span><span class="v">'+esc(String(p.minutes))+' 分钟　·　新学约 '+esc(String(p.dailyNew))+' 个词</span></div>'
     + '<div class="kvrow"><span class="k">周期</span><span class="v">'+esc(String(p.span))+' 天　·　到期日 '+esc(p.deadline)+'</span></div>'
-    + '<div class="kvrow"><span class="k">排程</span><span class="v">'+esc(String(p.yileiOrder.length))+' 个义类'
-    + (p.byModel ? '　<span class="badge ok">说明文字由模型润色</span>' : '') + '</span></div>'
+    + '<div class="kvrow"><span class="k">排程</span><span class="v">'+esc(String(p.yileiOrder.length))+' 个义类</span></div>'
     + '</div>'
     + (p.narrative ? '<div class="gsub" style="margin-top:10px">'+esc(p.narrative)+'</div>' : '')
     + '<div class="toolrow" style="margin-top:12px">'
@@ -2411,7 +2417,7 @@ function renderCfg(){
   const provOpts = PROVIDERS.map(p=>'<option value="'+esc(p.id)+'"'+(p.id === MODEL.provider ? ' selected' : '')+'>'+esc(p.name)+'</option>').join('');
   let status;
   if(onFile)          status = '<span class="badge wait">file:// 下模型不可用</span>';
-  else if(modelReady()) status = '<span class="badge ok">已接入 '+esc(MODEL.model)+'</span>';
+  else if(modelReady()) status = '<span class="badge ok">已接入 '+esc(MODEL.model)+' · '+esc(maskKey(MODEL.key))+'</span>';
   else if(MODEL.key)  status = '<span class="badge wait">配置不完整</span>';
   else                status = '<span class="badge wait">未接入模型 · 规则规划器在工作</span>';
 
@@ -2483,9 +2489,13 @@ function renderCfg(){
     saveModelStore();
     callModel([{role:'user', content:'回复两个字：可用'}], {timeoutMs:12000, maxTokens:16, temperature:0})
       .then(r=>{
-        if(r.ok) setMsg('连接成功，模型回复：'+String(r.text).trim().slice(0,40), 'ok');
-        else     setMsg('连接失败：'+r.why, 'warn');
+        /* 顺序不能反：renderCfg() 会重写 #cfgWrap 的 innerHTML（连带清空 #cfgMsg），
+           先写消息再 renderCfg 的话，测试结果永远来不及显示。 */
+        const msg = r.ok
+          ? ['连接成功，模型回复：'+String(r.text).trim().slice(0,40), 'ok']
+          : ['连接失败：'+r.why, 'warn'];
         renderCfg();
+        setMsg(msg[0], msg[1]);
       });
   };
 }
