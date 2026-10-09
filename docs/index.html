@@ -2073,8 +2073,9 @@ function initGuide(){
 }
 
 /* ---------- 第6玩法：学习计划与每日打卡 ----------
-   排程数字一律由本机算法产出，模型（若用户配置了）只允许写说明文字，
-   不许产出任何数字——这样它连「把计划排错」的能力都没有。 */
+   排程数字与计划说明**全部由本机算法/模板产出，模型一概不参与**。
+   模型在本作品里的唯一职责是把一句自然话翻译成一次工具调用（见 guidePlanSmart），
+   学习计划这一侧它连「写说明文字」都不做——参赛文档对模型职责的界定就是这一条。 */
 
 /* --- 今日任务 --- */
 function dueWords(){
@@ -2262,6 +2263,8 @@ function renderStudy(){
       + '已掌握的词、小测错题、复习排程与打卡记录都会保留，只换「每天学什么、学多久」这条路径。继续？')) return;
     STUDY.plan = null; planAns = {}; saveStudy(); renderStudy();
   };
+  /* 这里只是模型配置的一个快捷入口，与排计划本身无关：计划全部由本机算法排出，
+     模型在本作品里的唯一职责是解析向导的问法（见 guidePlanSmart）。 */
   const sb = $('#planSet'); if(sb) sb.onclick = ()=>{ if(typeof openCfg === 'function') openCfg(); else alert('模型设置为可选功能，当前版本未启用。'); };
   const cb = $('#planCheck'); if(cb) cb.onclick = ()=>{
     const l = logToday(); l.done = true; saveStudy(); renderStudy();
