@@ -39,3 +39,8 @@ data/_pipeline_out.txt
 # 参赛材料脚本：build_entry.py 内嵌参赛正文，含团队负责人真实姓名
 # 与上方 pdf/docx/html 同因，暂不入库；如需公开须先逐项确认
 大赛/
+
+# 本地草稿与临时调试脚本（非源文件，可随时重建）
+_work/
+docs/_cdp*.js
+docs/_check.js
