@@ -129,7 +129,7 @@ main{
 .root .top{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
 .root .form{font-size:19px;font-weight:600;color:var(--dian);letter-spacing:.02em}
 .root .src{font-size:11px;color:var(--ink3);border:1px solid var(--line);
-  padding:3px 12px;border-radius:2px;background:var(--paper)}
+  padding:4px 12px;border-radius:2px;background:var(--paper)}
 .root .gloss{font-size:12px;color:var(--ink2)}
 
 .wgrid{margin-top:16px;display:flex;flex-direction:column;gap:8px}
@@ -140,7 +140,7 @@ main{
 .w:hover{border-color:var(--dian);transform:translateX(3px)}
 .w.hot{background:var(--dian);border-color:var(--dian)}
 .w .sp{font-size:16px;font-weight:600;letter-spacing:.01em}
-.w .cn{font-size:12px;color:var(--ink3);margin-top:2px}
+.w .cn{font-size:12px;color:var(--ink3);margin-top:4px}
 .w.hot .sp,.w.hot .cn{color:var(--on)}
 
 /* 中枢 */
@@ -194,7 +194,7 @@ main{
   border:1px solid var(--dian-line);text-align:center;min-width:74px;
 }
 .part .p1{font-size:16px;font-weight:700;color:var(--dian)}
-.part .p2{font-size:11px;color:var(--ink3);margin-top:2px}
+.part .p2{font-size:11px;color:var(--ink3);margin-top:4px}
 .plus{color:var(--ink3);font-size:15px}
 .arrow{color:var(--jin);font-size:19px;font-weight:700;padding:0 4px}
 .result{
@@ -220,7 +220,7 @@ main{
 .story b{color:var(--dian);font-weight:600}
 .rel{display:flex;gap:8px;flex-wrap:wrap}
 .rel span{
-  padding:3px 12px;border-radius:2px;background:var(--paper);
+  padding:4px 12px;border-radius:2px;background:var(--paper);
   border:1px solid var(--line);font-size:13px;color:var(--ink2);cursor:pointer;transition:.2s
 }
 .rel span:hover{border-color:var(--dian);color:var(--dian)}
@@ -321,7 +321,7 @@ main{
 .chip:hover{border-color:var(--jin);color:var(--ink)}
 
 .res{margin-top:24px}
-.badge{font-size:11px;padding:3px 12px;border-radius:2px;letter-spacing:.06em;white-space:nowrap}
+.badge{font-size:11px;padding:4px 12px;border-radius:2px;letter-spacing:.06em;white-space:nowrap}
 .badge.ok{background:var(--zhu);color:var(--on)}
 .badge.wait{background:transparent;border:1px solid var(--ink3);color:var(--ink3)}
 .wtop{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;padding-bottom:16px;border-bottom:1px solid var(--line)}
@@ -352,7 +352,7 @@ main{
 .kvrow{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
 .kvrow .k{font-size:11px;letter-spacing:.14em;color:var(--ink3);flex:none;min-width:78px}
 .kvrow .v{font-size:14px;color:var(--ink2)}
-.pill{display:inline-block;padding:3px 12px;border-radius:2px;background:var(--paper);
+.pill{display:inline-block;padding:4px 12px;border-radius:2px;background:var(--paper);
       border:1px solid var(--line);font-size:13px;color:var(--ink2);margin:0 8px 8px 0}
 
 .chainv{display:flex;align-items:stretch;flex-wrap:wrap;row-gap:12px}
@@ -389,6 +389,30 @@ main{
 .prog{height:8px;background:var(--paper);border:1px solid var(--line);border-radius:2px;overflow:hidden;margin:12px 0 8px}
 .prog i{display:block;height:100%;background:var(--jin);width:0;transition:width .3s}
 .progtxt{font-size:12px;color:var(--ink3)}
+/* 打卡热力格：7 列 × N 行，只用既有纸/金/线三色，不出新视觉语言 */
+.heat{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin:12px 0 4px;max-width:320px}
+.heat i{display:block;aspect-ratio:1;border:1px solid var(--line);border-radius:2px;background:var(--paper2)}
+/* 色阶同时作用于日历格与图例色块——图例若只留白框，颜色深浅就无从对照 */
+.heat i[data-lv="1"],.heatlegend i[data-lv="1"]{background:color-mix(in srgb,var(--jin) 22%,var(--paper2))}
+.heat i[data-lv="2"],.heatlegend i[data-lv="2"]{background:color-mix(in srgb,var(--jin) 45%,var(--paper2))}
+.heat i[data-lv="3"],.heatlegend i[data-lv="3"]{background:color-mix(in srgb,var(--jin) 70%,var(--paper2))}
+.heat i[data-lv="4"],.heatlegend i[data-lv="4"]{background:var(--jin)}
+.heat i[data-today="1"],.heatlegend i[data-today="1"]{outline:2px solid var(--ink);outline-offset:1px}
+.heat i[data-future="1"]{background:var(--paper);opacity:.45;border-style:dashed}
+.heatlegend{font-size:12px;color:var(--ink3);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.heatlegend i{display:inline-block;width:12px;height:12px;border:1px solid var(--line);border-radius:2px;background:var(--paper2);vertical-align:-1px}
+/* 设置抽屉：与 #detail 同一套（复制 #detail 的两条规则，不新造组件） */
+#cfgPanel{position:fixed;left:0;right:0;bottom:0;background:var(--paper2);border-top:1px solid var(--line);
+  box-shadow:0 -8px 28px rgba(34,31,27,.13);transform:translateY(102%);transition:transform .28s;z-index:40;
+  max-height:82vh;overflow:auto}
+#cfgPanel.open{transform:translateY(0)}
+#cfgPanel .dwrap{padding:16px 20px 24px}
+.cfgrow{display:flex;gap:8px;align-items:center;margin:8px 0;flex-wrap:wrap}
+.cfgrow label{font-size:13px;color:var(--ink3);min-width:74px}
+.cfgrow input[type=text],.cfgrow input[type=password],.cfgrow select{
+  flex:1;min-width:180px;padding:8px 12px;border:1px solid var(--line);border-radius:2px;
+  font-size:13px;font-family:inherit;background:var(--paper2);color:var(--ink)}
+.toolrow{display:flex;gap:8px;align-items:center}
 .flash{max-width:600px;margin:8px auto 0}
 .thecard{
   border:1px solid var(--line);background:var(--paper2);border-radius:2px;
@@ -400,7 +424,7 @@ main{
 .thecard .fipa{font-size:13px;color:var(--ink3)}
 .thecard .back{align-self:stretch;text-align:left;display:flex;flex-direction:column;gap:12px;width:100%}
 .cardbtns{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:16px}
-.mtag{font-size:11px;padding:3px 12px;border-radius:2px;border:1px solid var(--ink3);color:var(--ink3)}
+.mtag{font-size:11px;padding:4px 12px;border-radius:2px;border:1px solid var(--ink3);color:var(--ink3)}
 .mtag.known{background:var(--dian);border-color:var(--dian);color:var(--on)}
 .mtag.unknown{background:var(--zhu);border-color:var(--zhu);color:var(--on)}
 .deckdone{text-align:center;color:var(--ink3);font-size:14px;padding:32px 12px;line-height:2}
@@ -442,12 +466,32 @@ main{
 @media(max-width:820px){
   .plays{margin-left:0;width:100%}
 }
+/* 第5玩法：义符向导（受控 Agent） */
+#view-guide .wrap{max-width:860px}
+.gnotice{margin-top:16px}
+.glog{margin-top:20px;display:flex;flex-direction:column;gap:16px}
+.gmsg{border:1px solid var(--line);border-radius:2px;padding:16px;background:var(--paper2)}
+.gmsg.gu{background:var(--dian-bg);border-color:var(--dian-line);align-self:flex-end;max-width:78%}
+.gmsg.gu .gtxt{font-size:14px}
+.gmsg.ga .gtrace{font-size:12px;color:var(--ink3);border-bottom:1px dashed var(--line);padding-bottom:8px;margin-bottom:12px}
+.gmsg.ga .gtrace b{color:var(--dian);font-weight:600;letter-spacing:.04em}
+.gmsg.ga .gsrc{font-size:11px;color:var(--ink3);border-top:1px dashed var(--line);padding-top:8px;margin-top:16px;line-height:1.8}
+.gmsg .block{margin-top:16px}
+.gmsg .block h4{font-size:11px;letter-spacing:.22em}
+.grefuse{border-left:3px solid var(--zhu);background:var(--zhu-bg);color:var(--zhu-ink);padding:12px 16px;font-size:14px;line-height:1.85}
+.gres{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;margin-bottom:8px}
+.gres .hw{font-family:var(--serif);font-size:26px;font-weight:600}
+.gres .ipa{color:var(--ink3);font-size:13px}
+.gres .hz{font-family:var(--serif);font-size:26px;font-weight:600;color:var(--zhu)}
+.gsub{font-size:13px;color:var(--ink3);margin:8px 0 0;line-height:1.85}
+
 @media(max-width:900px){
-  .wrap{padding:20px 16px 48px}
+.wrap{padding:20px 16px 48px}
   .wtop .hw{font-size:26px}
   .thecard .fword{font-size:30px}
   .tl{padding-left:20px}
   .tlitem::before{left:-20px}
+  .gmsg.gu{max-width:92%}
 }
 </style>
 </head>
@@ -540,9 +584,39 @@ main{
 <section class="view" id="view-stories" data-k="stories">
   <div class="wrap" id="stories"></div>
 </section>
+
+<section class="view" id="view-guide" data-k="guide">
+  <div class="wrap">
+    <div class="vhead">
+      <h2>义符向导</h2>
+      <p>用一句自然话提问，向导自己去挑工具、到本机数据里找答案，并把调用过程与出处一并列出。它只回答本机已收录的内容，没收录的会直说「未收录」，不推测、不补写。</p>
+    </div>
+    <div class="notice info gnotice">
+      <b>这是一次受控的检索，不是一次生成。</b>　向导能做的事只有四件：查一个英文词、按义类找词根与汉语义符、按汉语义符反查义类、列出全部义类。
+      每一条结论都取自本机数据文件，并标注该条是否经过人工复核；<b>凡本机没有的事实，它不会说。</b>
+    </div>
+    <div id="guideNotice"></div>
+    <div class="notice info gnotice" id="guideModelBar">
+      <b id="guideModelNote"></b>
+      <button class="btn small" id="guideCfgBtn" style="margin-left:8px">模型接入（可选）</button>
+    </div>
+    <div class="searchbar">
+      <input id="gInput" type="text" placeholder="试着问：水这个义类有哪些词根／氵对应哪个义类／aquarium 怎么拆" autocomplete="off" spellcheck="false">
+      <button class="btn primary" id="gGo">问</button>
+      <button class="btn" id="gClear">清空</button>
+    </div>
+    <div class="samples" id="gSamples"></div>
+    <div class="glog" id="gLog"></div>
+  </div>
+</section>
+
+<section class="view" id="view-study" data-k="study">
+  <div class="wrap" id="study"></div>
+</section>
 </div>
 
 <aside id="detail"><div class="dwrap" id="dwrap"></div></aside>
+<aside id="cfgPanel"><div class="dwrap" id="cfgWrap"></div></aside>
 
 <script>
 /* ============================================================
@@ -1171,6 +1245,7 @@ function setLookupNotices(){
   const html = (LOOKUP_STATE==='fail') ? lookupNotice() : '';
   const a = $('#disNotice'); if(a) a.innerHTML = html;
   const b = $('#cardNotice'); if(b) b.innerHTML = html;
+  const c = $('#guideNotice'); if(c) c.innerHTML = html;
 }
 function loadLookup(){
   // file:// 下 fetch 必被浏览器拦截，直接走兜底，连控制台报错都不留
@@ -1193,7 +1268,7 @@ function onLookupReady(){
 }
 
 /* ---------- 视图切换 ---------- */
-const VIEWS = [['roam','图谱漫游'],['dismantle','词根拆解'],['cards','义类词卡'],['stories','典故故事']];
+const VIEWS = [['roam','图谱漫游'],['dismantle','词根拆解'],['cards','义类词卡'],['stories','典故故事'],['guide','义符向导'],['study','学习计划']];
 let play = 'roam';
 function renderPlays(){
   $('#plays').innerHTML = VIEWS.map(([k,v])=>
@@ -1209,6 +1284,7 @@ function showView(k){
   $('#plays').querySelectorAll('.play').forEach(b=> b.classList.toggle('on', b.dataset.k===k));
   closeDetail();
   if(k==='roam'){ setTimeout(()=>{ if(sel!==null) pickWord(sel); else clearHighlight(); }, 0); }
+  if(k==='study') renderStudy();
 }
 
 /* ---------- 词形拆解 ---------- */
@@ -1411,6 +1487,77 @@ function saveCardStore(){
   try{ localStorage.setItem(CARD_KEY, JSON.stringify(CARD)); return true; }
   catch(e){ return false; }   /* 隐私模式：写不进去，仅内存继续可用 */
 }
+
+/* ---------- 日期工具（一律本地时区，绝不用 toISOString） ----------
+   toISOString 给的是 UTC，在东八区会把凌晨 0-8 点的学习记到前一天。 */
+function dayKey(d){
+  const y = d.getFullYear(), m = String(d.getMonth()+1).padStart(2,'0'), dd = String(d.getDate()).padStart(2,'0');
+  return y+'-'+m+'-'+dd;
+}
+function todayKey(){ return dayKey(new Date()); }
+function dayKeyAdd(k, n){
+  const p = String(k).split('-').map(Number);
+  return dayKey(new Date(p[0], p[1]-1, p[2]+n));   /* 走日历构造，不做毫秒加减，跨夏令时也安全 */
+}
+/* 'YYYY-MM-DD' 可直接按字典序比较 */
+function clamp(n, lo, hi){ return Math.max(lo, Math.min(hi, n)); }
+
+/* ---------- 复习排程与打卡（Leitner 盒子） ----------
+   与 yifu.cards.v1 分开存：那份是「最近一次自评」，这份是「什么时候该再见到它」。
+   分开的理由：loadCardStore 是白名单式解析，往 CARD 里加字段会被静默丢弃；
+   而且已有的 yifu.cards.v1 是老用户真写过的数据，不该动它的形状。
+   yifu.cards.v1 里的 xss 风险面也小得多。 */
+const STUDY_KEY = 'yifu.study.v1';
+let STUDY = { srs:{}, log:{}, plan:null };
+const SRS_BOX_DAYS = [0, 1, 2, 4, 7, 15];   /* 索引=box（1..5）→ 间隔天数 */
+const SRS_MAX_BOX = 5;
+function loadStudyStore(){
+  let raw = null;
+  try{ raw = localStorage.getItem(STUDY_KEY); }catch(e){ raw = null; }
+  if(raw){
+    try{
+      const o = JSON.parse(raw);
+      if(o && typeof o === 'object'){
+        /* plan 要挡一道：renderStudy 会直接读 plan.yileiOrder.length 与 plan.minutes，
+           一份形状不对的旧数据会让整个学习计划页渲染时抛错、整页空白。 */
+        const pl = (o.plan && typeof o.plan === 'object'
+                    && Array.isArray(o.plan.yileiOrder)
+                    && isFinite(Number(o.plan.minutes))) ? o.plan : null;
+        STUDY = {
+          srs:(o.srs && typeof o.srs==='object') ? o.srs : {},
+          log:(o.log && typeof o.log==='object') ? o.log : {},
+          plan:pl
+        };
+      }
+    }catch(e){ /* 数据损坏则退回默认内存态 */ }
+  }
+}
+function saveStudy(){
+  try{ localStorage.setItem(STUDY_KEY, JSON.stringify(STUDY)); return true; }
+  catch(e){ return false; }
+}
+/* 记一次复习结果：会了升一盒，不会退回第一盒。 */
+function gradeWord(word, ok){
+  if(!word) return;
+  const s = STUDY.srs[word] || {box:0, due:todayKey(), seen:0, ok:0, last:''};
+  s.box = ok ? Math.min(s.box+1, SRS_MAX_BOX) : 1;
+  s.due = dayKeyAdd(todayKey(), SRS_BOX_DAYS[s.box] || 1);
+  s.seen += 1; if(ok) s.ok += 1; s.last = todayKey();
+  STUDY.srs[word] = s;
+}
+function srsDelete(word){ if(STUDY.srs[word]) delete STUDY.srs[word]; }
+/* 当日计数 */
+function logToday(){
+  const k = todayKey();
+  if(!STUDY.log[k]) STUDY.log[k] = {reviewed:0, learned:0, quizOk:0, quizNo:0, done:false};
+  return STUDY.log[k];
+}
+function bumpLog(field, n){
+  const l = logToday(); l[field] = (l[field]||0) + (n||1);
+  /* done 只由「完成今日任务并打卡」按钮显式置真，不在这里自动判达标——
+     否则用户只是随手翻两张卡，日历上就会亮成「已打卡」。 */
+}
+
 function yileiNames(){
   const names = [];
   Object.values(DATA).forEach(v=>{ if(names.indexOf(v.name) < 0) names.push(v.name); });
@@ -1531,9 +1678,14 @@ function markCard(status){
   const word = cardDeck[cardIdx];
   CARD.mastery[word] = status;
   saveCardStore();
+  /* 排程：会了升一盒 / 不会退回第一盒，并算出下次该见它的日子 */
+  gradeWord(word, status==='known');
+  bumpLog(wasSeen(word) ? 'reviewed' : 'learned', 1);
+  saveStudy();
   cardIdx = (cardIdx+1)%cardDeck.length; cardBack = false;
   renderCard();
 }
+function wasSeen(word){ return !!(STUDY.srs[word] && STUDY.srs[word].seen > 1); }
 
 /* 小测 */
 let quiz = null;   /* {q, answer, options, done, right} */
@@ -1594,9 +1746,14 @@ function answerQuiz(pick){
     CARD.wrong[quiz.answer] = {def:(quiz.q.def||''), at:Date.now()};
   }
   saveCardStore();
+  /* 小测同样计入排程与当日打卡 */
+  gradeWord(quiz.answer, quiz.right);
+  bumpLog(quiz.right ? 'quizOk' : 'quizNo', 1);
+  saveStudy();
   renderQuiz();
   renderWrong();
   updateCardProgress();
+  if(play==='study') renderStudy();
 }
 /* 错题本 */
 function renderWrong(){
@@ -1668,14 +1825,807 @@ function initCardTabs(){
   });
 }
 
+/* ---------- 第5玩法：义符向导（受控 Agent） ----------
+   三条纪律，与其余四页一致：
+   1. 事实只来自本机数据（内联的 30 条已复核词条 + data/lookup.json），规划器不得补充任何词源知识；
+   2. 取不到就直说「未收录」，不推测、不补写；
+   3. 每条结论都标出处：已人工复核 / 流水线生成·待人工复核 / 义类未校订。
+   规划器是确定性规则（零联网、零依赖）。将来若接模型，模型只负责挑工具与措辞，
+   事实仍全部出自下面这层工具函数 —— 这就是「受控」的含义。 */
+
+/* --- 工具层：纯函数，只读本机数据 --- */
+function tool_listYilei(){
+  if(!LOOKUP || !LOOKUP.yilei) return {ok:false, why:'本机词源库未加载'};
+  return {ok:true, names:Object.keys(LOOKUP.yilei)};
+}
+function tool_lookup(word){
+  const w = String(word||'').trim().toLowerCase();
+  if(!w) return {ok:false, why:'空查询'};
+  if(DATA_WORDS[w]){
+    const d = DATA_WORDS[w];
+    return {ok:true, tier:'reviewed', word:w, def:d.mean||'', ipa:d.ipa||'',
+            chain:(EVO.eng[w]||[]), yileiNames:[d.yileiName].filter(Boolean),
+            root:d.root||'', parts:d.parts||[]};
+  }
+  if(LOOKUP && LOOKUP.words && LOOKUP.words[w]){
+    const v = LOOKUP.words[w];
+    return {ok:true, tier:'machine', word:w, def:v.def||'', ipa:v.ipa||'',
+            chain:(v.chain||[]), yilei:(v.yilei||[]), af:v.af||[], cls:v.cls, tag:v.tag};
+  }
+  return {ok:false, why:'本机数据未收录该词', word:w};
+}
+function tool_byYilei(name){
+  if(!LOOKUP || !LOOKUP.yilei) return {ok:false, why:'本机词源库未加载'};
+  const Y = LOOKUP.yilei[name];
+  if(!Y) return {ok:false, why:'未收录该义类', name:name};
+  const words = [];
+  DATA_STORIES.forEach(d=>{ if(d.yileiName===name) words.push(d.w); });   /* 已复核词条优先 */
+  if(LOOKUP.words){
+    for(const w in LOOKUP.words){
+      if(words.length >= 24) break;
+      const v = LOOKUP.words[w];
+      if((v.yilei||[]).some(x=> x && x.yilei===name) && words.indexOf(w) < 0) words.push(w);
+    }
+  }
+  return {ok:true, name:name, roots:Y.roots||[], fu:Y.fu||[], reviewed:!!Y.reviewed, words:words};
+}
+function tool_byFu(ch){
+  if(!LOOKUP || !LOOKUP.yilei) return {ok:false, why:'本机词源库未加载，义符对照此次不可用'};
+  const out = [];
+  for(const name in LOOKUP.yilei){
+    const Y = LOOKUP.yilei[name];
+    if((Y.fu||[]).some(f=> f && f.ch===ch)) out.push({name:name, reviewed:!!Y.reviewed, roots:Y.roots||[]});
+  }
+  if(!out.length) return {ok:false, why:'本机数据未收录该义符', ch:ch};
+  return {ok:true, ch:ch, buckets:out};
+}
+
+/* --- 规划器：把一句自然话映射成一个工具调用（确定性规则，不猜） --- */
+function guideFuMap(){
+  const m = {};
+  if(LOOKUP && LOOKUP.yilei){
+    for(const n in LOOKUP.yilei) (LOOKUP.yilei[n].fu||[]).forEach(f=>{ if(f && f.ch) m[f.ch] = n; });
+  }
+  return m;
+}
+function guidePlan(q0){
+  const q = String(q0||'').trim();
+  if(!q) return {tool:null, why:'请先输入一句话'};
+  const low = q.toLowerCase();
+
+  /* 1) 先认义类名 ——「水」既是义类名也是一个义符字，按义类回答信息更全。
+        取「最长命中」而非「最先命中」，免得「手写」被「手」抢走。 */
+  /* 用 yileiNames() 而不是 LOOKUP.yilei：词源库没加载时（file:// 直接打开），
+     内联的水/手/心三个义类仍然可用，不该在这里就把它们挡掉。 */
+  {
+    let yi = null;
+    yileiNames().forEach(n=>{ if(q.indexOf(n) >= 0 && (!yi || n.length > yi.length)) yi = n; });
+    if(yi) return {tool:'byYilei', arg:yi, label:'按义类查询', human:yi};
+  }
+  /* 2) 再认义符字（只认本机数据里确实作为义符出现过的字） */
+  const fuMap = guideFuMap();
+  const fuHit = (q.match(/[一-龥]/g) || []).find(c => fuMap[c]);
+  if(fuHit) return {tool:'byFu', arg:fuHit, label:'按汉语义符反查', human:fuHit};
+
+  /* 3) 问「一共有哪些义类」 */
+  if(/义类/.test(q) && /哪些|列表|多少|全部|所有|有哪/.test(q)) return {tool:'listYilei', label:'列出全部义类'};
+
+  /* 4) 句子里的英文词 */
+  const wm = low.match(/[a-z][a-z\-']{2,}/);
+  if(wm) return {tool:'lookup', arg:wm[0], label:'查词', human:wm[0]};
+
+  return {tool:null, why:'这句话里没有向导能识别的英文词、义类名或义符字'};
+}
+
+/* --- 取数与作答 --- */
+function guideSourceLabel(){
+  return (LOOKUP && LOOKUP.words) ? '本机词源库 data/lookup.json' : '内联的 30 条已人工复核词条（词源库未加载）';
+}
+function guideTierBadge(reviewed){
+  return reviewed ? '<span class="badge ok">已人工复核</span>' : '<span class="badge wait">AI 生成 · 待人工复核</span>';
+}
+function guideChip(w){ return '<span class="chip" data-gjump="'+esc(w)+'">'+esc(w)+'</span>'; }
+function guideChain(chain){
+  if(!chain || !chain.length) return '<div class="gsub">未取到词源链。</div>';
+  return '<div class="gsub">' + chain.map(it=>{
+    const name = Array.isArray(it) ? (it[1]||'') : (it||'');
+    const form = Array.isArray(it) ? (it[2]||'') : '';
+    return esc(name) + (form ? '（'+esc(form)+'）' : '');
+  }).join(' → ') + '</div>';
+}
+function guideFuBlock(names){
+  if(!names.length) return '<div class="gsub">该词未取到义类标注，因此没有对应的汉语义符。</div>';
+  return names.map(n=>{
+    const Y = (LOOKUP && LOOKUP.yilei) ? LOOKUP.yilei[n] : null;
+    if(Y && Y.reviewed && (Y.fu||[]).length)
+      return (Y.fu||[]).map(f=>'<div class="furow"><span class="big">'+esc(f.ch)+'</span><span class="txt">'+esc(f.note||'')+'（来自「'+esc(f.from||'')+'」）</span></div>').join('');
+    return '<div class="gsub">义类「'+esc(n)+'」的汉语义符对照尚未人工校订，暂不展示。</div>';
+  }).join('');
+}
+function guideAnswerTo(plan){
+  const via = (plan && plan.byModel)
+    ? '　·　<b>问法由你配置的模型 '+esc(MODEL.model)+' 解析</b>（模型只解析问法，未参与取数）'
+    : '　·　问法由本机规则解析（未联网）';
+  if(!plan || !plan.tool){
+    return {trace:null, src:null,
+      html:'<div class="grefuse">向导没有识别出可执行的查询：'+esc((plan && plan.why) || '')+'。'
+         + '<br>它能做四件事：查一个英文词、按义类找词根与汉语义符、按汉语义符反查义类、列出全部义类。'
+         + '<b>本机没收录的内容，它不会回答。</b></div>'};
+  }
+  const R = plan.tool==='lookup'  ? tool_lookup(plan.arg)
+          : plan.tool==='byYilei' ? tool_byYilei(plan.arg)
+          : plan.tool==='byFu'    ? tool_byFu(plan.arg)
+          : tool_listYilei();
+  const trace = '向导调用了：<b>'+esc(plan.label)+'</b>' + (plan.human ? '（'+esc(plan.human)+'）' : '')
+              + '　·　取数自 ' + esc(guideSourceLabel()) + via;
+
+  if(!R.ok){
+    return {trace:trace, src:'无数据可引。',
+      html:'<div class="grefuse">'+esc(R.why)+'。义符只回答本机已收录的内容，<b>不做推测，也不补写词源</b>。</div>'};
+  }
+
+  if(plan.tool==='lookup'){
+    if(R.tier==='reviewed'){
+      return {trace:trace, src:'该词条属内联的 30 条手写词条，已逐条人工复核。',
+        html:'<div class="block"><h4>词　条</h4>'
+           + '<div class="gres"><span class="hw">'+esc(R.word)+'</span><span class="ipa">'+esc(R.ipa)+'</span>'+guideTierBadge(true)+'</div>'
+           + '<div class="gsub">'+esc(R.def)+'</div></div>'
+           + '<div class="block"><h4>词　源　链</h4>'+guideChain(R.chain)+'</div>'
+           + (R.yileiNames.length ? '<div class="block"><h4>义　类</h4><div class="gsub">'+R.yileiNames.map(esc).join('、')+'</div></div>' : '')};
+    }
+    const seg = segWord(R.word, R.af, R.yilei);
+    const names = []; (R.yilei||[]).forEach(y=>{ if(y && names.indexOf(y.yilei) < 0) names.push(y.yilei); });
+    return {trace:trace, src:'该词来自流水线抽取的词源数据，标注为「AI 生成 · 待人工复核」。',
+      html:'<div class="notice err"><b>AI 生成 · 待人工复核</b>　以下拆解由流水线从词源数据机械抽出，未经人工复核，仅供参考。</div>'
+         + '<div class="block"><h4>词　条</h4>'
+         + '<div class="gres"><span class="hw">'+esc(R.word)+'</span><span class="ipa">'+esc(R.ipa)+'</span>'+guideTierBadge(false)+'</div>'
+         + '<div class="gsub">'+esc(R.def)+'</div></div>'
+         + '<div class="block"><h4>词　形　拆　解</h4>'+segWordHtml(seg)+'</div>'
+         + '<div class="block"><h4>汉　语　义　符　对　照</h4>'+guideFuBlock(names)+'</div>'
+         + '<div class="block"><h4>词　源　链</h4>'+guideChain(R.chain)+'</div>'
+         + '<div class="block"><h4>其　他</h4><div class="kv">'
+         +   '<div class="kvrow"><span class="k">词源类别</span><span class="v">'+esc(clsName(R.cls))+'</span></div>'
+         +   '<div class="kvrow"><span class="k">词表来源</span><span class="v">'+esc(tagName(R.tag))+'</span></div>'
+         + '</div></div>'};
+  }
+
+  if(plan.tool==='byYilei'){
+    const roots = R.roots.length
+      ? '<div class="gsub">'+R.roots.map(r=>'<span class="pill">'+esc(r)+'</span>').join('')+'</div>'
+      : '<div class="gsub">该义类未取到词根。</div>';
+    const fu = (R.reviewed && R.fu.length)
+      ? R.fu.map(f=>'<div class="furow"><span class="big">'+esc(f.ch)+'</span><span class="txt">'+esc(f.note||'')+'（来自「'+esc(f.from||'')+'」）</span></div>').join('')
+      : '<div class="gsub">该义类的汉语义符对照尚未人工校订，暂不展示。</div>';
+    const ws = R.words.length
+      ? '<div class="samples">'+R.words.slice(0,16).map(guideChip).join('')+'</div>'
+      : '<div class="gsub">本机暂无归入该义类的词。</div>';
+    return {trace:trace,
+      src:'义类「'+esc(R.name)+'」'+(R.reviewed?'已人工校订':'尚未人工校订')+'；词表为流水线分桶结果。',
+      html:'<div class="block"><h4>义　类</h4>'
+         + '<div class="gres"><span class="hz">'+esc(R.name)+'</span>'+guideTierBadge(R.reviewed)+'</div></div>'
+         + '<div class="block"><h4>对　应　词　根</h4>'+roots+'</div>'
+         + '<div class="block"><h4>汉　语　义　符　对　照</h4>'+fu+'</div>'
+         + '<div class="block"><h4>属　于　该　义　类　的　词</h4>'+ws
+         + '<div class="gsub" style="margin-top:8px">仅列出本机已收录的词，不是全部可能的词。</div></div>'};
+  }
+
+  if(plan.tool==='byFu'){
+    const rows = R.buckets.map(b=>'<div class="kvrow"><span class="k">'+esc(b.name)+'</span><span class="v">'
+      + (b.reviewed ? '已人工校订' : '尚未人工校订') + '　词根：' + (b.roots.length ? esc(b.roots.join(' · ')) : '未取到')
+      + '</span></div>').join('');
+    return {trace:trace, src:'汉语义符「'+esc(R.ch)+'」的归属来自本机义类数据。',
+      html:'<div class="block"><h4>义　符　反　查</h4><div class="gres"><span class="hz">'+esc(R.ch)+'</span></div>'
+         + '<div class="kv" style="margin-top:12px">'+rows+'</div>'
+         + '<div class="gsub" style="margin-top:8px">仅列出本机已收录的义类，不做扩展推断。</div></div>'};
+  }
+
+  const names = R.names;
+  return {trace:trace, src:'义类清单取自本机词源库，共 '+names.length+' 个。',
+    html:'<div class="block"><h4>全　部　义　类</h4><div class="samples">'
+       + names.map(n=>'<span class="chip" data-gyi="'+esc(n)+'">'+esc(n)+'</span>').join('')
+       + '</div><div class="gsub" style="margin-top:8px">点一个义类可继续追问它。</div></div>'};
+}
+
+/* --- 对话界面 --- */
+const GUIDE_LOG = [];
+function guideRender(){
+  const box = $('#gLog'); if(!box) return;
+  box.innerHTML = GUIDE_LOG.map(m=>{
+    if(m.role==='u') return '<div class="gmsg gu"><div class="gtxt">'+esc(m.text)+'</div></div>';
+    if(m.pending) return '<div class="gmsg ga gpending"><div class="gsub">正在解析问法…</div></div>';
+    return '<div class="gmsg ga">'
+      + (m.trace ? '<div class="gtrace">'+m.trace+'</div>' : '')
+      + m.html
+      + (m.src ? '<div class="gsrc">出处：'+m.src+'</div>' : '')
+      + '</div>';
+  }).join('') || '<div class="gsub" style="padding:8px 4px">还没有提问。上面四个例子可以直接点。</div>';
+  box.querySelectorAll('.chip[data-gjump]').forEach(c=> c.onclick = ()=>{ $('#gInput').value = c.dataset.gjump; guideAsk(c.dataset.gjump); });
+  box.querySelectorAll('.chip[data-gyi]').forEach(c=> c.onclick = ()=>{ $('#gInput').value = c.dataset.gyi; guideAsk(c.dataset.gyi); });
+  const last = box.lastElementChild; if(last && last.scrollIntoView) last.scrollIntoView({block:'nearest'});
+}
+/* 连问两句时，只认最后一句的答复——用序号把过期的回调作废掉。 */
+let GUIDE_SEQ = 0;
+function guideAsk(q0){
+  const q = String(q0||'').trim();
+  if(!q) return;
+  GUIDE_LOG.push({role:'u', text:q});
+  const seq = ++GUIDE_SEQ;
+  GUIDE_LOG.push({role:'a', pending:true, seq:seq});
+  const at = GUIDE_LOG.length - 1;             /* 答复要落在自己这个占位的位置 */
+  guideRender();
+  const land = plan => {
+    /* 先认领自己的占位气泡。若它已经不在了（整段对话被清空），或那个下标上已是
+       别人的条目（清空后重新提问、新对话长到了同一个位置），就什么都不写——
+       否则会在清空后凭空冒出一条答复，或把别人的气泡盖掉。 */
+    const cur = GUIDE_LOG[at];
+    if(!cur || cur.seq !== seq) return;
+    if(seq !== GUIDE_SEQ){
+      /* 已有更新的提问。这条作废，但必须把占位气泡收掉——
+         否则「正在解析问法…」会永远停在那里。 */
+      GUIDE_LOG[at] = {role:'a', html:'<div class="gsub">（已忽略：你紧接着换了下一种问法）</div>'};
+      guideRender();
+      return;
+    }
+    const a = guideAnswerTo(plan);
+    GUIDE_LOG[at] = {role:'a', trace:a.trace, html:a.html, src:a.src};
+    guideRender();
+  };
+  guidePlanSmart(q).then(land, ()=> land(guidePlan(q)));   /* 任何异常都退回规则规划器 */
+}
+function initGuide(){
+  const inp = $('#gInput'); if(!inp) return;
+  const samples = ['水这个义类有哪些词根','氵对应哪个义类','aquarium 怎么拆','一共有哪些义类'];
+  $('#gSamples').innerHTML = '试试：' + samples.map(s=>'<span class="chip" data-gs="'+esc(s)+'">'+esc(s)+'</span>').join('');
+  $('#gSamples').querySelectorAll('.chip').forEach(c=> c.onclick = ()=>{ inp.value = c.dataset.gs; guideAsk(c.dataset.gs); });
+  inp.addEventListener('keydown', e=>{ if(e.key==='Enter') guideAsk(inp.value); });
+  $('#gGo').onclick = ()=> guideAsk(inp.value);
+  $('#gClear').onclick = ()=>{ GUIDE_SEQ++; GUIDE_LOG.length = 0; guideRender(); };
+  guideRender();
+}
+
+/* ---------- 第6玩法：学习计划与每日打卡 ----------
+   排程数字与计划说明**全部由本机算法/模板产出，模型一概不参与**。
+   模型在本作品里的唯一职责是把一句自然话翻译成一次工具调用（见 guidePlanSmart），
+   学习计划这一侧它连「写说明文字」都不做——参赛文档对模型职责的界定就是这一条。 */
+
+/* --- 今日任务 --- */
+function dueWords(){
+  const t = todayKey();
+  return Object.keys(STUDY.srs).filter(w=> STUDY.srs[w].due <= t);
+}
+/* 新词池：按义类顺序铺开，已进过排程的不再出现 */
+function studyPool(){
+  const out = [], seen = Object.create(null);
+  const push = w => { if(w && !seen[w] && !STUDY.srs[w]){ seen[w]=1; out.push(w); } };
+  DATA_STORIES.forEach(d=> push(d.w));                    /* 已人工复核的 30 条排最前 */
+  const order = (STUDY.plan && STUDY.plan.yileiOrder) || yileiNames();
+  order.forEach(n=>{ deckForYilei(n).forEach(push); });
+  if(LOOKUP && LOOKUP.words) Object.keys(LOOKUP.words).forEach(push);
+  return out;
+}
+function computeToday(){
+  const minutes = (STUDY.plan && STUDY.plan.minutes) || 10;
+  const dailyNew = clamp(Math.round(minutes/1.2), 3, 25);
+  const reviewCap = Math.max(5, Math.round(minutes/0.6));
+  const review = dueWords().slice(0, reviewCap);
+  const fresh = studyPool().slice(0, Math.max(0, dailyNew - review.length));
+  return {review:review, fresh:fresh, total:review.length+fresh.length, minutes:minutes};
+}
+function todayDone(){
+  const t = todayKey();
+  return !!(STUDY.log[t] && STUDY.log[t].done);
+}
+/* 连续天数：从今天往回数。今天还没打卡不清零，只标「今天还没打卡」。 */
+function streakDays(){
+  let n = 0, k = todayKey();
+  if(!(STUDY.log[k] && STUDY.log[k].done)) k = dayKeyAdd(k, -1);   /* 今天未完成，从昨天起算 */
+  while(STUDY.log[k] && STUDY.log[k].done){ n++; k = dayKeyAdd(k, -1); }
+  return n;
+}
+function missedDays(windowDays){
+  let n = 0, k = dayKeyAdd(todayKey(), -1);
+  for(let i=0; i<(windowDays||30); i++, k = dayKeyAdd(k,-1)){
+    if(!(STUDY.log[k] && STUDY.log[k].done)) n++;
+  }
+  return n;
+}
+
+/* --- 对话式排计划 --- */
+let planAns = {};
+const PLAN_Q = [
+  {k:'minutes', q:'你每天大概能投入多少时间？',  opts:[[5,'5 分钟'],[10,'10 分钟'],[20,'20 分钟'],[30,'30 分钟']]},
+  {k:'span',    q:'希望多久见效？',              opts:[[7,'1 周'],[14,'2 周'],[30,'1 个月']]},
+  {k:'goal',    q:'主要为了什么？',              opts:[['exam','应试冲刺'],['daily','日常积累'],['casual','随便看看']]}
+];
+const GOAL_TXT = {exam:'应试冲刺', daily:'日常积累', casual:'随便看看'};
+/* 纯本机排程：分配义类与每日新词量，不依赖任何模型 */
+function buildPlanLocal(){
+  const minutes = planAns.minutes || 10;
+  const span    = planAns.span || 14;
+  const goal    = planAns.goal || 'daily';
+  const dailyNew = clamp(Math.round(minutes/1.2), 3, 25);
+  /* 义类顺序：已人工校订的水/手/心优先，其余按词表规模从大到小 */
+  const names = yileiNames();
+  const reviewed = ['水','手','心'].filter(n=> names.indexOf(n)>=0);
+  const rest = names.filter(n=> reviewed.indexOf(n)<0)
+                    .sort((a,b)=> deckForYilei(b).length - deckForYilei(a).length);
+  const yileiOrder = reviewed.concat(rest);
+  const today = todayKey();
+  const schedule = [];
+  for(let i=0; i<span; i++){
+    schedule.push({day:dayKeyAdd(today,i), yilei:yileiOrder[i % yileiOrder.length], newWords:dailyNew});
+  }
+  const p = {minutes:minutes, span:span, goal:goal, deadline:dayKeyAdd(today, Math.max(0, span-1)),
+             dailyNew:dailyNew, startDate:today, yileiOrder:yileiOrder, schedule:schedule};
+  /* 到期日＝排程的最后一个学习日（不是它之后那天），这样「周期 N 天」与到期日自洽。 */
+  p.narrative = planSummary(p);
+  return p;
+}
+/* 计划说明由本机模板生成。模型在本作品里只承担「把一句自然话翻译成一次工具调用」，
+   不参与学习计划的文字——参赛文档里对模型职责的界定就是这一条，代码须与之一致。 */
+function planSummary(p){
+  return '按每天 '+p.minutes+' 分钟、'+p.span+' 天，为你排到 '+p.yileiOrder.length
+    + ' 个义类，每天新学约 '+p.dailyNew+' 个词，并在到期时自动安排复习。到期日 '+p.deadline+'。';
+}
+
+function renderStudy(){
+  const box = $('#study'); if(!box) return;
+  const p = STUDY.plan;
+  const head = '<div class="vhead"><h2>学习计划</h2>'
+    + '<p>按你的时间排一条逐日路径，每天给出「今日任务」，完成后打卡。'
+    + '掌握状态、错题、复习排程与打卡记录全部存在本机浏览器里，不上传。</p></div>';
+
+  /* --- 还没排过计划：先问三个问题 --- */
+  if(!p){
+    const idx = PLAN_Q.findIndex(q=> planAns[q.k] === undefined);
+    const donePart = PLAN_Q.filter(q=> planAns[q.k] !== undefined)
+      .map(q=>{
+        const o = q.opts.filter(x=> String(x[0]) === String(planAns[q.k]))[0];
+        return '<div class="gmsg gu"><div class="gtxt">'+esc(o ? o[1] : String(planAns[q.k]))+'</div></div>';
+      }).join('');
+    const q = PLAN_Q[idx];
+    let body;
+    if(!q){
+      /* 三个都答完了 —— 直接排，避免多一次点击 */
+      STUDY.plan = buildPlanLocal(); saveStudy();
+      return renderStudy();
+    }
+    body = '<div class="glog" style="min-height:0">'+donePart
+      + '<div class="gmsg ga"><div class="gsub">'+esc(q.q)+'</div>'
+      + '<div class="samples">'+q.opts.map(o=>'<span class="chip" data-pq="'+esc(q.k)+'" data-pv="'+esc(String(o[0]))+'">'+esc(o[1])+'</span>').join('')+'</div>'
+      + '</div></div>';
+    box.innerHTML = head + '<div class="block"><h4>先回答三个问题</h4>'+body+'</div>';
+    box.querySelectorAll('.chip[data-pq]').forEach(c=> c.onclick = ()=>{
+      const k = c.dataset.pq, v = c.dataset.pv;
+      planAns[k] = (k==='goal') ? v : Number(v);
+      renderStudy();
+    });
+    return;
+  }
+
+  /* --- 已排好：计划卡 + 今日任务 + 打卡 --- */
+  const t = computeToday();
+  const done = todayDone();
+  const all = t.review.concat(t.fresh);
+  const tk = todayKey();
+  /* 进度＝今日任务里「今天确实过了一遍」的词数（翻卡与小测都会写 last，故都算）。
+     原先用 log 的 reviewed+learned 会把小测漏掉，和旁边那行「小测也计入」对不上；
+     而且小测答的未必是今天的任务词，分子分母来源不同，本来就不该那样加。 */
+  const acted = all.filter(w=> STUDY.srs[w] && STUDY.srs[w].last === tk).length;
+  const st = streakDays();
+  const miss = missedDays(30);
+
+  const planCard = '<div class="block"><h4>计　划</h4>'
+    + '<div class="kv">'
+    + '<div class="kvrow"><span class="k">目标</span><span class="v">'+esc(GOAL_TXT[p.goal]||'日常积累')+'</span></div>'
+    + '<div class="kvrow"><span class="k">每天</span><span class="v">'+esc(String(p.minutes))+' 分钟　·　新学约 '+esc(String(p.dailyNew))+' 个词</span></div>'
+    + '<div class="kvrow"><span class="k">周期</span><span class="v">'+esc(String(p.span))+' 天　·　到期日 '+esc(p.deadline)+'</span></div>'
+    + '<div class="kvrow"><span class="k">排程</span><span class="v">'+esc(String(p.yileiOrder.length))+' 个义类</span></div>'
+    + '</div>'
+    + (p.narrative ? '<div class="gsub" style="margin-top:12px">'+esc(p.narrative)+'</div>' : '')
+    + '<div class="toolrow" style="margin-top:12px">'
+    +   '<button class="btn small" id="planRedo">重排计划</button>'
+    +   '<button class="btn small" id="planSet">模型设置</button>'
+    + '</div></div>';
+
+  const chips = arr => arr.length
+    ? '<div class="samples">'+arr.slice(0,28).map(w=>'<span class="chip" data-sjump="'+esc(w)+'">'+esc(w)+'</span>').join('')+'</div>'
+    : '<div class="gsub">今天没有这一类的词。</div>';
+
+  const todayCard = '<div class="block"><h4>今　日　任　务</h4>'
+    + '<div class="prog"><i style="width:'+(t.total?Math.round(Math.min(acted,t.total)/t.total*100):0)+'%"></i></div>'
+    + '<div class="progtxt">已完成 '+acted+' / '+t.total+'（本页翻卡与小测都计入）</div>'
+    + '<div class="vsubhead">到期复习（'+t.review.length+'）</div>'+chips(t.review)
+    + '<div class="vsubhead">新　学（'+t.fresh.length+'）</div>'+chips(t.fresh)
+    + '<div class="toolrow" style="margin-top:16px">'
+    +   '<button class="btn primary" id="planCheck">'+(done?'今天已打卡':'完成今日任务并打卡')+'</button>'
+    +   '<button class="btn" id="planGo">去词卡复习</button>'
+    + '</div></div>';
+
+  let heat = '';
+  {
+    const cells = [];
+    const days = 35;
+    let k = dayKeyAdd(todayKey(), -(days-1));
+    for(let i=0;i<days;i++, k = dayKeyAdd(k,1)){
+      const l = STUDY.log[k];
+      const n = l ? ((l.reviewed||0)+(l.learned||0)+(l.quizOk||0)) : 0;
+      let lv = 0;
+      if(l && l.done) lv = 4;
+      else if(n>=15) lv = 3; else if(n>=8) lv = 2; else if(n>0) lv = 1;
+      const isToday = (k === todayKey());
+      const future = k > todayKey();
+      cells.push('<i data-lv="'+lv+'"'+(isToday?' data-today="1"':'')+(future?' data-future="1"':'')+' title="'+esc(k)+'（'+(l&&l.done?'已打卡':'未打卡')+'）"></i>');
+    }
+    heat = '<div class="block"><h4>打　卡　记　录　·　近 35 天</h4>'
+      + '<div class="heat">'+cells.join('')+'</div>'
+      + '<div class="heatlegend"><i data-lv="0"></i>未学<i data-lv="1"></i><i data-lv="2"></i><i data-lv="3"></i><i data-lv="4"></i>已完成<i data-lv="0" data-today="1" style="margin-left:8px"></i>今天</div>'
+      + '<div class="kv" style="margin-top:12px">'
+      + '<div class="kvrow"><span class="k">连续打卡</span><span class="v">'+st+' 天'+(done?'':'　（今天还没打卡）')+'</span></div>'
+      + '<div class="kvrow"><span class="k">最近 30 天</span><span class="v">漏打 '+miss+' 天</span></div>'
+      + '<div class="kvrow"><span class="k">排程词数</span><span class="v">'+Object.keys(STUDY.srs).length+' 个词已进入复习排程</span></div>'
+      + '</div></div>';
+  }
+
+  box.innerHTML = head + planCard + todayCard + heat;
+
+  const rb = $('#planRedo'); if(rb) rb.onclick = ()=>{
+    if(!confirm('重排计划会重新问你三个问题，并按新答案生成逐日计划。\n\n'
+      + '已掌握的词、小测错题、复习排程与打卡记录都会保留，只换「每天学什么、学多久」这条路径。继续？')) return;
+    STUDY.plan = null; planAns = {}; saveStudy(); renderStudy();
+  };
+  /* 这里只是模型配置的一个快捷入口，与排计划本身无关：计划全部由本机算法排出，
+     模型在本作品里的唯一职责是解析向导的问法（见 guidePlanSmart）。 */
+  const sb = $('#planSet'); if(sb) sb.onclick = ()=>{ if(typeof openCfg === 'function') openCfg(); else alert('模型设置为可选功能，当前版本未启用。'); };
+  const cb = $('#planCheck'); if(cb) cb.onclick = ()=>{
+    const l = logToday(); l.done = true; saveStudy(); renderStudy();
+  };
+  const gb = $('#planGo'); if(gb) gb.onclick = ()=> showView('cards');
+  box.querySelectorAll('.chip[data-sjump]').forEach(c=> c.onclick = ()=>{
+    const w = c.dataset.sjump;
+    if(DATA_WORDS[w] || (LOOKUP && LOOKUP.words && LOOKUP.words[w])){ showView('dismantle'); $('#disInput').value = w; doSearch(w); }
+    else { showView('cards'); }
+  });
+}
+
+/* ---------- 可选模型层 ----------
+   纪律（这一层存在的全部理由）：
+   1. 模型永远拿不到工具函数的返回值。它只输出一个 {tool, arg}，
+      事实由 tool_*() 从本机数据里取出来。所以它连「编造词源」的能力都没有。
+   2. 没有配 key 时这一层整体不参与，页面行为与从前完全一致。
+   3. key 只存在用户自己的浏览器里，不提交、不上传、出错时打码。           */
+
+const MODEL_KEY = 'yifu.model.v1';
+/* base URL 一律自带版本段，不做自动补全——补错了会得到一个 404 而不是一个提示 */
+const PROVIDERS = [
+  {id:'deepseek',  name:'DeepSeek',            baseUrl:'https://api.deepseek.com/v1',                        model:'deepseek-chat'},
+  {id:'dashscope', name:'阿里云百炼（通义）',   baseUrl:'https://dashscope.aliyuncs.com/compatible-mode/v1',  model:'qwen-plus'},
+  {id:'zhipu',     name:'智谱 GLM',            baseUrl:'https://open.bigmodel.cn/api/paas/v4',               model:'glm-4-flash'},
+  {id:'moonshot',  name:'Moonshot（Kimi）',    baseUrl:'https://api.moonshot.cn/v1',                         model:'moonshot-v1-8k'},
+  {id:'custom',    name:'自定义（OpenAI 兼容）', baseUrl:'',                                                  model:''}
+];
+let MODEL = {provider:'', baseUrl:'', model:'', key:'', enabled:true};
+
+function loadModelStore(){
+  let raw = null;
+  try{ raw = localStorage.getItem(MODEL_KEY); }catch(e){ raw = null; }
+  if(!raw) return;
+  try{
+    const o = JSON.parse(raw);
+    if(o && typeof o === 'object'){
+      MODEL = {
+        provider:String(o.provider||''),
+        baseUrl:String(o.baseUrl||''),
+        model:String(o.model||''),
+        key:String(o.key||''),
+        enabled:(o.enabled === undefined) ? true : !!o.enabled
+      };
+    }
+  }catch(e){ /* 数据损坏则用默认值 */ }
+}
+function saveModelStore(){
+  try{ localStorage.setItem(MODEL_KEY, JSON.stringify(MODEL)); return true; }
+  catch(e){ return false; }
+}
+/* file:// 直接打开时页面 Origin 是 null，浏览器会拦掉几乎所有跨域请求，
+   只有少数配了通配符的服务能通。与其让用户反复失败，不如直接停用并说明。 */
+function modelFileBlocked(){ return location.protocol === 'file:'; }
+function modelReady(){ return !!(MODEL.enabled && MODEL.key && MODEL.baseUrl && MODEL.model) && !modelFileBlocked(); }
+function maskKey(k){
+  k = String(k||'');
+  if(!k) return '（未填写）';
+  if(k.length <= 8) return '****';
+  return k.slice(0,3) + '****' + k.slice(-4);
+}
+/* 错误文本里绝不能出现整条 key */
+function redactSecret(v, secret){
+  let s = String(v == null ? '' : v);
+  if(secret) s = s.split(String(secret)).join('***');
+  s = s.replace(/\bsk-[A-Za-z0-9_\-]{8,}\b/g, '***');
+  return s;
+}
+function apiErrMsg(status, detail, secret){
+  const d = redactSecret(detail, secret).slice(0, 300);
+  if(status === 401 || status === 403) return 'API Key 无效或已失效（HTTP '+status+'）';
+  if(status === 402) return '账户余额不足（HTTP 402）';
+  if(status === 404) return '接口地址不对（HTTP 404）。多半是 base URL 少了版本段——它应当以 /v1 或 /compatible-mode/v1 这类版本段结尾。';
+  if(status === 429) return '请求过于频繁（HTTP 429）';
+  if(status >= 500) return '服务暂时不可用（HTTP '+status+'）';
+  return '请求失败（HTTP '+status+'）' + (d ? ('：'+d) : '');
+}
+/* SSE：把增量 content 拼起来。只有需要流式时才会走到。 */
+function readSSE(res){
+  const rd = res.body.getReader(), dec = new TextDecoder();
+  let buf = '', out = '';
+  const pump = () => rd.read().then(({done, value})=>{
+    if(done) return out;
+    buf += dec.decode(value, {stream:true});
+    const lines = buf.split('\n'); buf = lines.pop();
+    lines.forEach(l=>{
+      l = l.trim();
+      if(l.indexOf('data:') !== 0) return;
+      const p = l.slice(5).trim();
+      if(!p || p === '[DONE]') return;
+      try{
+        const j = JSON.parse(p);
+        const d = j.choices && j.choices[0] && (j.choices[0].delta || {});
+        if(d && d.content) out += d.content;
+      }catch(e){ /* 半行 JSON 属正常，跳过 */ }
+    });
+    return pump();
+  });
+  return pump();
+}
+/* 唯一的外部请求出口。永不抛到调用方，一律返回 {ok:true,text} 或 {ok:false,why}。 */
+function callModel(messages, opts){
+  opts = opts || {};
+  const timeoutMs = opts.timeoutMs || 8000;
+  if(!modelReady()){
+    return Promise.resolve({ok:false, why: modelFileBlocked()
+      ? '当前以 file:// 直接打开本页，浏览器不允许本地页面联网，模型不可用'
+      : '未配置模型（或已停用）'});
+  }
+  const key = MODEL.key;
+  const base = String(MODEL.baseUrl||'').replace(/\/+$/,'');
+  const ctl = new AbortController();
+  const timer = setTimeout(()=> ctl.abort(), timeoutMs);
+  const body = {
+    model: MODEL.model,
+    messages: messages,
+    temperature: (opts.temperature == null ? 0.2 : opts.temperature),
+    max_tokens: (opts.maxTokens || 400),
+    stream: !!opts.stream
+  };
+  return fetch(base + '/chat/completions', {
+      method:'POST', signal: ctl.signal,
+      headers:{'Content-Type':'application/json', 'Authorization':'Bearer '+key},
+      body: JSON.stringify(body)
+    })
+    .then(res=>{
+      if(!res.ok) return res.text().then(t=>{ throw new Error(apiErrMsg(res.status, t, key)); });
+      if(opts.stream) return readSSE(res);
+      return res.json().then(j=>{
+        const t = j && j.choices && j.choices[0] && j.choices[0].message && j.choices[0].message.content;
+        if(!t) throw new Error('模型返回了空内容');
+        return String(t);
+      });
+    })
+    .then(text=>{ clearTimeout(timer); return {ok:true, text:text}; })
+    .catch(e=>{
+      clearTimeout(timer);
+      let m = (e && e.name === 'AbortError') ? ('模型响应超时（'+timeoutMs+' 毫秒未返回）') : ((e && e.message) || String(e));
+      /* fetch 只给一句 Failed to fetch，不说为什么。这里补上三种最常见的原因。 */
+      if(/failed to fetch|networkerror|load failed/i.test(m)){
+        m = '网络请求失败。常见三种原因：① base URL 写错（须自带 /v1 这类版本段）；'
+          + '② 该服务未放行本站域名的跨域请求（CORS）；③ 本机开了代理但没放行该域名。';
+      }
+      return {ok:false, why: redactSecret(m, key)};
+    });
+}
+
+/* --- 配置面板（底部抽屉，向导页与学习计划页共用） --- */
+function renderCfg(){
+  const w = $('#cfgWrap'); if(!w) return;
+  const onFile = modelFileBlocked();
+  const cur = PROVIDERS.filter(p=> p.id === MODEL.provider)[0] || PROVIDERS[0];
+  const provOpts = PROVIDERS.map(p=>'<option value="'+esc(p.id)+'"'+(p.id === MODEL.provider ? ' selected' : '')+'>'+esc(p.name)+'</option>').join('');
+  let status;
+  if(onFile)          status = '<span class="badge wait">file:// 下模型不可用</span>';
+  else if(modelReady()) status = '<span class="badge ok">已接入 '+esc(MODEL.model)+' · '+esc(maskKey(MODEL.key))+'</span>';
+  else if(MODEL.key)  status = '<span class="badge wait">配置不完整</span>';
+  else                status = '<span class="badge wait">未接入模型 · 规则规划器在工作</span>';
+
+  w.innerHTML =
+    '<div class="dhead"><h3>模型接入（可选）</h3><button class="btn small" id="cfgClose">收起</button></div>'
+    + '<div class="notice info">'
+    +   '<b>API Key 只保存在你这台浏览器的本地存储里</b>，不会上传到任何服务器，也不会进入代码仓库。'
+    +   '义符的词源事实永远来自本机数据文件；模型只负责<b>听懂你的问法</b>，'
+    +   '它拿不到词源数据，也就没有编造词源的余地。不填 key，全部功能照常可用。'
+    + '</div>'
+    + (onFile ? '<div class="notice warn">当前页面是以 <b>file://</b> 直接打开的，浏览器不允许本地页面发起跨域请求，因此模型功能在此模式下停用（词源库也读不到）。要用模型，请从 <b>http://localhost:8000/docs/index.html</b> 打开。</div>' : '')
+    + '<div class="cfgrow"><label>服务商</label><select id="cfgProvider">'+provOpts+'</select></div>'
+    + '<div class="cfgrow"><label>base URL</label>'
+    +   '<input type="text" id="cfgBase" value="'+esc(MODEL.baseUrl || cur.baseUrl)+'" placeholder="https://api.deepseek.com/v1">'
+    + '</div>'
+    + '<div class="cfgrow"><label>模型名</label>'
+    +   '<input type="text" id="cfgModel" value="'+esc(MODEL.model || cur.model)+'" placeholder="deepseek-chat">'
+    + '</div>'
+    + '<div class="cfgrow"><label>API Key</label>'
+    +   '<input type="password" id="cfgKey" value="'+esc(MODEL.key)+'" placeholder="sk-..." autocomplete="off">'
+    +   '<button class="btn small" id="cfgEye">显示</button>'
+    + '</div>'
+    + '<div class="cfgrow"><label>启用</label>'
+    +   '<label style="min-width:auto"><input type="checkbox" id="cfgEnabled"'+(MODEL.enabled?' checked':'')+'> 允许向导调用模型解析问法</label>'
+    + '</div>'
+    + '<div class="cfgrow"><label>当前状态</label>'+status+'</div>'
+    + '<div class="notice info" style="font-size:12px">base URL <b>必须自带版本段</b>，例如 DeepSeek 是 <code>/v1</code>、阿里百炼是 <code>/compatible-mode/v1</code>。'
+    + '本页不会替你补，补错了只会得到一个 404。</div>'
+    + '<div class="toolrow" style="margin-top:16px">'
+    +   '<button class="btn primary" id="cfgTest">测试连接</button>'
+    +   '<button class="btn" id="cfgSave">保存</button>'
+    +   '<button class="btn" id="cfgClear">清除本机配置</button>'
+    + '</div>'
+    + '<div id="cfgMsg" class="progtxt" style="margin-top:12px"></div>';
+
+  const setMsg = (t, cls)=>{ const m = $('#cfgMsg'); if(m){ m.className = 'progtxt ' + (cls||''); m.textContent = t; } };
+  $('#cfgClose').onclick = closeCfg;
+  $('#cfgEye').onclick = ()=>{ const i = $('#cfgKey'); const on = i.type === 'password'; i.type = on ? 'text' : 'password'; $('#cfgEye').textContent = on ? '隐藏' : '显示'; };
+  $('#cfgProvider').onchange = ()=>{
+    const p = PROVIDERS.filter(x=> x.id === $('#cfgProvider').value)[0];
+    if(p && p.id !== 'custom'){ $('#cfgBase').value = p.baseUrl; $('#cfgModel').value = p.model; }
+    else { const c = $('#cfgProvider').value; if(c === 'custom'){ $('#cfgBase').value = ''; $('#cfgModel').value = ''; } }
+  };
+  const collect = ()=>{
+    MODEL.provider = $('#cfgProvider').value;
+    MODEL.baseUrl  = $('#cfgBase').value.trim();
+    MODEL.model    = $('#cfgModel').value.trim();
+    MODEL.key      = $('#cfgKey').value.trim();
+    MODEL.enabled  = $('#cfgEnabled').checked;
+  };
+  $('#cfgSave').onclick = ()=>{
+    collect();
+    const ok = saveModelStore();
+    renderCfg(); updateGuideModelNote(); refreshStudyPlanNote();
+    setMsg(ok ? '已保存到本机浏览器。' : '保存失败：浏览器处于隐私模式，写入被拒绝（本次设置仅本次会话有效）。', ok ? 'ok' : 'warn');
+  };
+  $('#cfgClear').onclick = ()=>{
+    if(!confirm('清除本机保存的模型配置（含 API Key）？\n\n义符的词源数据、学习进度与打卡记录不受影响。')) return;
+    MODEL = {provider:'', baseUrl:'', model:'', key:'', enabled:true};
+    try{ localStorage.removeItem(MODEL_KEY); }catch(e){}
+    renderCfg(); updateGuideModelNote(); refreshStudyPlanNote();
+    setMsg('已清除。页面回到「规则规划器」模式。', 'ok');
+  };
+  $('#cfgTest').onclick = ()=>{
+    collect();
+    if(!MODEL.baseUrl || !MODEL.model || !MODEL.key){ setMsg('base URL、模型名、API Key 三项都要填。', 'warn'); return; }
+    if(modelFileBlocked()){ setMsg('file:// 模式下浏览器会拦掉请求，请用 http://localhost 打开后再测。', 'warn'); return; }
+    setMsg('正在请求 '+MODEL.model+' …');
+    saveModelStore();
+    callModel([{role:'user', content:'回复两个字：可用'}], {timeoutMs:12000, maxTokens:16, temperature:0})
+      .then(r=>{
+        /* 顺序不能反：renderCfg() 会重写 #cfgWrap 的 innerHTML（连带清空 #cfgMsg），
+           先写消息再 renderCfg 的话，测试结果永远来不及显示。 */
+        const msg = r.ok
+          ? ['连接成功，模型回复：'+String(r.text).trim().slice(0,40), 'ok']
+          : ['连接失败：'+r.why, 'warn'];
+        renderCfg();
+        setMsg(msg[0], msg[1]);
+      });
+  };
+}
+function openCfg(){ renderCfg(); const p = $('#cfgPanel'); if(p) p.classList.add('open'); }
+function closeCfg(){ const p = $('#cfgPanel'); if(p) p.classList.remove('open'); }
+
+/* 向导页那条诚实说明：有没有模型，两种状态都要说清楚 */
+function updateGuideModelNote(){
+  const n = $('#guideModelNote'); if(!n) return;
+  if(modelReady()){
+    n.innerHTML = '问法解析已接入你自带的模型 <b>'+esc(MODEL.model)+'</b>：它只把你的一句话翻译成一次工具调用，'
+      + '<b>拿不到工具返回的词源数据</b>，因此词源事实仍全部出自本机数据文件。';
+  } else if(modelFileBlocked()){
+    n.innerHTML = '当前以 file:// 打开，模型不可用。<b>规则规划器在工作</b> —— 向导全部功能仍可用，事实全部出自本机数据。';
+  } else {
+    n.innerHTML = '<b>规则规划器在工作（未接入模型）。</b>向导用本机规则理解你的问法，事实全部出自本机数据文件。'
+      + '你也可以选择接入自己的模型 API，让它只负责听懂更随意的问法——但它同样拿不到词源数据。';
+  }
+  const b = $('#guideCfgBtn'); if(b) b.style.display = modelFileBlocked() ? 'none' : '';
+}
+function refreshStudyPlanNote(){ if(typeof renderStudy === 'function' && play === 'study') renderStudy(); }
+
+/* --- 让模型「当翻译官」：只解析问法，不产出事实 --- */
+const GUIDE_TOOLS = ['lookup','byYilei','byFu','listYilei'];
+/* 校验模型输出。任何一项不过就整体作废，退回规则规划器。 */
+function validateModelPlan(o){
+  if(!o || typeof o !== 'object') return null;
+  const tool = String(o.tool || '');
+  if(GUIDE_TOOLS.indexOf(tool) < 0) return null;
+  let arg = (o.arg == null) ? '' : String(o.arg).trim();
+  if(tool === 'listYilei') return {tool:tool, label:'列出全部义类'};
+  if(tool === 'lookup'){
+    arg = arg.toLowerCase();
+    if(!/^[a-z][a-z\-']{2,}$/.test(arg)) return null;
+    return {tool:tool, arg:arg, label:'查词', human:arg};
+  }
+  if(tool === 'byYilei'){
+    if(yileiNames().indexOf(arg) < 0) return null;
+    return {tool:tool, arg:arg, label:'按义类查询', human:arg};
+  }
+  if(tool === 'byFu'){
+    if([...arg].length !== 1) return null;
+    if(!guideFuMap()[arg]) return null;
+    return {tool:tool, arg:arg, label:'按汉语义符反查', human:arg};
+  }
+  return null;
+}
+function extractJson(t){
+  t = String(t || '');
+  const a = t.indexOf('{'), b = t.lastIndexOf('}');
+  if(a < 0 || b <= a) return null;
+  try{ return JSON.parse(t.slice(a, b+1)); }catch(e){ return null; }
+}
+/* 先规则、再模型？不——先模型、失手立刻回退规则。规则路径永远兜底。 */
+function guidePlanSmart(q){
+  const rule = guidePlan(q);
+  if(!modelReady()) return Promise.resolve(rule);
+  const names = yileiNames();
+  const fuChars = Object.keys(guideFuMap());
+  const sys = '你是一个意图解析器，把用户的中文或英文问题翻译成一次工具调用。'
+    + '只输出一个 JSON 对象，不要解释、不要代码块围栏。\n'
+    + '可用工具：\n'
+    + '{"tool":"lookup","arg":"英文单词"} —— 用户想查某个具体英文词的拆解\n'
+    + '{"tool":"byYilei","arg":"义类名"} —— 用户想按义类看词根/词例。义类名必须是下列之一：' + names.join('、') + '\n'
+    + '{"tool":"byFu","arg":"单个汉字"} —— 用户给出的是一个汉语义符字。可用义符字：' + fuChars.join('') + '\n'
+    + '{"tool":"listYilei"} —— 用户问一共有哪些义类\n'
+    + '如果用户的话与以上四种都无关（例如问怎么学英语、问词源之外的知识），'
+    + '输出 {"tool":"none"}。绝不猜测、绝不编造词。只输出 JSON。';
+  return callModel([{role:'system', content:sys}, {role:'user', content:String(q)}],
+                   {timeoutMs:6000, maxTokens:120, temperature:0})
+    .then(r=>{
+      if(!r.ok) return rule;                       /* 静默降级，只有 trace 会说实话 */
+      const got = validateModelPlan(extractJson(r.text));
+      if(!got) return rule;
+      got.byModel = true;
+      return got;
+    })
+    .catch(()=> rule);
+}
+
 /* ---------- 初始化 ---------- */
 renderPlays();
 loadCardStore();
+loadStudyStore();
 renderDismantle();
 fillCardYilei();
 renderCard();
 renderStories();
 initCardTabs();
+initGuide();
+loadModelStore();
+updateGuideModelNote();
+(function(){
+  const b = $('#guideCfgBtn'); if(b) b.onclick = openCfg;
+  const p = $('#cfgPanel'); if(p) p.addEventListener('click', e=>{ if(e.target === p) closeCfg(); });
+  document.addEventListener('keydown', e=>{ if(e.key === 'Escape') closeCfg(); });
+})();
+/* 「重置本义类复习进度」—— 之前是死按钮，全文件从未接过事件 */
+(function(){
+  const rs = $('#cardReset'); if(!rs) return;
+  rs.onclick = ()=>{
+    const name = CARD.yilei, deck = deckForYilei(name);
+    if(!deck.length){ alert('当前义类没有可重置的词条。'); return; }
+    if(!confirm('重置「'+name+'」义类的复习进度？\n\n将清空该义类 '+deck.length
+      +' 个词的掌握状态、小测错题，以及它们在复习排程里的记录。\n打卡日历与其它义类的进度不受影响。')) return;
+    deck.forEach(w=>{
+      delete CARD.mastery[w];
+      delete CARD.wrong[w];
+      srsDelete(w);
+    });
+    saveCardStore(); saveStudy();
+    cardIdx = 0; cardBack = false; quiz = null;
+    renderCard(); renderQuiz(); renderWrong();
+    if(play==='study') renderStudy();
+  };
+})();
 showView('roam');
 loadLookup();
 </script>
