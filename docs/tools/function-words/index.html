@@ -1,0 +1,3358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python 函数百词斩 · 学习小组版</title>
+<style>
+  :root {
+    --bg: #f4f9ff;
+    --surface: #ffffff;
+    --surface-soft: #f8fbff;
+    --ink: #0e1116;
+    --ink-2: #2a3038;
+    --muted: #5f6b7a;
+    --muted-2: #8a97a8;
+    --line: #dbe8f8;
+    --line-strong: #c5dcf5;
+    --blue-50: #eef7ff;
+    --blue-100: #dceeff;
+    --blue-200: #bfe1ff;
+    --blue-300: #8cc8ff;
+    --blue-400: #5aabf5;
+    --blue-500: #348fe8;
+    --blue-600: #1f74cf;
+    --blue-700: #185aa3;
+    --shadow-sm: 0 2px 8px rgba(31, 116, 207, .06);
+    --shadow-md: 0 12px 30px rgba(31, 116, 207, .10);
+    --shadow-lg: 0 24px 60px rgba(31, 116, 207, .16);
+    --radius-sm: 10px;
+    --radius: 16px;
+    --radius-lg: 24px;
+    --max: 1180px;
+    --mono: "Cascadia Code", "JetBrains Mono", "Fira Code", Consolas, "Courier New", monospace;
+    --sans: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    font-family: var(--sans);
+    color: var(--ink);
+    background:
+      radial-gradient(1000px 520px at 8% -8%, rgba(140, 200, 255, .35), transparent 60%),
+      radial-gradient(900px 500px at 95% 0%, rgba(191, 225, 255, .55), transparent 55%),
+      linear-gradient(180deg, #f8fcff 0%, #f1f8ff 42%, #f6faff 100%);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  button { font-family: inherit; }
+  code, pre { font-family: var(--mono); }
+  [hidden] { display: none !important; }
+  input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; }
+
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  button, .card, .chip { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+
+  /* ---------- 顶栏 ---------- */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(248, 252, 255, .82);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(197, 220, 245, .7);
+  }
+
+  .topbar-inner {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 13px 24px;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--ink);
+  }
+
+  .brand-mark {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(145deg, #6bb8ff, #2f86e0);
+    color: #fff;
+    font-family: var(--mono);
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: -.04em;
+    box-shadow: 0 6px 16px rgba(47, 134, 224, .28);
+  }
+
+  .brand-copy { display: flex; flex-direction: column; gap: 1px; }
+  .brand-title { font-size: 16.5px; font-weight: 800; letter-spacing: -.01em; }
+  .brand-sub { font-size: 10.5px; color: var(--muted-2); letter-spacing: .12em; }
+
+  .nav { display: flex; align-items: center; gap: 4px; margin-left: 8px; }
+
+  .nav a {
+    padding: 8px 12px;
+    border-radius: 9px;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    transition: background .16s, color .16s;
+  }
+
+  .nav a:hover { background: rgba(255, 255, 255, .8); color: var(--blue-700); }
+  .nav a.active { background: var(--blue-50); color: var(--blue-700); }
+
+  .topbar-right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .progress-mini {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 12px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .progress-mini b { color: var(--ink); font-weight: 800; }
+
+  .progress-track {
+    width: 84px;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--blue-100);
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #7cc4ff, #2f86e0);
+    transition: width .35s ease;
+  }
+
+  .lang-switch {
+    display: flex;
+    padding: 4px;
+    gap: 2px;
+    background: rgba(255, 255, 255, .82);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .lang-btn {
+    border: 0;
+    background: transparent;
+    border-radius: 999px;
+    padding: 7px 13px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+    cursor: pointer;
+  }
+
+  .lang-btn.active {
+    background: var(--blue-500);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(52, 143, 232, .3);
+  }
+
+  .lang-btn.soon {
+    color: var(--muted-2);
+    cursor: not-allowed;
+    border: 1px dashed transparent;
+  }
+
+  .lang-btn.soon:hover { border-color: var(--line-strong); }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 62px 24px 46px;
+    display: grid;
+    grid-template-columns: 1.12fr .88fr;
+    gap: 56px;
+    align-items: center;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 13px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .72);
+    border: 1px solid var(--line);
+    color: var(--blue-700);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .1em;
+  }
+
+  .eyebrow i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--blue-400);
+    box-shadow: 0 0 0 3px rgba(90, 171, 245, .18);
+  }
+
+  .hero h1 {
+    margin: 18px 0 16px;
+    font-size: clamp(34px, 4.4vw, 56px);
+    line-height: 1.12;
+    letter-spacing: -.035em;
+    font-weight: 900;
+  }
+
+  .hero h1 .hl { color: var(--blue-600); }
+
+  .lede {
+    margin: 0;
+    max-width: 560px;
+    font-size: 15.5px;
+    line-height: 1.85;
+    color: var(--muted);
+  }
+
+  .search-shell {
+    margin-top: 28px;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 8px 9px 8px 16px;
+    background: var(--surface);
+    border: 1.5px solid var(--line-strong);
+    border-radius: 17px;
+    box-shadow: var(--shadow-md);
+    transition: border-color .18s, box-shadow .18s;
+  }
+
+  .search-shell:focus-within {
+    border-color: var(--blue-400);
+    box-shadow: 0 0 0 4px rgba(90, 171, 245, .14), var(--shadow-md);
+  }
+
+  .search-shell > svg { flex: none; color: var(--blue-500); }
+
+  .search-shell input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    padding: 10px 0;
+    font: inherit;
+    font-size: 15px;
+    color: var(--ink);
+  }
+
+  .search-shell input::placeholder { color: var(--muted-2); }
+
+  .search-clear {
+    flex: none;
+    width: 28px;
+    height: 28px;
+    border: 0;
+    border-radius: 50%;
+    background: var(--blue-50);
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .search-clear:hover { background: var(--blue-100); color: var(--blue-700); }
+
+  .search-submit {
+    flex: none;
+    border: 0;
+    border-radius: 11px;
+    padding: 11px 18px;
+    background: linear-gradient(135deg, #4a9df0, #2f86e0);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 6px 14px rgba(47, 134, 224, .22);
+    transition: transform .16s, box-shadow .16s;
+  }
+
+  .search-submit:hover { transform: translateY(-1px); box-shadow: 0 9px 18px rgba(47, 134, 224, .28); }
+
+  .intent-row {
+    margin-top: 14px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+
+  .intent-label { font-size: 11.5px; color: var(--muted-2); margin-right: 2px; }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 7px 12px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .75);
+    color: var(--ink-2);
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform .15s, border-color .15s, background .15s, color .15s;
+    white-space: nowrap;
+  }
+
+  .chip:hover:not(:disabled) {
+    transform: translateY(-1px);
+    border-color: var(--blue-300);
+    background: #fff;
+    color: var(--blue-700);
+  }
+
+  .chip.active {
+    background: var(--blue-500);
+    border-color: var(--blue-500);
+    color: #fff;
+    box-shadow: 0 5px 12px rgba(52, 143, 232, .24);
+  }
+
+  .chip:disabled { opacity: .34; cursor: not-allowed; }
+
+  .chip-count {
+    font-size: 10px;
+    font-weight: 700;
+    opacity: .62;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 30px;
+    margin-top: 30px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+    max-width: 560px;
+  }
+
+  .stat b { display: block; font-size: 21px; font-weight: 900; letter-spacing: -.02em; }
+  .stat span { display: block; margin-top: 2px; font-size: 11.5px; color: var(--muted); }
+
+  /* ---------- 今日词卡 ---------- */
+  .hero-card {
+    position: relative;
+    overflow: hidden;
+    padding: 26px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: linear-gradient(158deg, #ffffff 0%, #f2f9ff 100%);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .hero-card::before {
+    content: "";
+    position: absolute;
+    top: -110px;
+    right: -90px;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(124, 196, 255, .45), transparent 66%);
+    pointer-events: none;
+  }
+
+  .day-ghost {
+    position: absolute;
+    right: 12px;
+    bottom: -34px;
+    font-family: var(--mono);
+    font-size: 158px;
+    font-weight: 900;
+    line-height: 1;
+    color: rgba(90, 171, 245, .08);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .hero-card-top {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: var(--blue-50);
+    border: 1px solid var(--blue-100);
+    color: var(--blue-700);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .12em;
+  }
+
+  .hero-badge i {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--blue-500);
+  }
+
+  .level-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 8px;
+    border-radius: 999px;
+    background: var(--blue-50);
+    border: 1px solid var(--blue-100);
+    color: var(--blue-700);
+    font-size: 10.5px;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
+  .hero-fn {
+    position: relative;
+    margin: 24px 0 4px;
+    font-family: var(--mono);
+    font-size: 46px;
+    font-weight: 900;
+    letter-spacing: -.05em;
+    line-height: 1;
+  }
+
+  .hero-fn span { color: var(--blue-400); }
+
+  .hero-meaning {
+    position: relative;
+    margin: 0 0 18px;
+    color: var(--muted);
+    font-size: 13.5px;
+  }
+
+  .code-window {
+    position: relative;
+    padding: 14px 15px;
+    border: 1px solid #d7e9fb;
+    border-radius: 13px;
+    background: #f0f7ff;
+  }
+
+  .code-dots { display: flex; gap: 5px; margin-bottom: 10px; }
+  .code-dots i { width: 6px; height: 6px; border-radius: 50%; background: var(--blue-200); }
+
+  .code-window pre {
+    margin: 0;
+    font-size: 12.5px;
+    line-height: 1.7;
+    color: var(--ink);
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .code-out {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--line-strong);
+    display: flex;
+    gap: 8px;
+    font-size: 12px;
+  }
+
+  .code-out span { color: var(--muted-2); font-weight: 700; flex: none; }
+  .code-out code { color: var(--ink-2); }
+
+  .hero-card-foot {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .level-dots { display: inline-flex; gap: 3px; }
+  .level-dots i { width: 5px; height: 5px; border-radius: 50%; background: var(--blue-100); }
+  .level-dots i.on { background: var(--blue-500); }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    border: 0;
+    border-radius: 12px;
+    padding: 12px 18px;
+    background: linear-gradient(135deg, #4a9df0, #2f86e0);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 8px 18px rgba(47, 134, 224, .24);
+    transition: transform .16s, box-shadow .16s;
+  }
+
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 11px 22px rgba(47, 134, 224, .3); }
+
+  /* ---------- 词库 ---------- */
+  .library {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 14px 24px 80px;
+    scroll-margin-top: 78px;
+  }
+
+  .library-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .library-head h2 {
+    margin: 0;
+    font-size: 23px;
+    letter-spacing: -.025em;
+  }
+
+  .library-head p {
+    margin: 6px 0 0;
+    font-size: 12.5px;
+    color: var(--muted);
+  }
+
+  .view-tabs {
+    display: flex;
+    gap: 3px;
+    padding: 4px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    flex: none;
+  }
+
+  .view-tab {
+    border: 0;
+    background: transparent;
+    padding: 9px 16px;
+    border-radius: 9px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--muted);
+    cursor: pointer;
+    transition: background .15s, color .15s, box-shadow .15s;
+  }
+
+  .view-tab:hover { color: var(--blue-700); background: var(--blue-50); }
+
+  .view-tab.active {
+    background: var(--blue-500);
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(47, 134, 224, .22);
+  }
+
+  .filter-panel {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 7px;
+    padding: 18px 0 6px;
+  }
+
+  .filter-label {
+    font-size: 11.5px;
+    color: var(--muted-2);
+    margin-right: 3px;
+    white-space: nowrap;
+  }
+
+  .letter-chip {
+    min-width: 34px;
+    justify-content: center;
+    padding: 7px 9px;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    font-weight: 800;
+  }
+
+  .result-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 13px 0 18px;
+    font-size: 12.5px;
+    color: var(--muted);
+  }
+
+  .reset-btn {
+    border: 0;
+    background: transparent;
+    color: var(--blue-600);
+    font-size: 12.5px;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 4px 0;
+  }
+
+  .reset-btn:hover { color: var(--blue-700); text-decoration: underline; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 15px;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    gap: 11px;
+    padding: 19px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-3px);
+    border-color: var(--blue-200);
+    box-shadow: var(--shadow-md);
+  }
+
+  .card:focus-visible {
+    outline: 3px solid rgba(90, 171, 245, .35);
+    outline-offset: 2px;
+  }
+
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .fn-name {
+    font-family: var(--mono);
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: -.035em;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+
+  .fn-name span { color: var(--blue-400); }
+
+  .card-state { display: flex; align-items: center; gap: 6px; flex: none; }
+
+  .mastered-pill {
+    padding: 4px 8px;
+    border-radius: 999px;
+    background: var(--blue-500);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
+  .card-cat {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 9px;
+    border-radius: 999px;
+    background: var(--blue-50);
+    color: var(--blue-700);
+    font-size: 10.5px;
+    font-weight: 700;
+  }
+
+  .tag.ghost { background: #f2f6fb; color: var(--muted); }
+
+  .card-desc {
+    margin: 0;
+    min-height: 43px;
+    color: var(--ink-2);
+    font-size: 13px;
+    line-height: 1.65;
+  }
+
+  .mini-code {
+    margin: 0;
+    max-width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--surface-soft);
+    font-size: 11.5px;
+    line-height: 1.6;
+    color: var(--ink);
+    white-space: pre;
+    overflow-x: auto;
+  }
+
+  .card-foot {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding-top: 2px;
+  }
+
+  .intent-mini {
+    color: var(--muted);
+    font-size: 11.5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .open-link {
+    flex: none;
+    color: var(--blue-600);
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  .empty {
+    grid-column: 1 / -1;
+    padding: 58px 20px;
+    text-align: center;
+    background: #fff;
+    border: 1px dashed var(--line-strong);
+    border-radius: 20px;
+  }
+
+  .empty-mark {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 14px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--blue-50);
+    color: var(--blue-500);
+    font-family: var(--mono);
+    font-size: 20px;
+    font-weight: 800;
+  }
+
+  .empty h3 { margin: 0 0 8px; font-size: 17px; }
+  .empty p { margin: 0 auto 18px; max-width: 420px; color: var(--muted); font-size: 13px; line-height: 1.7; }
+  .empty .chips { display: flex; justify-content: center; flex-wrap: wrap; gap: 7px; }
+
+  /* ---------- 弹窗词卡 ---------- */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(14, 35, 60, .38);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+
+  .modal-backdrop.open { display: flex; }
+
+  .modal {
+    position: relative;
+    width: min(680px, 100%);
+    max-height: 88vh;
+    max-height: 88dvh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 30px;
+    background: #fff;
+    border-radius: 24px;
+    box-shadow: 0 40px 100px rgba(10, 40, 80, .3);
+    animation: pop .2s ease;
+  }
+
+  @keyframes pop {
+    from { opacity: 0; transform: translateY(10px) scale(.985); }
+    to { opacity: 1; transform: none; }
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 34px;
+    height: 34px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: #fff;
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .modal-close:hover { background: var(--blue-50); color: var(--blue-700); }
+
+  .modal-kicker { display: flex; align-items: center; gap: 7px; margin-bottom: 10px; flex-wrap: wrap; }
+
+  .modal h3 {
+    margin: 0;
+    font-family: var(--mono);
+    font-size: 34px;
+    font-weight: 900;
+    letter-spacing: -.045em;
+    line-height: 1.15;
+  }
+
+  .modal h3 span { color: var(--blue-400); }
+
+  .modal-desc {
+    margin: 8px 0 0;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .sig-box {
+    margin-top: 18px;
+    padding: 12px 14px;
+    border: 1px solid var(--blue-100);
+    border-radius: 12px;
+    background: var(--blue-50);
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--ink);
+    white-space: pre;
+    overflow-x: auto;
+  }
+
+  .modal-section { margin-top: 22px; }
+
+  .modal-section h4 {
+    margin: 0 0 10px;
+    color: var(--muted-2);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .12em;
+  }
+
+  .modal-section .chips { display: flex; flex-wrap: wrap; gap: 7px; }
+
+  .code-block {
+    margin: 0;
+    padding: 14px;
+    border: 1px solid #d7e9fb;
+    border-radius: 12px;
+    background: #f0f7ff;
+    font-size: 12.5px;
+    line-height: 1.7;
+    color: var(--ink);
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-x: auto;
+  }
+
+  .output-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 10px;
+    padding: 12px 14px;
+    border: 1px dashed var(--line-strong);
+    border-radius: 12px;
+    background: var(--surface-soft);
+  }
+
+  .output-box > span {
+    flex: none;
+    padding-top: 2px;
+    color: var(--muted-2);
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: .08em;
+  }
+
+  .output-box pre {
+    margin: 0;
+    font-size: 12.5px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .note {
+    margin-top: 14px;
+    padding: 10px 12px;
+    border-left: 3px solid var(--blue-200);
+    border-radius: 0 10px 10px 0;
+    background: var(--surface-soft);
+    color: var(--muted);
+    font-size: 12.5px;
+    line-height: 1.7;
+  }
+
+  .modal-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 26px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+  }
+
+  .btn-ghost {
+    border: 1px solid var(--line-strong);
+    border-radius: 12px;
+    padding: 12px 18px;
+    background: #fff;
+    color: var(--ink-2);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: border-color .15s, color .15s, background .15s;
+  }
+
+  .btn-ghost:hover { border-color: var(--blue-300); color: var(--blue-700); background: var(--blue-50); }
+
+  .btn-primary.is-mastered {
+    background: #fff;
+    border: 1.5px solid var(--blue-300);
+    color: var(--blue-700);
+    box-shadow: none;
+  }
+
+  /* ---------- 页脚 ---------- */
+  .footer {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 22px 24px 38px;
+    border-top: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    color: var(--muted-2);
+    font-size: 11.5px;
+  }
+
+  .footer b { color: var(--muted); font-weight: 700; }
+
+  /* ---------- 斩词入口 ---------- */
+  .topbar-quiz {
+    padding: 9px 14px;
+    border-radius: 10px;
+    font-size: 12px;
+  }
+
+  .btn-big {
+    flex: none;
+    padding: 15px 24px;
+    border-radius: 14px;
+    font-size: 14px;
+  }
+
+  .quiz-banner {
+    position: relative;
+    overflow: hidden;
+    max-width: var(--max);
+    margin: 0 auto 12px;
+    padding: 30px 34px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-lg);
+    background: linear-gradient(118deg, #e7f3ff 0%, #f8fcff 52%, #dceeff 100%);
+    box-shadow: var(--shadow-md);
+  }
+
+  .quiz-banner::after {
+    content: "斩";
+    position: absolute;
+    right: 220px;
+    bottom: -56px;
+    font-size: 188px;
+    font-weight: 900;
+    line-height: 1;
+    color: rgba(52, 143, 232, .06);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .quiz-banner-copy {
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+  }
+
+  .quiz-banner h2 {
+    margin: 12px 0 8px;
+    font-size: clamp(24px, 3vw, 32px);
+    letter-spacing: -.03em;
+  }
+
+  .quiz-banner p {
+    margin: 0;
+    max-width: 640px;
+    color: var(--muted);
+    font-size: 13.5px;
+    line-height: 1.75;
+  }
+
+  .quiz-banner-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 16px;
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  .quiz-banner-stats b { color: var(--ink); font-weight: 800; }
+
+  .quiz-banner .btn-big { position: relative; z-index: 1; }
+
+  /* ---------- 斩词弹层 ---------- */
+  .quiz-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 110;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(10, 32, 56, .42);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .quiz-backdrop.open { display: flex; }
+
+  .quiz {
+    display: flex;
+    flex-direction: column;
+    width: min(760px, 100%);
+    max-height: 92vh;
+    max-height: 92dvh;
+    overflow: hidden;
+    padding: 26px 30px 30px;
+    background: #fff;
+    border-radius: 26px;
+    box-shadow: 0 40px 110px rgba(8, 35, 70, .35);
+    animation: pop .2s ease;
+  }
+
+  .quiz-head, .quiz-progress { flex: none; }
+
+  .quiz-stage {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .quiz-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .quiz-kicker {
+    color: var(--blue-600);
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: .14em;
+  }
+
+  .quiz-head h2 {
+    margin: 4px 0 0;
+    font-size: 24px;
+    letter-spacing: -.03em;
+  }
+
+  .quiz-head-right { display: flex; align-items: center; gap: 9px; }
+
+  .quiz-score {
+    padding: 7px 11px;
+    border: 1px solid var(--blue-100);
+    border-radius: 999px;
+    background: var(--blue-50);
+    color: var(--blue-700);
+    font-size: 12.5px;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
+  .quiz-close {
+    width: 34px;
+    height: 34px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: #fff;
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .quiz-close:hover { background: var(--blue-50); color: var(--blue-700); }
+
+  .quiz-progress {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 18px 0 22px;
+    color: var(--muted);
+    font-size: 11.5px;
+    white-space: nowrap;
+  }
+
+  .quiz-progress-track {
+    flex: 1;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--blue-50);
+    overflow: hidden;
+  }
+
+  .quiz-progress-fill {
+    width: 0%;
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #8cc8ff, #348fe8);
+    transition: width .3s ease;
+  }
+
+  .quiz-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .quiz-type {
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: var(--blue-50);
+    border: 1px solid var(--blue-100);
+    color: var(--blue-700);
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: .04em;
+  }
+
+  .quiz-combo {
+    color: var(--blue-600);
+    font-size: 11.5px;
+    font-weight: 800;
+  }
+
+  .quiz-question {
+    margin: 0 0 16px;
+    font-size: 20px;
+    line-height: 1.5;
+    letter-spacing: -.015em;
+  }
+
+  .quiz-code {
+    margin: 0 0 16px;
+    padding: 14px 15px;
+    border: 1px solid #d7e9fb;
+    border-radius: 12px;
+    background: #f0f7ff;
+    color: var(--ink);
+    font-size: 12.5px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .quiz-options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .quiz-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 14px 15px;
+    border: 1.5px solid var(--line);
+    border-radius: 13px;
+    background: #fff;
+    color: var(--ink);
+    text-align: left;
+    font-size: 13.5px;
+    line-height: 1.55;
+    cursor: pointer;
+    transition: transform .15s, border-color .15s, background .15s, box-shadow .15s;
+  }
+
+  .quiz-option:hover:not(:disabled) {
+    transform: translateY(-1px);
+    border-color: var(--blue-300);
+    background: var(--blue-50);
+  }
+
+  .quiz-option:disabled { cursor: default; }
+
+  .option-key {
+    flex: none;
+    width: 23px;
+    height: 23px;
+    display: grid;
+    place-items: center;
+    border-radius: 7px;
+    background: var(--blue-50);
+    color: var(--blue-700);
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 800;
+  }
+
+  .option-text { white-space: pre-wrap; word-break: break-word; }
+
+  .quiz-option.correct {
+    border-color: var(--blue-400);
+    background: #eaf7ff;
+    box-shadow: 0 0 0 3px rgba(90, 171, 245, .12);
+  }
+
+  .quiz-option.correct .option-key { background: var(--blue-500); color: #fff; }
+
+  .quiz-option.wrong {
+    border-color: #f0b4ae;
+    background: #fff4f2;
+  }
+
+  .quiz-option.wrong .option-key { background: #c94f45; color: #fff; }
+
+  .quiz-option.dim { opacity: .52; }
+
+  .quiz-feedback {
+    margin-top: 16px;
+    padding: 14px 16px;
+    border: 1px solid var(--line);
+    border-radius: 13px;
+    background: var(--surface-soft);
+  }
+
+  .quiz-feedback.ok { border-color: var(--blue-200); background: var(--blue-50); }
+  .quiz-feedback.bad { border-color: #f2c7c2; background: #fff6f4; }
+
+  .feedback-title {
+    margin-bottom: 7px;
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  .quiz-feedback.ok .feedback-title { color: var(--blue-700); }
+  .quiz-feedback.bad .feedback-title { color: #b42318; }
+
+  .feedback-sig {
+    display: inline-block;
+    margin-bottom: 8px;
+    padding: 7px 9px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--ink-2);
+    font-family: var(--mono);
+    font-size: 11.5px;
+  }
+
+  .feedback-note {
+    margin: 0;
+    color: var(--muted);
+    font-size: 12.5px;
+    line-height: 1.7;
+  }
+
+  .quiz-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 20px;
+  }
+
+  .quiz-hint { color: var(--muted-2); font-size: 11px; }
+
+  .quiz-intro { text-align: center; padding: 8px 0 2px; }
+  .quiz-intro h3 { margin: 0 0 10px; font-size: 26px; letter-spacing: -.025em; }
+  .quiz-intro > p { margin: 0 auto; max-width: 520px; color: var(--muted); font-size: 13px; line-height: 1.75; }
+
+  .quiz-rules {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    margin: 22px 0;
+    text-align: left;
+  }
+
+  .quiz-rule {
+    padding: 14px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--surface-soft);
+  }
+
+  .quiz-rule b { display: block; margin-bottom: 5px; font-size: 12.5px; }
+  .quiz-rule span { color: var(--muted); font-size: 11.5px; line-height: 1.6; }
+
+  .quiz-stats {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin: 20px 0 24px;
+  }
+
+  .quiz-intro .btn-big { margin: 0 auto; }
+
+  .quiz-result { text-align: center; padding: 6px 0 0; }
+
+  .result-score {
+    color: var(--blue-600);
+    font-size: 58px;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -.05em;
+  }
+
+  .result-score span { color: var(--muted-2); font-size: 22px; font-weight: 800; letter-spacing: 0; }
+
+  .result-label { margin: 10px 0 0; color: var(--muted); font-size: 13px; }
+
+  .result-grid {
+    display: flex;
+    justify-content: center;
+    gap: 36px;
+    margin: 24px 0;
+  }
+
+  .result-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 24px;
+  }
+
+  .review-list { margin-top: 24px; text-align: left; }
+  .review-list h4 { margin: 0 0 10px; color: var(--muted-2); font-size: 11px; font-weight: 800; letter-spacing: .12em; }
+  .review-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+
+  /* ---------- 响应式 ---------- */
+  @media (max-width: 980px) {
+    .hero { grid-template-columns: minmax(0, 1fr); gap: 36px; padding-top: 44px; }
+    .hero > * { min-width: 0; }
+    .hero-card { max-width: 560px; }
+    .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .topbar-quiz { display: none; }
+    .quiz-banner::after { right: 110px; }
+  }
+
+  @media (max-width: 760px) {
+    .nav { display: none; }
+    .progress-mini { display: none; }
+    .topbar-inner { padding: 10px 14px; gap: 10px; }
+    .brand { gap: 9px; }
+    .brand-mark { width: 36px; height: 36px; border-radius: 10px; font-size: 14px; }
+    .brand-title { font-size: 15.5px; }
+    .brand-sub { display: none; }
+    .topbar-right { gap: 8px; }
+    .lang-switch { padding: 3px; }
+    .lang-btn { padding: 8px 10px; font-size: 11.5px; }
+
+    .hero { padding: 34px 16px 30px; gap: 26px; }
+    .hero h1 { margin: 14px 0 12px; font-size: clamp(30px, 8.4vw, 40px); }
+    .lede { font-size: 14px; line-height: 1.75; }
+    .search-shell { margin-top: 22px; padding: 7px 8px 7px 14px; border-radius: 15px; }
+    .search-shell input { font-size: 16px; padding: 9px 0; }
+    .hero-stats { gap: 18px; margin-top: 24px; padding-top: 18px; }
+    .stat b { font-size: 19px; }
+    .hero-card { padding: 20px; border-radius: 20px; }
+    .hero-fn { margin-top: 18px; font-size: 38px; }
+    .hero-card-foot { flex-wrap: wrap; }
+
+    .quiz-banner { flex-direction: column; align-items: flex-start; padding: 22px 18px; gap: 18px; border-radius: 20px; }
+    .quiz-banner .btn-big { width: 100%; }
+    .quiz-banner::after { display: none; }
+    .quiz-banner h2 { font-size: 24px; }
+    .quiz-banner p { font-size: 13px; }
+    .quiz-banner-stats { gap: 10px 18px; font-size: 11.5px; }
+
+    .library { padding: 12px 16px 56px; }
+    .library-head { align-items: flex-start; flex-direction: column; gap: 14px; }
+    .view-tabs { width: 100%; }
+    .view-tab { flex: 1; padding: 10px 10px; font-size: 12.5px; }
+    .filter-panel { gap: 6px; padding-top: 14px; }
+    .filter-panel .chip { padding: 9px 11px; }
+    .letter-chip { min-width: 40px; }
+    .card { padding: 17px; border-radius: 16px; }
+    .mini-code { font-size: 11px; }
+
+    .footer { padding: 20px 16px calc(26px + env(safe-area-inset-bottom)); flex-direction: column; align-items: flex-start; gap: 8px; }
+
+    /* 词卡：手机上改为全屏 */
+    .modal-backdrop { padding: 0; align-items: stretch; }
+    .modal {
+      width: 100%;
+      max-height: none;
+      height: 100vh;
+      height: 100dvh;
+      border-radius: 0;
+      padding: 20px 18px calc(24px + env(safe-area-inset-bottom));
+      animation: none;
+    }
+    .modal-close {
+      position: fixed;
+      top: max(12px, env(safe-area-inset-top));
+      right: 14px;
+      z-index: 3;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, .95);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+    .modal-kicker { padding-right: 46px; }
+    .modal h3 { font-size: 30px; }
+    .modal-actions { flex-direction: column; }
+    .modal-actions button { width: 100%; min-height: 48px; }
+
+    /* 斩词：手机上改为全屏 */
+    .quiz-backdrop { padding: 0; align-items: stretch; }
+    .quiz {
+      width: 100%;
+      height: 100vh;
+      height: 100dvh;
+      max-height: none;
+      border-radius: 0;
+      padding: 16px 16px calc(14px + env(safe-area-inset-bottom));
+      animation: none;
+    }
+    .quiz-close { width: 40px; height: 40px; }
+    .quiz-progress { margin: 14px 0 16px; }
+    .quiz-rules { grid-template-columns: 1fr; }
+    .quiz-question { font-size: 18px; }
+    .quiz-hint { display: none; }
+    .quiz-foot { position: sticky; bottom: 0; padding: 12px 0 2px; background: #fff; }
+    .quiz-foot .btn-primary { width: 100%; min-height: 48px; }
+    .quiz-option { min-height: 52px; font-size: 14px; }
+    .option-key { width: 26px; height: 26px; }
+    .feedback-sig { max-width: 100%; white-space: pre-wrap; word-break: break-word; }
+    .quiz-intro h3 { font-size: 23px; }
+  }
+
+  @media (max-width: 620px) {
+    .grid { grid-template-columns: minmax(0, 1fr); }
+    .search-submit { display: none; }
+    .search-shell { padding-right: 12px; }
+
+    /* 快捷搜索词横向滑动，节省首屏高度 */
+    .intent-row {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      padding: 2px 0 6px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .intent-row::-webkit-scrollbar { display: none; }
+    .intent-row .chip { flex: none; }
+    .intent-label { flex: none; }
+
+    .hero-fn { font-size: 34px; }
+    .card-desc { min-height: 0; }
+
+    .quiz-options { grid-template-columns: 1fr; }
+    .quiz-stats { gap: 18px; justify-content: space-around; }
+    .quiz-head h2 { font-size: 21px; }
+    .result-grid { gap: 12px; justify-content: space-between; }
+    .result-actions { flex-direction: column; }
+    .result-actions button { width: 100%; min-height: 48px; }
+    .result-score { font-size: 52px; }
+  }
+
+  @media (max-width: 400px) {
+    .brand-title { font-size: 14.5px; }
+    .lang-btn { padding: 7px 8px; font-size: 11px; }
+    .topbar-inner { padding: 9px 12px; }
+    .hero { padding-left: 14px; padding-right: 14px; }
+    .library { padding-left: 14px; padding-right: 14px; }
+    .hero-fn { font-size: 31px; }
+    .quiz-banner h2 { font-size: 22px; }
+    .fn-name { font-size: 19px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#top" aria-label="Python 函数百词斩首页">
+      <span class="brand-mark">Py</span>
+      <span class="brand-copy">
+        <span class="brand-title">函数百词斩</span>
+        <span class="brand-sub">PYTHON · 学习小组版</span>
+      </span>
+    </a>
+
+    <nav class="nav" aria-label="主导航">
+      <a href="#library" class="active">词库</a>
+      <a href="#today">今日推荐</a>
+    </nav>
+
+    <div class="topbar-right">
+      <div class="progress-mini" aria-label="学习进度">
+        <span>已掌握 <b id="masteredCount">0</b> / <span id="totalCount">72</span></span>
+        <span class="progress-track"><span class="progress-fill" id="progressFill"></span></span>
+      </div>
+      <button class="btn-primary topbar-quiz" id="startQuizTop" type="button">开始斩词</button>
+      <div class="lang-switch" role="group" aria-label="词库语言">
+        <button class="lang-btn active" type="button">Python</button>
+        <button class="lang-btn soon" type="button" title="C 语言词库筹备中">C · 筹备中</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="hero-copy">
+      <span class="eyebrow"><i></i>为编程学习小组准备的第一份礼物</span>
+      <h1>每天斩一个函数，<br><span class="hl">把 Python 用成母语。</span></h1>
+      <p class="lede">
+        按难度从 <code>print</code> 一路学到 <code>map</code>，按首字母 A–Z 查，
+        或者按功能找。也可以直接说人话：搜「我想输出」「我想排序」都行。
+      </p>
+
+      <form class="search-shell" id="searchForm" role="search">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.8"></circle>
+          <path d="M16 16L20 20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+        </svg>
+        <input id="searchInput" type="search" autocomplete="off"
+               placeholder="搜函数名，或直接说：print、我想要输出、排序…"
+               aria-label="搜索函数名或功能">
+        <button class="search-clear" id="searchClear" type="button" aria-label="清空搜索" hidden>×</button>
+        <button class="search-submit" type="submit">搜一下</button>
+      </form>
+
+      <div class="intent-row" id="intentRow">
+        <span class="intent-label">试试搜：</span>
+        <button class="chip intent-chip" type="button" data-query="我想输出">我想输出</button>
+        <button class="chip intent-chip" type="button" data-query="我想输入">我想输入</button>
+        <button class="chip intent-chip" type="button" data-query="类型转换">类型转换</button>
+        <button class="chip intent-chip" type="button" data-query="我想排序">我想排序</button>
+        <button class="chip intent-chip" type="button" data-query="我想求和">我想求和</button>
+        <button class="chip intent-chip" type="button" data-query="我想看类型">我想看类型</button>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat"><b id="heroTotal">72</b><span>个函数词条</span></div>
+        <div class="stat"><b>6</b><span>大功能分类</span></div>
+        <div class="stat"><b>3</b><span>种斩词题型</span></div>
+      </div>
+    </div>
+
+    <aside class="hero-card" id="today" aria-label="今日推荐函数">
+      <span class="day-ghost" aria-hidden="true">01</span>
+      <div class="hero-card-top">
+        <span class="hero-badge"><i></i>DAY 01 · 今日推荐</span>
+        <span class="level-pill">Lv.1 入门</span>
+      </div>
+      <div class="hero-fn">print<span>()</span></div>
+      <p class="hero-meaning">让程序开口说话。</p>
+      <div class="code-window">
+        <div class="code-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+        <pre>print("你好，世界")</pre>
+        <div class="code-out"><span>输出</span><code>你好，世界</code></div>
+      </div>
+      <div class="hero-card-foot">
+        <span class="level-dots" aria-label="难度 1 级，共 4 级">
+          <i class="on"></i><i></i><i></i><i></i>
+        </span>
+        <button class="btn-primary" id="heroStart" type="button">查看这个词</button>
+      </div>
+    </aside>
+  </section>
+
+  <section class="quiz-banner" aria-label="斩词挑战">
+    <div class="quiz-banner-copy">
+      <span class="eyebrow"><i></i>斩词挑战 · 每天 10 题</span>
+      <h2>今天，斩 10 个函数。</h2>
+      <p>看描述选函数、看函数选用途、看代码猜输出。答对就记入「已掌握」，答错也会得到一张词卡。</p>
+      <div class="quiz-banner-stats">
+        <span>今日已斩 <b id="todayAnswered">0</b> 题</span>
+        <span>正确率 <b id="accuracy">0%</b></span>
+        <span>最高连对 <b id="bestCombo">0</b></span>
+      </div>
+    </div>
+    <button class="btn-primary btn-big" id="startQuizBtn" type="button">开始 10 题挑战</button>
+  </section>
+
+  <section class="library" id="library">
+    <div class="library-head">
+      <div>
+        <h2>函数词库</h2>
+        <p><span id="libraryCount">72</span> 个词条，从最简单的 print 开始，按你的习惯挑一种找法。</p>
+      </div>
+      <div class="view-tabs" role="tablist" aria-label="词库分类方式">
+        <button class="view-tab active" type="button" data-view="level" role="tab" aria-selected="true">按难度</button>
+        <button class="view-tab" type="button" data-view="letter" role="tab" aria-selected="false">按字母</button>
+        <button class="view-tab" type="button" data-view="category" role="tab" aria-selected="false">按功能</button>
+      </div>
+    </div>
+
+    <div class="filter-panel" id="filterPanel" aria-label="筛选条件"></div>
+
+    <div class="result-meta">
+      <span id="resultText">共 31 个函数</span>
+      <button class="reset-btn" id="resetBtn" type="button" hidden>重置筛选</button>
+    </div>
+
+    <div class="grid" id="cardGrid"></div>
+  </section>
+</main>
+
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" id="modalClose" type="button" aria-label="关闭词卡">×</button>
+    <div class="modal-kicker" id="modalKicker"></div>
+    <h3 id="modalTitle"></h3>
+    <p class="modal-desc" id="modalDesc"></p>
+    <div class="sig-box" id="modalSig"></div>
+    <div class="modal-section">
+      <h4>什么时候用</h4>
+      <div class="chips" id="modalIntents"></div>
+    </div>
+    <div class="modal-section">
+      <h4>最小例子</h4>
+      <pre class="code-block" id="modalCode"></pre>
+      <div class="output-box" id="modalOutputBox">
+        <span>输出</span>
+        <pre id="modalOutput"></pre>
+      </div>
+      <div class="note" id="modalNote"></div>
+    </div>
+    <div class="modal-section">
+      <h4>相关函数</h4>
+      <div class="chips" id="modalRelated"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-primary" id="masterBtn" type="button">标记为已掌握</button>
+      <button class="btn-ghost" id="nextBtn" type="button">下一个函数</button>
+    </div>
+  </div>
+</div>
+
+<div class="quiz-backdrop" id="quizBackdrop" aria-hidden="true">
+  <section class="quiz" role="dialog" aria-modal="true" aria-labelledby="quizTitle">
+    <header class="quiz-head">
+      <div>
+        <span class="quiz-kicker">斩词挑战</span>
+        <h2 id="quizTitle">今日斩词</h2>
+      </div>
+      <div class="quiz-head-right">
+        <span class="quiz-score" id="quizScore">0 / 10</span>
+        <button class="quiz-close" id="quizClose" type="button" aria-label="退出斩词">×</button>
+      </div>
+    </header>
+    <div class="quiz-progress">
+      <div class="quiz-progress-track"><div class="quiz-progress-fill" id="quizProgressFill"></div></div>
+      <span id="quizProgressText">第 1 / 10 题</span>
+    </div>
+    <div class="quiz-stage" id="quizStage"></div>
+  </section>
+</div>
+
+<footer class="footer">
+  <span><b>Python 函数百词斩</b> · 学习小组内部工具 · v0.2</span>
+  <span><span id="footerCount">72</span> 个词条 · C 语言词库筹备中</span>
+</footer>
+
+<script>
+  const LEVELS = {
+    1: { short: 'Lv.1', label: 'Lv.1 入门' },
+    2: { short: 'Lv.2', label: 'Lv.2 基础' },
+    3: { short: 'Lv.3', label: 'Lv.3 进阶' },
+    4: { short: 'Lv.4', label: 'Lv.4 挑战' }
+  };
+
+  const CATEGORIES = ['输入输出', '类型转换', '数值计算', '序列与容器', '字符串处理', '进阶工具'];
+  const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+
+  const FUNCTIONS = [
+    {
+      name: 'print', level: 1, category: '输入输出',
+      desc: '让程序把内容显示在屏幕上。',
+      signature: "print(*objects, sep=' ', end='\\n')",
+      intents: ['我想输出', '我想要输出', '打印', '显示'],
+      snippet: 'print("你好，世界")',
+      example: 'print("你好，世界")\nprint("Python", "函数", sep=" · ")',
+      output: '你好，世界\nPython · 函数',
+      note: '最常用的函数。多个内容用逗号隔开，sep 控制分隔符。',
+      related: ['input', 'str', 'help']
+    },
+    {
+      name: 'input', level: 1, category: '输入输出', volatile: true,
+      desc: '让程序停下来，等你从键盘输入一行内容。',
+      signature: "input(prompt='')",
+      intents: ['我想输入', '我想要输入', '读取键盘', '获取用户输入'],
+      snippet: 'name = input("你的名字：")',
+      example: 'name = input("你的名字：")\nprint(f"你好，{name}！")',
+      output: '你的名字：小明\n你好，小明！',
+      note: '返回值永远是字符串。要做计算，先用 int() 或 float() 转换。',
+      related: ['print', 'int', 'str']
+    },
+    {
+      name: 'int', level: 1, category: '类型转换',
+      desc: '把内容转换成整数。',
+      signature: 'int(x, base=10)',
+      intents: ['我想转成整数', '类型转换', '字符串转数字', '转成数字'],
+      snippet: 'int("42") + 8',
+      example: 'print(int("42") + 8)\nprint(int("101", 2))',
+      output: '50\n5',
+      note: '小数点后的内容会直接丢掉，不是四舍五入。',
+      related: ['float', 'str', 'type']
+    },
+    {
+      name: 'float', level: 1, category: '类型转换',
+      desc: '把内容转换成小数（浮点数）。',
+      signature: 'float(x)',
+      intents: ['我想转成小数', '类型转换', '转成浮点数', '字符串转数字'],
+      snippet: 'float("3.14") * 2',
+      example: 'print(float("3.14") * 2)',
+      output: '6.28',
+      note: '整数和小数都能转；转不了的文字会报 ValueError。',
+      related: ['int', 'str', 'round']
+    },
+    {
+      name: 'str', level: 1, category: '类型转换',
+      desc: '把任何内容转换成文字。',
+      signature: "str(object='')",
+      intents: ['我想转成文字', '类型转换', '数字转字符串', '拼接文字'],
+      snippet: 'str(2026) + " 年"',
+      example: 'print(str(2026) + " 年")\nprint("共 " + str(3) + " 个")',
+      output: '2026 年\n共 3 个',
+      note: '要和其他文字用 + 拼接时，两边都必须是字符串。',
+      related: ['int', 'print', 'join']
+    },
+    {
+      name: 'bool', level: 1, category: '类型转换',
+      desc: '把内容转换成 True 或 False。',
+      signature: 'bool(x)',
+      intents: ['我想判断真假', '布尔值', '类型转换', '是不是真'],
+      snippet: 'bool(0)',
+      example: 'print(bool(0))\nprint(bool([]))\nprint(bool("hi"))',
+      output: 'False\nFalse\nTrue',
+      note: '0、空字符串、空列表、None 都算 False，其余大多算 True。',
+      related: ['int', 'type', 'isinstance']
+    },
+    {
+      name: 'len', level: 1, category: '序列与容器',
+      desc: '数一数序列里有多少个元素。',
+      signature: 'len(s)',
+      intents: ['我想要长度', '多少个', '元素个数', '字符串长度'],
+      snippet: 'len("hello")',
+      example: 'print(len("hello"))\nprint(len([10, 20, 30]))',
+      output: '5\n3',
+      note: '字符串数的是字符，列表数的是元素；数字不能直接用 len()。',
+      related: ['range', 'sum', 'sorted']
+    },
+    {
+      name: 'abs', level: 1, category: '数值计算',
+      desc: '取一个数的绝对值，也就是去掉负号。',
+      signature: 'abs(x)',
+      intents: ['我想去负号', '绝对值', '不要负号', '距离'],
+      snippet: 'abs(-42)',
+      example: 'print(abs(-42))\nprint(abs(3 - 10))',
+      output: '42\n7',
+      note: '绝对值表示离 0 有多远，结果一定大于等于 0。',
+      related: ['round', 'pow', 'sum']
+    },
+    {
+      name: 'append', level: 1, category: '序列与容器',
+      desc: '往列表末尾添加一个元素。',
+      signature: '列表.append(x)',
+      intents: ['我想添加元素', '追加', '列表末尾加一个', '往列表里放东西'],
+      snippet: 'nums.append(3)',
+      example: 'nums = [1, 2]\nnums.append(3)\nprint(nums)',
+      output: '[1, 2, 3]',
+      note: 'append 是列表的方法，写法是「列表.append(x)」，调用后原列表会改变。',
+      related: ['len', 'sorted', 'max']
+    },
+    {
+      name: 'range', level: 2, category: '序列与容器',
+      desc: '生成一串按规律排列的整数。',
+      signature: 'range(start, stop, step=1)',
+      intents: ['我想循环', '数字范围', '生成序列', '重复几次'],
+      snippet: 'list(range(1, 6))',
+      example: 'for i in range(1, 6):\n    print(i)\n\nprint(list(range(0, 10, 2)))',
+      output: '1\n2\n3\n4\n5\n[0, 2, 4, 6, 8]',
+      note: '含头不含尾：range(1, 6) 是 1 到 5。',
+      related: ['len', 'sum', 'enumerate']
+    },
+    {
+      name: 'sum', level: 2, category: '数值计算',
+      desc: '把一串数字全部加起来。',
+      signature: 'sum(iterable, start=0)',
+      intents: ['我想求和', '加起来', '总和', '计算总和'],
+      snippet: 'sum([1, 2, 3, 4])',
+      example: 'print(sum([1, 2, 3, 4]))\nprint(sum(range(1, 101)))',
+      output: '10\n5050',
+      note: '只能加数字；要拼接字符串用 join()。',
+      related: ['range', 'max', 'min']
+    },
+    {
+      name: 'max', level: 2, category: '数值计算',
+      desc: '找出一串内容里最大的那个。',
+      signature: 'max(iterable, *[, key])',
+      intents: ['我想找最大', '最大值', '谁最大', '最大的数'],
+      snippet: 'max([3, 7, 2])',
+      example: 'print(max([3, 7, 2]))\nprint(max("python"))',
+      output: '7\ny',
+      note: '字符串按字母顺序比较，所以 "y" 最大。',
+      related: ['min', 'sorted', 'sum']
+    },
+    {
+      name: 'min', level: 2, category: '数值计算',
+      desc: '找出一串内容里最小的那个。',
+      signature: 'min(iterable, *[, key])',
+      intents: ['我想找最小', '最小值', '谁最小', '最小的数'],
+      snippet: 'min([3, 7, 2])',
+      example: 'print(min([3, 7, 2]))\nprint(min("python"))',
+      output: '2\nh',
+      note: '和 max() 用法一样，只是反过来找最小的。',
+      related: ['max', 'sorted', 'sum']
+    },
+    {
+      name: 'round', level: 2, category: '数值计算',
+      desc: '把数字四舍五入到指定的小数位。',
+      signature: 'round(number, ndigits=None)',
+      intents: ['我想四舍五入', '保留小数', '取整', '小数位'],
+      snippet: 'round(3.14159, 2)',
+      example: 'print(round(3.14159, 2))\nprint(round(2.6))',
+      output: '3.14\n3',
+      note: '不写第二位就取整；Python 对 .5 的处理比较特殊，初学先记住常见情况。',
+      related: ['abs', 'int', 'float']
+    },
+    {
+      name: 'pow', level: 2, category: '数值计算',
+      desc: '算一个数的乘方。',
+      signature: 'pow(base, exp, mod=None)',
+      intents: ['我想算次方', '乘方', '平方', '立方'],
+      snippet: 'pow(2, 10)',
+      example: 'print(pow(2, 10))\nprint(pow(3, 2))\nprint(2 ** 10)',
+      output: '1024\n9\n1024',
+      note: 'pow(2, 10) 和 2 ** 10 的结果一样。',
+      related: ['abs', 'round', 'divmod']
+    },
+    {
+      name: 'type', level: 2, category: '类型转换',
+      desc: '查看一个内容到底是什么类型。',
+      signature: 'type(object)',
+      intents: ['我想看类型', '什么类型', '类型检查', '是列表吗'],
+      snippet: 'type(42)',
+      example: 'print(type(42))\nprint(type("hi"))\nprint(type([1, 2]))',
+      output: "<class 'int'>\n<class 'str'>\n<class 'list'>",
+      note: '适合调试时确认变量类型。想判断「是不是某种类型」用 isinstance()。',
+      related: ['isinstance', 'int', 'str']
+    },
+    {
+      name: 'isinstance', level: 2, category: '类型转换',
+      desc: '判断一个内容是不是某种类型。',
+      signature: 'isinstance(object, classinfo)',
+      intents: ['我想判断类型', '是不是', '类型检查', '是不是数字'],
+      snippet: 'isinstance(42, int)',
+      example: 'print(isinstance(42, int))\nprint(isinstance("42", int))\nprint(isinstance(3.14, (int, float)))',
+      output: 'True\nFalse\nTrue',
+      note: '第二个参数可以写一个类型，也可以写一组类型。',
+      related: ['type', 'bool', 'int']
+    },
+    {
+      name: 'split', level: 2, category: '字符串处理',
+      desc: '把一段文字按分隔符切开，得到列表。',
+      signature: 'str.split(sep=None)',
+      intents: ['我想分割文字', '拆分', '按空格切', '把句子拆成词'],
+      snippet: '"a,b,c".split(",")',
+      example: 'text = "苹果 香蕉 橘子"\nprint(text.split())\nprint("a,b,c".split(","))',
+      output: "['苹果', '香蕉', '橘子']\n['a', 'b', 'c']",
+      note: '不写分隔符时，会按所有空白字符切分。',
+      related: ['join', 'strip', 'replace']
+    },
+    {
+      name: 'join', level: 2, category: '字符串处理',
+      desc: '用指定的连接符把一串文字拼起来。',
+      signature: 'sep.join(iterable)',
+      intents: ['我想拼接文字', '连接', '合并字符串', '把列表拼成句子'],
+      snippet: '"、".join(["A", "B", "C"])',
+      example: 'words = ["Python", "很好", "玩"]\nprint(" ".join(words))\nprint("、".join(words))',
+      output: 'Python 很好 玩\nPython、很好、玩',
+      note: '列表里必须全是字符串；有数字要先 str() 转换。',
+      related: ['split', 'str', 'replace']
+    },
+    {
+      name: 'strip', level: 2, category: '字符串处理',
+      desc: '去掉文字首尾的空格或指定字符。',
+      signature: 'str.strip(chars=None)',
+      intents: ['我想去空格', '去掉空白', '清理文字', '首尾空格'],
+      snippet: '"  hi  ".strip()',
+      example: 'text = "  hello  "\nprint(f"[{text.strip()}]")',
+      output: '[hello]',
+      note: '只去首尾，不去中间；strip("x") 可以去掉首尾的 x。',
+      related: ['split', 'replace', 'join']
+    },
+    {
+      name: 'replace', level: 2, category: '字符串处理',
+      desc: '把文字里指定的内容替换成新的内容。',
+      signature: 'str.replace(old, new, count=-1)',
+      intents: ['我想替换文字', '改文字', '把 A 换成 B', '替换'],
+      snippet: '"cat".replace("c", "b")',
+      example: 'text = "我喜欢猫，猫很可爱"\nprint(text.replace("猫", "狗"))',
+      output: '我喜欢狗，狗很可爱',
+      note: '默认替换全部；第三个参数可以限制替换次数。',
+      related: ['split', 'strip', 'join']
+    },
+    {
+      name: 'help', level: 2, category: '进阶工具', volatile: true,
+      desc: '在终端里查看函数或对象的说明文档。',
+      signature: 'help(object)',
+      intents: ['我想看帮助', '怎么用', '文档', '说明书'],
+      snippet: 'help(print)',
+      example: 'help(len)',
+      output: 'Help on built-in function len in module builtins:\n\nlen(obj, /)\n    Return the number of items in a container.',
+      note: '适合在终端里随手查；交互式环境里也可以用 help() 进入帮助模式。',
+      related: ['type', 'print', 'input']
+    },
+    {
+      name: 'divmod', level: 3, category: '数值计算',
+      desc: '一次算出除法的商和余数。',
+      signature: 'divmod(a, b)',
+      intents: ['我想求商和余数', '商和余数', '除法', '余数'],
+      snippet: 'divmod(17, 5)',
+      example: 'print(divmod(17, 5))',
+      output: '(3, 2)',
+      note: '结果是一个元组：第一个是商，第二个是余数。',
+      related: ['int', 'round', 'pow']
+    },
+    {
+      name: 'sorted', level: 3, category: '序列与容器',
+      desc: '把一串内容排好序，返回一个新列表。',
+      signature: 'sorted(iterable, key=None, reverse=False)',
+      intents: ['我想排序', '从小到大', '从大到小', '整理顺序'],
+      snippet: 'sorted([3, 1, 2])',
+      example: 'nums = [3, 1, 2]\nprint(sorted(nums))\nprint(sorted(nums, reverse=True))\nprint(nums)',
+      output: '[1, 2, 3]\n[3, 2, 1]\n[3, 1, 2]',
+      note: 'sorted() 返回新列表，原列表不变；列表自己的 sort() 才会原地修改。',
+      related: ['max', 'min', 'len']
+    },
+    {
+      name: 'enumerate', level: 3, category: '序列与容器',
+      desc: '遍历时同时拿到序号和内容。',
+      signature: 'enumerate(iterable, start=0)',
+      intents: ['我想要编号', '下标', '带序号遍历', '第几个'],
+      snippet: 'list(enumerate(["a", "b"]))',
+      example: 'for i, word in enumerate(["苹果", "香蕉"], start=1):\n    print(i, word)',
+      output: '1 苹果\n2 香蕉',
+      note: 'start=1 可以让编号从 1 开始，而不是默认的 0。',
+      related: ['zip', 'range', 'len']
+    },
+    {
+      name: 'zip', level: 3, category: '序列与容器',
+      desc: '把几个序列按位置一一配对。',
+      signature: 'zip(*iterables)',
+      intents: ['我想配对', '并行遍历', '同时遍历', '合并两个列表'],
+      snippet: 'list(zip([1, 2], ["a", "b"]))',
+      example: 'names = ["小明", "小红"]\nscores = [90, 85]\nfor name, score in zip(names, scores):\n    print(name, score)',
+      output: '小明 90\n小红 85',
+      note: '按最短的那个序列配对，多出来的部分会被忽略。',
+      related: ['enumerate', 'range', 'map']
+    },
+    {
+      name: 'chr', level: 3, category: '字符串处理',
+      desc: '把编码数字转换成对应的字符。',
+      signature: 'chr(i)',
+      intents: ['我想数字转字符', '编码', 'ASCII', '字符'],
+      snippet: 'chr(65)',
+      example: 'print(chr(65))\nprint(chr(20320))',
+      output: 'A\n你',
+      note: '和 ord() 互为反向操作。',
+      related: ['ord', 'str', 'print']
+    },
+    {
+      name: 'ord', level: 3, category: '字符串处理',
+      desc: '查一个字符对应的编码数字。',
+      signature: 'ord(c)',
+      intents: ['我想字符转数字', '编码', 'ASCII', '字符编号'],
+      snippet: 'ord("A")',
+      example: 'print(ord("A"))\nprint(ord("你"))',
+      output: '65\n20320',
+      note: '只接受单个字符；和 chr() 互为反向操作。',
+      related: ['chr', 'int', 'len']
+    },
+    {
+      name: 'open', level: 3, category: '输入输出', volatile: true,
+      desc: '打开一个文件，准备读取或写入。',
+      signature: "open(file, mode='r', encoding=None)",
+      intents: ['我想读写文件', '打开文件', '文件操作', '保存到文件'],
+      snippet: 'open("notes.txt", "w", encoding="utf-8")',
+      example: 'with open("notes.txt", "w", encoding="utf-8") as f:\n    f.write("你好，文件")\n\nwith open("notes.txt", encoding="utf-8") as f:\n    print(f.read())',
+      output: '你好，文件',
+      note: '推荐用 with open(...)：代码块结束会自动关闭文件。',
+      related: ['read', 'write', 'input']
+    },
+    {
+      name: 'map', level: 4, category: '进阶工具',
+      desc: '把同一个操作套用到一串内容的每一个元素上。',
+      signature: 'map(function, iterable)',
+      intents: ['我想批量处理', '每个元素都变', '映射', '批量转换'],
+      snippet: 'list(map(int, ["1", "2", "3"]))',
+      example: 'nums = ["1", "2", "3"]\nprint(list(map(int, nums)))',
+      output: '[1, 2, 3]',
+      note: '返回的是一个迭代器；想直接看到结果，通常套一层 list()。',
+      related: ['filter', 'zip', 'sorted']
+    },
+    {
+      name: 'filter', level: 4, category: '进阶工具',
+      desc: '只留下符合条件的内容。',
+      signature: 'filter(function, iterable)',
+      intents: ['我想筛选', '过滤', '只留下符合条件的', '挑出想要的'],
+      snippet: 'list(filter(lambda x: x % 2 == 0, range(10)))',
+      example: 'nums = range(10)\nevens = filter(lambda x: x % 2 == 0, nums)\nprint(list(evens))',
+      output: '[0, 2, 4, 6, 8]',
+      note: '条件函数返回 True 的留下，返回 False 的丢掉；同样建议用 list() 查看结果。',
+      related: ['map', 'sorted', 'bool']
+    },
+    {
+      name: 'list', kind: '内置类型', level: 2, category: '类型转换',
+      desc: '把一串内容转换成列表。',
+      signature: 'list(iterable=())',
+      intents: ['我想创建列表', '转成列表', '列表', '把内容收集起来'],
+      snippet: 'list(range(3))',
+      example: 'print(list(range(3)))\nprint(list("abc"))',
+      output: "[0, 1, 2]\n['a', 'b', 'c']",
+      note: '字符串转列表会按字符拆开；列表用方括号表示。',
+      related: ['tuple', 'set', 'dict']
+    },
+    {
+      name: 'tuple', kind: '内置类型', level: 2, category: '类型转换',
+      desc: '把一串内容转换成元组（创建后不能修改）。',
+      signature: 'tuple(iterable=())',
+      intents: ['我想创建元组', '转成元组', '不可修改的列表', '元组'],
+      snippet: 'tuple([1, 2, 3])',
+      example: 'print(tuple([1, 2, 3]))',
+      output: '(1, 2, 3)',
+      note: '元组用小括号表示，创建后不能增删改元素。',
+      related: ['list', 'set', 'dict']
+    },
+    {
+      name: 'dict', kind: '内置类型', level: 2, category: '类型转换',
+      desc: '创建字典，用键值对来存数据。',
+      signature: 'dict(**kwargs)',
+      intents: ['我想创建字典', '键值对', '转成字典', '字典'],
+      snippet: 'dict(name="小明", age=12)',
+      example: 'student = dict(name="小明", age=12)\nprint(student)',
+      output: "{'name': '小明', 'age': 12}",
+      note: '字典用「键: 值」存数据，键不能重复。',
+      related: ['get', 'keys', 'items']
+    },
+    {
+      name: 'set', kind: '内置类型', level: 2, category: '类型转换',
+      desc: '创建集合，自动去掉重复元素。',
+      signature: 'set(iterable=())',
+      intents: ['我想去重', '集合', '转成集合', '去掉重复'],
+      snippet: 'set([1, 2, 2, 3])',
+      example: 'nums = set([1, 2, 2, 3])\nprint(len(nums))\nprint(2 in nums)',
+      output: '3\nTrue',
+      note: '集合不保证顺序，适合去重和判断「在不在」。',
+      related: ['list', 'add', 'len']
+    },
+    {
+      name: 'upper', kind: '字符串方法', level: 1, category: '字符串处理',
+      desc: '把字符串里的字母全部变成大写。',
+      signature: '字符串.upper()',
+      intents: ['我想转大写', '大写', '字母大写', 'upper'],
+      snippet: '"hello".upper()',
+      example: 'print("hello".upper())\nprint("Python 3".upper())',
+      output: 'HELLO\nPYTHON 3',
+      note: '不会改变原字符串，而是返回一个新字符串。',
+      related: ['lower', 'title', 'capitalize']
+    },
+    {
+      name: 'lower', kind: '字符串方法', level: 1, category: '字符串处理',
+      desc: '把字符串里的字母全部变成小写。',
+      signature: '字符串.lower()',
+      intents: ['我想转小写', '小写', '字母小写', 'lower'],
+      snippet: '"HELLO".lower()',
+      example: 'print("HELLO".lower())\nprint("PyThOn".lower())',
+      output: 'hello\npython',
+      note: '比较前先统一大小写，是处理用户输入的常用技巧。',
+      related: ['upper', 'title', 'capitalize']
+    },
+    {
+      name: 'title', kind: '字符串方法', level: 1, category: '字符串处理',
+      desc: '把字符串里每个单词的首字母变成大写。',
+      signature: '字符串.title()',
+      intents: ['我想首字母大写', '标题格式', '每个词大写', 'title'],
+      snippet: '"hello world".title()',
+      example: 'print("hello world".title())',
+      output: 'Hello World',
+      note: '按单词处理，不是只处理整句的第一个字母。',
+      related: ['capitalize', 'upper', 'lower']
+    },
+    {
+      name: 'capitalize', kind: '字符串方法', level: 1, category: '字符串处理',
+      desc: '把字符串的第一个字母变成大写，其余变小写。',
+      signature: '字符串.capitalize()',
+      intents: ['我想句首大写', '第一个字母大写', 'capitalize'],
+      snippet: '"hello WORLD".capitalize()',
+      example: 'print("hello WORLD".capitalize())',
+      output: 'Hello world',
+      note: '只处理第一个字符，其余字母会被转成小写。',
+      related: ['title', 'upper', 'lower']
+    },
+    {
+      name: 'count', kind: '序列方法', level: 1, category: '序列与容器',
+      desc: '数一数某个值出现了几次。',
+      signature: '序列.count(value)',
+      intents: ['我想数次数', '出现几次', '统计个数', '有多少个'],
+      snippet: '"banana".count("a")',
+      example: 'print("banana".count("a"))\nprint([1, 2, 2, 3].count(2))',
+      output: '3\n2',
+      note: '字符串和列表都能用；只数完全相等的值。',
+      related: ['index', 'len', 'sum']
+    },
+    {
+      name: 'reverse', kind: '列表方法', level: 1, category: '序列与容器',
+      desc: '把列表的元素顺序倒过来。',
+      signature: '列表.reverse()',
+      intents: ['我想反转列表', '倒过来', '翻转', '逆序'],
+      snippet: 'nums.reverse()',
+      example: 'nums = [1, 2, 3]\nnums.reverse()\nprint(nums)',
+      output: '[3, 2, 1]',
+      note: '原地修改，不返回新列表；切片 nums[::-1] 会返回新列表。',
+      related: ['sort', 'sorted', 'reversed']
+    },
+    {
+      name: 'get', kind: '字典方法', level: 1, category: '序列与容器',
+      desc: '安全地取字典里的值，取不到时返回默认值。',
+      signature: '字典.get(key, default=None)',
+      intents: ['我想查字典', '取值', '键不存在', '安全取值'],
+      snippet: 'student.get("age", 0)',
+      example: 'student = {"name": "小明", "age": 12}\nprint(student.get("age"))\nprint(student.get("score", 0))',
+      output: '12\n0',
+      note: '直接写 student["score"] 取不到会报错；get 不会。',
+      related: ['keys', 'values', 'items']
+    },
+    {
+      name: 'keys', kind: '字典方法', level: 1, category: '序列与容器',
+      desc: '取出字典里所有的键。',
+      signature: '字典.keys()',
+      intents: ['我想看所有键', '键', '有哪些字段', 'keys'],
+      snippet: 'student.keys()',
+      example: 'student = {"name": "小明", "age": 12}\nprint(list(student.keys()))',
+      output: "['name', 'age']",
+      note: '返回的是视图对象，想当列表用就套 list()。',
+      related: ['values', 'items', 'get']
+    },
+    {
+      name: 'values', kind: '字典方法', level: 1, category: '序列与容器',
+      desc: '取出字典里所有的值。',
+      signature: '字典.values()',
+      intents: ['我想看所有值', '值', 'values'],
+      snippet: 'student.values()',
+      example: 'student = {"name": "小明", "age": 12}\nprint(list(student.values()))',
+      output: "['小明', 12]",
+      note: '常和 sum()、max() 等函数配合使用。',
+      related: ['keys', 'items', 'get']
+    },
+    {
+      name: 'items', kind: '字典方法', level: 1, category: '序列与容器',
+      desc: '取出字典里所有的键值对。',
+      signature: '字典.items()',
+      intents: ['我想遍历字典', '键值对', '同时拿键和值', 'items'],
+      snippet: 'student.items()',
+      example: 'student = {"name": "小明", "age": 12}\nfor key, value in student.items():\n    print(key, value)',
+      output: 'name 小明\nage 12',
+      note: '遍历字典时最常用，能同时拿到键和值。',
+      related: ['keys', 'values', 'get']
+    },
+    {
+      name: 'sort', kind: '列表方法', level: 2, category: '序列与容器',
+      desc: '把列表原地排好序。',
+      signature: '列表.sort(key=None, reverse=False)',
+      intents: ['我想排序', '列表排序', '原地排序', '从小到大'],
+      snippet: 'nums.sort()',
+      example: 'nums = [3, 1, 2]\nnums.sort()\nprint(nums)',
+      output: '[1, 2, 3]',
+      note: 'sort() 直接修改原列表，不返回新列表；需要新列表用 sorted()。',
+      related: ['sorted', 'reverse', 'max']
+    },
+    {
+      name: 'pop', kind: '列表方法', level: 2, category: '序列与容器',
+      desc: '取出并删除列表中指定位置的元素。',
+      signature: '列表.pop(index=-1)',
+      intents: ['我想取出元素', '删除最后一个', '弹出', '移除并返回'],
+      snippet: 'nums.pop()',
+      example: 'nums = [10, 20, 30]\nlast = nums.pop()\nprint(last)\nprint(nums)',
+      output: '30\n[10, 20]',
+      note: '不写位置默认弹出最后一个；也可以写 nums.pop(0) 弹出第一个。',
+      related: ['remove', 'append', 'index']
+    },
+    {
+      name: 'remove', kind: '列表方法', level: 2, category: '序列与容器',
+      desc: '删除列表中第一个等于指定值的元素。',
+      signature: '列表.remove(value)',
+      intents: ['我想删除元素', '删掉某个值', '移除', '删除'],
+      snippet: 'nums.remove(2)',
+      example: 'nums = [1, 2, 2, 3]\nnums.remove(2)\nprint(nums)',
+      output: '[1, 2, 3]',
+      note: '只删第一个匹配项；值不存在会报错。',
+      related: ['pop', 'append', 'index']
+    },
+    {
+      name: 'insert', kind: '列表方法', level: 2, category: '序列与容器',
+      desc: '在列表的指定位置插入一个元素。',
+      signature: '列表.insert(index, value)',
+      intents: ['我想插入元素', '在中间加', '插队', '加到指定位置'],
+      snippet: 'nums.insert(1, 99)',
+      example: 'nums = [1, 2, 3]\nnums.insert(1, 99)\nprint(nums)',
+      output: '[1, 99, 2, 3]',
+      note: '位置从 0 开始；插到 1 表示放在原来第 2 个元素前面。',
+      related: ['append', 'extend', 'pop']
+    },
+    {
+      name: 'extend', kind: '列表方法', level: 2, category: '序列与容器',
+      desc: '把另一个列表的元素逐个加到列表末尾。',
+      signature: '列表.extend(iterable)',
+      intents: ['我想合并列表', '追加多个', '扩展列表', '批量添加'],
+      snippet: 'a.extend(b)',
+      example: 'a = [1, 2]\nb = [3, 4]\na.extend(b)\nprint(a)',
+      output: '[1, 2, 3, 4]',
+      note: 'extend 是拆开加入；append 会把整个对象当成一个元素加进去。',
+      related: ['append', 'insert', 'list']
+    },
+    {
+      name: 'index', kind: '序列方法', level: 2, category: '序列与容器',
+      desc: '查找某个值在列表或字符串中第一次出现的位置。',
+      signature: '序列.index(value)',
+      intents: ['我想找位置', '下标', '第几个', '查找'],
+      snippet: '"hello".index("l")',
+      example: 'print("hello".index("l"))\nprint([10, 20, 30].index(20))',
+      output: '2\n1',
+      note: '位置从 0 开始；找不到会报 ValueError。',
+      related: ['find', 'count', 'pop']
+    },
+    {
+      name: 'add', kind: '集合方法', level: 2, category: '序列与容器',
+      desc: '往集合里添加一个元素。',
+      signature: '集合.add(x)',
+      intents: ['我想往集合加元素', '添加', '集合添加', '去重后添加'],
+      snippet: 'colors.add("blue")',
+      example: 'colors = {"red", "green"}\ncolors.add("blue")\ncolors.add("red")\nprint(len(colors))\nprint("blue" in colors)',
+      output: '3\nTrue',
+      note: '集合自动去重，重复添加不会变多。',
+      related: ['set', 'remove', 'len']
+    },
+    {
+      name: 'startswith', kind: '字符串方法', level: 2, category: '字符串处理',
+      desc: '判断字符串是不是以某段内容开头。',
+      signature: '字符串.startswith(prefix)',
+      intents: ['我想判断开头', '是不是以什么开头', '前缀', 'startswith'],
+      snippet: '"hello.py".startswith("hello")',
+      example: 'print("hello.py".startswith("hello"))\nprint("hello.py".startswith("world"))',
+      output: 'True\nFalse',
+      note: '返回 True 或 False，常配合 if 使用。',
+      related: ['endswith', 'find', 'replace']
+    },
+    {
+      name: 'endswith', kind: '字符串方法', level: 2, category: '字符串处理',
+      desc: '判断字符串是不是以某段内容结尾。',
+      signature: '字符串.endswith(suffix)',
+      intents: ['我想判断结尾', '后缀', '是不是以什么结尾', 'endswith'],
+      snippet: '"photo.jpg".endswith(".jpg")',
+      example: 'print("photo.jpg".endswith(".jpg"))\nprint("photo.png".endswith(".jpg"))',
+      output: 'True\nFalse',
+      note: '常用来判断文件类型。',
+      related: ['startswith', 'find', 'split']
+    },
+    {
+      name: 'find', kind: '字符串方法', level: 2, category: '字符串处理',
+      desc: '查找一段内容在字符串里第一次出现的位置。',
+      signature: '字符串.find(sub)',
+      intents: ['我想查找', '找位置', '在哪儿', 'find'],
+      snippet: '"hello".find("l")',
+      example: 'print("hello".find("l"))\nprint("hello".find("z"))',
+      output: '2\n-1',
+      note: '找不到返回 -1，不会报错；要报错可以用 index()。',
+      related: ['index', 'count', 'replace']
+    },
+    {
+      name: 'isdigit', kind: '字符串方法', level: 2, category: '字符串处理',
+      desc: '判断字符串是不是全部由数字组成。',
+      signature: '字符串.isdigit()',
+      intents: ['我想判断数字', '是不是数字', '纯数字', 'isdigit'],
+      snippet: '"123".isdigit()',
+      example: 'print("123".isdigit())\nprint("12a".isdigit())\nprint("-5".isdigit())',
+      output: 'True\nFalse\nFalse',
+      note: '只认 0-9 组成的字符串，负号和小数点都不算。',
+      related: ['int', 'isinstance', 'input']
+    },
+    {
+      name: 'bin', kind: '内置函数', level: 3, category: '类型转换',
+      desc: '把整数转换成二进制字符串。',
+      signature: 'bin(x)',
+      intents: ['我想转二进制', '二进制', '进制转换'],
+      snippet: 'bin(10)',
+      example: 'print(bin(10))',
+      output: '0b1010',
+      note: '结果以 0b 开头，表示二进制。',
+      related: ['oct', 'hex', 'int']
+    },
+    {
+      name: 'oct', kind: '内置函数', level: 3, category: '类型转换',
+      desc: '把整数转换成八进制字符串。',
+      signature: 'oct(x)',
+      intents: ['我想转八进制', '八进制', '进制转换'],
+      snippet: 'oct(10)',
+      example: 'print(oct(10))',
+      output: '0o12',
+      note: '结果以 0o 开头，表示八进制。',
+      related: ['bin', 'hex', 'int']
+    },
+    {
+      name: 'hex', kind: '内置函数', level: 3, category: '类型转换',
+      desc: '把整数转换成十六进制字符串。',
+      signature: 'hex(x)',
+      intents: ['我想转十六进制', '十六进制', '进制转换'],
+      snippet: 'hex(255)',
+      example: 'print(hex(255))',
+      output: '0xff',
+      note: '结果以 0x 开头，表示十六进制。',
+      related: ['bin', 'oct', 'int']
+    },
+    {
+      name: 'sqrt', display: 'math.sqrt', kind: '模块函数', level: 3, category: '数值计算',
+      desc: '求一个数的平方根。',
+      signature: 'math.sqrt(x)',
+      intents: ['我想开平方', '平方根', '根号', 'math'],
+      snippet: 'math.sqrt(16)',
+      example: 'import math\nprint(math.sqrt(16))\nprint(math.sqrt(2))',
+      output: '4.0\n1.4142135623730951',
+      note: '要先 import math；结果是浮点数。',
+      related: ['pow', 'round', 'floor']
+    },
+    {
+      name: 'floor', display: 'math.floor', kind: '模块函数', level: 3, category: '数值计算',
+      desc: '向下取整，取不大于它的最大整数。',
+      signature: 'math.floor(x)',
+      intents: ['我想向下取整', '取整', 'floor', '去掉小数'],
+      snippet: 'math.floor(3.9)',
+      example: 'import math\nprint(math.floor(3.9))\nprint(math.floor(-1.2))',
+      output: '3\n-2',
+      note: '注意负数：-1.2 向下取整是 -2，不是 -1。',
+      related: ['ceil', 'round', 'int']
+    },
+    {
+      name: 'ceil', display: 'math.ceil', kind: '模块函数', level: 3, category: '数值计算',
+      desc: '向上取整，取不小于它的最小整数。',
+      signature: 'math.ceil(x)',
+      intents: ['我想向上取整', '取整', 'ceil', '进一位'],
+      snippet: 'math.ceil(3.1)',
+      example: 'import math\nprint(math.ceil(3.1))\nprint(math.ceil(-1.2))',
+      output: '4\n-1',
+      note: '和 floor 相对：ceil 总是往大的方向取。',
+      related: ['floor', 'round', 'int']
+    },
+    {
+      name: 'randint', display: 'random.randint', kind: '模块函数', level: 3, category: '进阶工具', volatile: true,
+      desc: '生成一个指定范围内的随机整数。',
+      signature: 'random.randint(a, b)',
+      intents: ['我想随机', '随机整数', '抽一个数', 'random'],
+      snippet: 'random.randint(1, 6)',
+      example: 'import random\nprint(random.randint(1, 6))\nprint(random.randint(1, 6))',
+      output: '4\n2  （每次运行都可能不同）',
+      note: '包含 a 和 b 两端；每次运行结果可能不同。',
+      related: ['choice', 'range', 'print']
+    },
+    {
+      name: 'choice', display: 'random.choice', kind: '模块函数', level: 3, category: '进阶工具', volatile: true,
+      desc: '从一串内容里随机挑一个。',
+      signature: 'random.choice(seq)',
+      intents: ['我想随机挑一个', '随机选择', '抽签', 'random'],
+      snippet: 'random.choice(["石头", "剪刀", "布"])',
+      example: 'import random\nmoves = ["石头", "剪刀", "布"]\nprint(random.choice(moves))',
+      output: '剪刀  （每次运行都可能不同）',
+      note: '参数必须是非空序列。',
+      related: ['randint', 'list', 'len']
+    },
+    {
+      name: 'all', kind: '内置函数', level: 3, category: '进阶工具',
+      desc: '判断一串内容是不是全部为真。',
+      signature: 'all(iterable)',
+      intents: ['我想判断全部', '是否都为真', '全都满足', 'all'],
+      snippet: 'all([True, True, False])',
+      example: 'print(all([True, True, False]))\nprint(all([1, 2, 3]))\nprint(all([]))',
+      output: 'False\nTrue\nTrue',
+      note: '空序列默认返回 True；常和条件表达式一起用。',
+      related: ['any', 'bool', 'filter']
+    },
+    {
+      name: 'any', kind: '内置函数', level: 3, category: '进阶工具',
+      desc: '判断一串内容里是不是至少有一个为真。',
+      signature: 'any(iterable)',
+      intents: ['我想判断任意一个', '只要有一个', '至少一个', 'any'],
+      snippet: 'any([False, False, True])',
+      example: 'print(any([False, False, True]))\nprint(any([0, 0, 0]))\nprint(any([]))',
+      output: 'True\nFalse\nFalse',
+      note: '空序列默认返回 False。',
+      related: ['all', 'bool', 'filter']
+    },
+    {
+      name: 'reversed', kind: '内置函数', level: 3, category: '进阶工具',
+      desc: '返回一个倒着遍历的迭代器。',
+      signature: 'reversed(seq)',
+      intents: ['我想倒着遍历', '反转', '逆序', '从后往前'],
+      snippet: 'list(reversed([1, 2, 3]))',
+      example: 'for n in reversed([1, 2, 3]):\n    print(n)\n\nprint(list(reversed("abc")))',
+      output: "3\n2\n1\n['c', 'b', 'a']",
+      note: '返回迭代器，想直接看结果套一层 list()。',
+      related: ['reverse', 'sorted', 'range']
+    },
+    {
+      name: 'update', kind: '字典方法', level: 3, category: '序列与容器',
+      desc: '用另一个字典的内容更新当前字典。',
+      signature: '字典.update(other)',
+      intents: ['我想更新字典', '合并字典', '修改多个键', 'update'],
+      snippet: 'student.update({"age": 13})',
+      example: 'student = {"name": "小明", "age": 12}\nstudent.update({"age": 13, "score": 90})\nprint(student)',
+      output: "{'name': '小明', 'age': 13, 'score': 90}",
+      note: '已有的键会被覆盖，没有的键会被添加。',
+      related: ['get', 'keys', 'set']
+    },
+    {
+      name: 'format', kind: '内置函数', level: 3, category: '字符串处理',
+      desc: '把值按指定格式填进字符串。',
+      signature: 'format(value, spec)',
+      intents: ['我想格式化', '保留两位小数', '对齐', 'format'],
+      snippet: 'format(3.14159, ".2f")',
+      example: 'print(format(3.14159, ".2f"))\nprint(format(42, "05d"))',
+      output: '3.14\n00042',
+      note: 'f-string 里也能用：f"{3.14159:.2f}"。',
+      related: ['str', 'round', 'print']
+    },
+    {
+      name: 'zfill', kind: '字符串方法', level: 3, category: '字符串处理',
+      desc: '在字符串左边补 0，凑够指定长度。',
+      signature: '字符串.zfill(width)',
+      intents: ['我想补零', '左边补零', '固定长度', 'zfill'],
+      snippet: '"7".zfill(3)',
+      example: 'print("7".zfill(3))\nprint("123".zfill(5))',
+      output: '007\n00123',
+      note: '常用于编号：把 7 显示成 007。',
+      related: ['format', 'str', 'len']
+    },
+    {
+      name: 'read', kind: '文件方法', level: 3, category: '输入输出', volatile: true,
+      desc: '把文件内容一次性读成字符串。',
+      signature: '文件.read(size=-1)',
+      intents: ['我想读文件', '读取文件', '文件内容', 'read'],
+      snippet: 'f.read()',
+      example: 'with open("notes.txt", encoding="utf-8") as f:\n    text = f.read()\nprint(text)',
+      output: '你好，文件',
+      note: '会从当前位置一直读到文件末尾；大文件建议分行读。',
+      related: ['open', 'write', 'split']
+    },
+    {
+      name: 'write', kind: '文件方法', level: 3, category: '输入输出', volatile: true,
+      desc: '把字符串写进文件。',
+      signature: '文件.write(text)',
+      intents: ['我想写文件', '保存到文件', '写入', 'write'],
+      snippet: 'f.write("你好")',
+      example: 'with open("notes.txt", "w", encoding="utf-8") as f:\n    f.write("你好，文件")',
+      output: '（文件 notes.txt 中被写入「你好，文件」）',
+      note: '用 "w" 模式会清空原文件；追加内容用 "a" 模式。',
+      related: ['open', 'read', 'print']
+    }
+  ];
+
+  const state = {
+    view: 'level',
+    level: 'all',
+    letter: 'all',
+    category: 'all',
+    query: ''
+  };
+
+  let currentName = null;
+
+  const $ = (id) => document.getElementById(id);
+  const searchInput = $('searchInput');
+  const searchClear = $('searchClear');
+  const filterPanel = $('filterPanel');
+  const cardGrid = $('cardGrid');
+  const resultText = $('resultText');
+  const resetBtn = $('resetBtn');
+  const modalBackdrop = $('modalBackdrop');
+  const modal = $('modal');
+  const masterBtn = $('masterBtn');
+
+  function esc(value) {
+    return String(value).replace(/[&<>"']/g, (ch) => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[ch]));
+  }
+
+  function loadMastered() {
+    try {
+      return new Set(JSON.parse(localStorage.getItem('pyfn-mastered') || '[]'));
+    } catch (error) {
+      return new Set();
+    }
+  }
+
+  const mastered = loadMastered();
+
+  function saveMastered() {
+    try {
+      localStorage.setItem('pyfn-mastered', JSON.stringify([...mastered]));
+    } catch (error) {
+      /* 本地文件模式下可能被浏览器禁用，忽略即可 */
+    }
+  }
+
+  function updateProgress() {
+    $('masteredCount').textContent = mastered.size;
+    $('progressFill').style.width = Math.round((mastered.size / FUNCTIONS.length) * 100) + '%';
+  }
+
+  function countBy(predicate) {
+    return FUNCTIONS.filter(predicate).length;
+  }
+
+  function renderFilterPanel() {
+    if (state.view === 'level') {
+      const levelItems = [1, 2, 3, 4].map((level) => {
+        const active = state.level === String(level) ? 'active' : '';
+        return '<button class="chip ' + active + '" type="button" data-level="' + level + '">'
+          + LEVELS[level].label
+          + '<span class="chip-count">' + countBy((fn) => fn.level === level) + '</span>'
+          + '</button>';
+      }).join('');
+      filterPanel.innerHTML = '<span class="filter-label">按难度</span>'
+        + '<button class="chip ' + (state.level === 'all' ? 'active' : '') + '" type="button" data-level="all">全部'
+        + '<span class="chip-count">' + FUNCTIONS.length + '</span></button>'
+        + levelItems;
+      return;
+    }
+
+    if (state.view === 'letter') {
+      const letters = LETTERS.map((letter) => {
+        const count = countBy((fn) => fn.name[0].toUpperCase() === letter);
+        const active = state.letter === letter ? 'active' : '';
+        return '<button class="chip letter-chip ' + active + '" type="button" data-letter="' + letter + '"'
+          + (count ? '' : ' disabled') + ' title="' + letter + '：' + count + ' 个">' + letter + '</button>';
+      }).join('');
+      filterPanel.innerHTML = '<span class="filter-label">按首字母</span>'
+        + '<button class="chip letter-chip ' + (state.letter === 'all' ? 'active' : '') + '" type="button" data-letter="all">全部</button>'
+        + letters;
+      return;
+    }
+
+    const categories = CATEGORIES.map((category) => {
+      const active = state.category === category ? 'active' : '';
+      return '<button class="chip ' + active + '" type="button" data-category="' + esc(category) + '">'
+        + esc(category)
+        + '<span class="chip-count">' + countBy((fn) => fn.category === category) + '</span>'
+        + '</button>';
+    }).join('');
+    filterPanel.innerHTML = '<span class="filter-label">按功能</span>'
+      + '<button class="chip ' + (state.category === 'all' ? 'active' : '') + '" type="button" data-category="all">全部'
+      + '<span class="chip-count">' + FUNCTIONS.length + '</span></button>'
+      + categories;
+  }
+
+  function getFiltered() {
+    const query = state.query.trim().toLowerCase();
+    const list = FUNCTIONS.filter((fn) => {
+      if (state.level !== 'all' && fn.level !== Number(state.level)) return false;
+      if (state.letter !== 'all' && fn.name[0].toUpperCase() !== state.letter) return false;
+      if (state.category !== 'all' && fn.category !== state.category) return false;
+      if (!query) return true;
+      const haystack = [fn.name, fn.display || '', fn.kind || '', fn.desc, fn.category, fn.signature, fn.snippet, fn.note]
+        .concat(fn.intents)
+        .join(' ')
+        .toLowerCase();
+      return haystack.includes(query);
+    });
+
+    return list.sort((a, b) => {
+      if (state.view === 'level') {
+        return a.level - b.level || a.name.localeCompare(b.name);
+      }
+      return a.name.localeCompare(b.name);
+    });
+  }
+
+  function cardHTML(fn) {
+    const dots = [1, 2, 3, 4].map((n) => '<i class="' + (n <= fn.level ? 'on' : '') + '"></i>').join('');
+    const isMastered = mastered.has(fn.name);
+    const display = fn.display || fn.name;
+    const kindTag = fn.kind && fn.kind !== '内置函数' && fn.kind !== '内置类型'
+      ? '<span class="tag ghost">' + esc(fn.kind) + '</span>'
+      : '';
+    return '<article class="card" data-name="' + esc(fn.name) + '" tabindex="0" role="button" '
+      + 'aria-label="查看 ' + esc(display) + ' 的词卡">'
+      + '<div class="card-top">'
+      + '<code class="fn-name">' + esc(display) + '<span>()</span></code>'
+      + '<div class="card-state">'
+      + (isMastered ? '<span class="mastered-pill">已掌握</span>' : '')
+      + '<span class="level-pill">' + LEVELS[fn.level].short + '</span>'
+      + '</div></div>'
+      + '<div class="card-cat"><span class="tag">' + esc(fn.category) + '</span>' + kindTag
+      + '<span class="level-dots" aria-hidden="true">' + dots + '</span></div>'
+      + '<p class="card-desc">' + esc(fn.desc) + '</p>'
+      + '<pre class="mini-code">' + esc(fn.snippet) + '</pre>'
+      + '<div class="card-foot"><span class="intent-mini">' + esc(fn.intents[0]) + '</span>'
+      + '<span class="open-link">查看词卡</span></div>'
+      + '</article>';
+  }
+
+  function emptyHTML() {
+    return '<div class="empty">'
+      + '<div class="empty-mark">?</div>'
+      + '<h3>词库里还没找到这个词</h3>'
+      + '<p>换个说法试试：既能搜函数名，也能直接搜「输出」「排序」「转换」。</p>'
+      + '<div class="chips">'
+      + '<button class="chip" type="button" data-suggestion="print">print</button>'
+      + '<button class="chip" type="button" data-suggestion="我想输出">我想输出</button>'
+      + '<button class="chip" type="button" data-suggestion="我想排序">我想排序</button>'
+      + '<button class="chip" type="button" data-suggestion="类型转换">类型转换</button>'
+      + '</div></div>';
+  }
+
+  function renderResults() {
+    const list = getFiltered();
+    const parts = [];
+
+    if (state.query.trim()) parts.push('关键词「' + state.query.trim() + '」');
+    if (state.view === 'level' && state.level !== 'all') parts.push(LEVELS[Number(state.level)].label);
+    if (state.view === 'letter' && state.letter !== 'all') parts.push('首字母 ' + state.letter);
+    if (state.view === 'category' && state.category !== 'all') parts.push('功能：' + state.category);
+
+    resultText.textContent = (parts.length ? parts.join(' · ') + ' · ' : '') + '共 ' + list.length + ' 个函数';
+    resetBtn.hidden = !(state.query.trim() || state.level !== 'all' || state.letter !== 'all' || state.category !== 'all');
+    searchClear.hidden = !searchInput.value;
+    cardGrid.innerHTML = list.length ? list.map(cardHTML).join('') : emptyHTML();
+  }
+
+  function resetAll() {
+    state.level = 'all';
+    state.letter = 'all';
+    state.category = 'all';
+    state.query = '';
+    searchInput.value = '';
+    document.querySelectorAll('#intentRow .intent-chip').forEach((chip) => chip.classList.remove('active'));
+    renderFilterPanel();
+    renderResults();
+  }
+
+  function applyQuery(query) {
+    searchInput.value = query;
+    state.query = query;
+    state.level = 'all';
+    state.letter = 'all';
+    state.category = 'all';
+    document.querySelectorAll('#intentRow .intent-chip').forEach((chip) => {
+      chip.classList.toggle('active', chip.dataset.query === query);
+    });
+    renderFilterPanel();
+    renderResults();
+    document.getElementById('library').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function openModal(name) {
+    const fn = FUNCTIONS.find((item) => item.name === name);
+    if (!fn) return;
+
+    currentName = name;
+    const display = fn.display || fn.name;
+    const kindTag = fn.kind && fn.kind !== '内置函数' && fn.kind !== '内置类型'
+      ? '<span class="tag ghost">' + esc(fn.kind) + '</span>'
+      : '';
+
+    $('modalKicker').innerHTML = '<span class="level-pill">' + LEVELS[fn.level].short + ' · ' + LEVELS[fn.level].label.slice(5)
+      + '</span><span class="tag">' + esc(fn.category) + '</span>' + kindTag;
+    $('modalTitle').innerHTML = esc(display) + '<span>()</span>';
+    $('modalDesc').textContent = fn.desc;
+    $('modalSig').textContent = fn.signature;
+    $('modalIntents').innerHTML = fn.intents.map((intent) => '<span class="tag">' + esc(intent) + '</span>').join('');
+    $('modalCode').textContent = fn.example;
+    $('modalOutput').textContent = fn.output || '';
+    $('modalOutputBox').hidden = !fn.output;
+
+    const noteEl = $('modalNote');
+    noteEl.textContent = fn.note || '';
+    noteEl.hidden = !fn.note;
+
+    $('modalRelated').innerHTML = fn.related.map((relatedName) => {
+      const exists = FUNCTIONS.some((item) => item.name === relatedName);
+      return '<button class="chip" type="button" data-related="' + esc(relatedName) + '"'
+        + (exists ? '' : ' disabled') + '>' + esc(relatedName) + '()</button>';
+    }).join('');
+
+    updateMasterBtn();
+
+    modalBackdrop.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    modal.scrollTop = 0;
+    $('modalClose').focus();
+  }
+
+  function closeModal() {
+    modalBackdrop.classList.remove('open');
+    document.body.style.overflow = '';
+    currentName = null;
+  }
+
+  function updateMasterBtn() {
+    if (currentName && mastered.has(currentName)) {
+      masterBtn.textContent = '已掌握，点击取消';
+      masterBtn.classList.add('is-mastered');
+    } else {
+      masterBtn.textContent = '标记为已掌握';
+      masterBtn.classList.remove('is-mastered');
+    }
+  }
+
+  /* ---------- 斩词挑战 ---------- */
+  const QUIZ_SIZE = 10;
+  const quizBackdrop = $('quizBackdrop');
+  const quizStage = $('quizStage');
+  let quiz = null;
+
+  function todayKey() {
+    const date = new Date();
+    return date.getFullYear() + '-'
+      + String(date.getMonth() + 1).padStart(2, '0') + '-'
+      + String(date.getDate()).padStart(2, '0');
+  }
+
+  function loadQuizStats() {
+    const defaults = {
+      answered: 0,
+      correct: 0,
+      sessions: 0,
+      bestCombo: 0,
+      today: todayKey(),
+      todayAnswered: 0
+    };
+    try {
+      return Object.assign(defaults, JSON.parse(localStorage.getItem('pyfn-quiz-stats') || '{}'));
+    } catch (error) {
+      return defaults;
+    }
+  }
+
+  const quizStats = loadQuizStats();
+
+  function saveQuizStats() {
+    try {
+      localStorage.setItem('pyfn-quiz-stats', JSON.stringify(quizStats));
+    } catch (error) {
+      /* 本地文件模式下可能被浏览器禁用，忽略即可 */
+    }
+  }
+
+  function updateQuizStatsUI() {
+    if (quizStats.today !== todayKey()) {
+      quizStats.today = todayKey();
+      quizStats.todayAnswered = 0;
+      saveQuizStats();
+    }
+    const accuracy = quizStats.answered ? Math.round((quizStats.correct / quizStats.answered) * 100) : 0;
+    $('todayAnswered').textContent = quizStats.todayAnswered;
+    $('accuracy').textContent = accuracy + '%';
+    $('bestCombo').textContent = quizStats.bestCombo;
+  }
+
+  function shuffle(list) {
+    const result = [...list];
+    for (let i = result.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [result[i], result[j]] = [result[j], result[i]];
+    }
+    return result;
+  }
+
+  function fnDisplay(fn) {
+    return fn.display || fn.name;
+  }
+
+  function fnLabel(fn) {
+    return fnDisplay(fn) + '()';
+  }
+
+  function uniqueOptions(correctText, pool, getter) {
+    const options = [correctText];
+    const seen = new Set([correctText]);
+    for (const item of shuffle(pool)) {
+      const text = getter(item);
+      if (!text || seen.has(text)) continue;
+      seen.add(text);
+      options.push(text);
+      if (options.length === 4) break;
+    }
+    return shuffle(options);
+  }
+
+  function makeDescQuestion(fn) {
+    const correct = fnLabel(fn);
+    const sameCategory = FUNCTIONS.filter((item) => item.name !== fn.name && item.category === fn.category);
+    const allOthers = FUNCTIONS.filter((item) => item.name !== fn.name);
+    let options = uniqueOptions(correct, sameCategory, fnLabel);
+    if (options.length < 4) options = uniqueOptions(correct, allOthers, fnLabel);
+    return {
+      type: 'desc',
+      typeLabel: '看描述 · 选函数',
+      prompt: '「' + fn.desc + '」应该用哪个？',
+      code: '',
+      options: options,
+      correctIndex: options.indexOf(correct),
+      fnName: fn.name,
+      display: fnLabel(fn),
+      desc: fn.desc,
+      signature: fn.signature,
+      note: fn.note,
+      selectedIndex: null
+    };
+  }
+
+  function makeFnQuestion(fn) {
+    const correct = fn.desc;
+    const sameCategory = FUNCTIONS.filter((item) => item.name !== fn.name && item.category === fn.category);
+    const allOthers = FUNCTIONS.filter((item) => item.name !== fn.name);
+    let options = uniqueOptions(correct, sameCategory, (item) => item.desc);
+    if (options.length < 4) options = uniqueOptions(correct, allOthers, (item) => item.desc);
+    return {
+      type: 'fn',
+      typeLabel: '看函数 · 选用途',
+      prompt: '「' + fnLabel(fn) + '」是做什么的？',
+      code: '',
+      options: options,
+      correctIndex: options.indexOf(correct),
+      fnName: fn.name,
+      display: fnLabel(fn),
+      desc: fn.desc,
+      signature: fn.signature,
+      note: fn.note,
+      selectedIndex: null
+    };
+  }
+
+  function makeCodeQuestion(fn) {
+    const correct = fn.output;
+    const pool = FUNCTIONS.filter((item) => item.name !== fn.name
+      && item.output
+      && !item.volatile
+      && !item.output.includes('\n')
+      && item.output.length <= 60);
+    const options = uniqueOptions(correct, pool, (item) => item.output);
+    return {
+      type: 'code',
+      typeLabel: '看代码 · 猜输出',
+      prompt: '下面这段代码会输出什么？',
+      code: fn.example,
+      options: options,
+      correctIndex: options.indexOf(correct),
+      fnName: fn.name,
+      display: fnLabel(fn),
+      desc: fn.desc,
+      signature: fn.signature,
+      note: fn.note,
+      selectedIndex: null
+    };
+  }
+
+  function buildQuizQuestions() {
+    const codePool = FUNCTIONS.filter((fn) => fn.output
+      && !fn.volatile
+      && !fn.output.includes('\n')
+      && fn.output.length <= 60);
+    const codeNames = new Set(codePool.map((fn) => fn.name));
+    const picked = [];
+    const pickedNames = new Set();
+
+    function take(fn) {
+      if (!fn || pickedNames.has(fn.name)) return false;
+      picked.push(fn);
+      pickedNames.add(fn.name);
+      return true;
+    }
+
+    const codeEasy = shuffle(codePool.filter((fn) => fn.level <= 2));
+    const codeHard = shuffle(codePool.filter((fn) => fn.level > 2));
+    [...codeEasy, ...codeHard].forEach((fn) => {
+      if (picked.length < 3) take(fn);
+    });
+
+    [[1, 2], [2, 2], [3, 2], [4, 1]].forEach(([level, count]) => {
+      const pool = shuffle(FUNCTIONS.filter((fn) => fn.level === level && !pickedNames.has(fn.name)));
+      for (let i = 0; i < count; i++) {
+        if (pool[i]) take(pool[i]);
+      }
+    });
+
+    const rest = shuffle(FUNCTIONS.filter((fn) => !pickedNames.has(fn.name)));
+    while (picked.length < QUIZ_SIZE && rest.length) take(rest.pop());
+
+    const finalPicked = shuffle(picked).slice(0, QUIZ_SIZE);
+    const codeChosen = new Set(finalPicked.filter((fn) => codeNames.has(fn.name)).slice(0, 3).map((fn) => fn.name));
+    let alternate = 0;
+
+    return finalPicked.map((fn) => {
+      if (codeChosen.has(fn.name)) return makeCodeQuestion(fn);
+      const question = alternate % 2 === 0 ? makeDescQuestion(fn) : makeFnQuestion(fn);
+      alternate++;
+      return question;
+    });
+  }
+
+  function openQuiz() {
+    quiz = { stage: 'intro', questions: [], index: 0, score: 0, combo: 0, bestCombo: 0 };
+    updateQuizStatsUI();
+    renderQuiz();
+    quizBackdrop.classList.add('open');
+    quizBackdrop.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    $('quizClose').focus();
+  }
+
+  function startQuiz() {
+    if (!quiz) quiz = { stage: 'intro', questions: [], index: 0, score: 0, combo: 0, bestCombo: 0 };
+    quiz.stage = 'playing';
+    quiz.questions = buildQuizQuestions();
+    quiz.index = 0;
+    quiz.score = 0;
+    quiz.combo = 0;
+    quiz.bestCombo = 0;
+    renderQuiz();
+  }
+
+  function closeQuiz() {
+    quizBackdrop.classList.remove('open');
+    quizBackdrop.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    quiz = null;
+  }
+
+  function renderQuiz() {
+    if (!quiz) return;
+    const scoreEl = $('quizScore');
+    const progressFill = $('quizProgressFill');
+    const progressText = $('quizProgressText');
+
+    if (quiz.stage === 'intro') {
+      scoreEl.textContent = '0 / ' + QUIZ_SIZE;
+      progressFill.style.width = '0%';
+      progressText.textContent = '准备开始';
+      quizStage.innerHTML = renderQuizIntro();
+      return;
+    }
+
+    if (quiz.stage === 'result') {
+      scoreEl.textContent = quiz.score + ' / ' + QUIZ_SIZE;
+      progressFill.style.width = '100%';
+      progressText.textContent = '本轮结束';
+      quizStage.innerHTML = renderQuizResult();
+      return;
+    }
+
+    scoreEl.textContent = quiz.score + ' / ' + QUIZ_SIZE;
+    progressFill.style.width = Math.round(((quiz.index + 1) / QUIZ_SIZE) * 100) + '%';
+    progressText.textContent = '第 ' + (quiz.index + 1) + ' / ' + QUIZ_SIZE + ' 题';
+    quizStage.innerHTML = renderQuizQuestion(quiz.questions[quiz.index]);
+  }
+
+  function renderQuizIntro() {
+    const accuracy = quizStats.answered ? Math.round((quizStats.correct / quizStats.answered) * 100) : 0;
+    return '<div class="quiz-intro">'
+      + '<h3>10 题，斩掉今天的函数。</h3>'
+      + '<p>答对就记入「已掌握」。答错也没关系，每道题后面都会跟一张小词卡，把用法讲清楚。</p>'
+      + '<div class="quiz-rules">'
+      + '<div class="quiz-rule"><b>看描述 · 选函数</b><span>「我想把文字转成整数」→ 选 int()</span></div>'
+      + '<div class="quiz-rule"><b>看函数 · 选用途</b><span>sorted() 和 sort() 到底差在哪？</span></div>'
+      + '<div class="quiz-rule"><b>看代码 · 猜输出</b><span>print("hi") 屏幕会出现什么？</span></div>'
+      + '</div>'
+      + '<div class="quiz-stats">'
+      + '<div class="stat"><b>' + quizStats.answered + '</b><span>累计斩获</span></div>'
+      + '<div class="stat"><b>' + accuracy + '%</b><span>正确率</span></div>'
+      + '<div class="stat"><b>' + quizStats.bestCombo + '</b><span>最高连对</span></div>'
+      + '</div>'
+      + '<button class="btn-primary btn-big" type="button" data-action="start">开始斩词</button>'
+      + '</div>';
+  }
+
+  function renderQuizQuestion(question) {
+    const answered = question.selectedIndex !== undefined && question.selectedIndex !== null;
+    const options = question.options.map((option, index) => {
+      let className = '';
+      if (answered) {
+        if (index === question.correctIndex) className = 'correct';
+        else if (index === question.selectedIndex) className = 'wrong';
+        else className = 'dim';
+      }
+      return '<button class="quiz-option ' + className + '" type="button" data-option="' + index + '"'
+        + (answered ? ' disabled' : '') + '>'
+        + '<span class="option-key">' + (index + 1) + '</span>'
+        + '<span class="option-text">' + esc(option) + '</span>'
+        + '</button>';
+    }).join('');
+
+    return '<div class="quiz-meta">'
+      + '<span class="quiz-type">' + esc(question.typeLabel) + '</span>'
+      + '<span class="quiz-combo">' + (quiz.combo >= 2 ? '连对 ' + quiz.combo : '') + '</span>'
+      + '</div>'
+      + '<h3 class="quiz-question">' + esc(question.prompt) + '</h3>'
+      + (question.code ? '<pre class="quiz-code">' + esc(question.code) + '</pre>' : '')
+      + '<div class="quiz-options">' + options + '</div>'
+      + (answered ? renderQuizFeedback(question) : '')
+      + '<div class="quiz-foot">'
+      + '<span class="quiz-hint">' + (answered ? '按 Enter 继续' : '按 1–4 选择') + '</span>'
+      + (answered ? '<button class="btn-primary" type="button" data-action="next">'
+        + (quiz.index === QUIZ_SIZE - 1 ? '看本轮结果' : '下一题') + '</button>' : '')
+      + '</div>';
+  }
+
+  function renderQuizFeedback(question) {
+    const correct = question.selectedIndex === question.correctIndex;
+    return '<div class="quiz-feedback ' + (correct ? 'ok' : 'bad') + '">'
+      + '<div class="feedback-title">' + (correct ? '斩中了。' : '差一点，记住这张词卡。') + '</div>'
+      + '<code class="feedback-sig">' + esc(question.signature) + '</code>'
+      + '<p class="feedback-note">' + esc(question.note || question.desc) + '</p>'
+      + '</div>';
+  }
+
+  function renderQuizResult() {
+    const accuracy = Math.round((quiz.score / QUIZ_SIZE) * 100);
+    const missed = quiz.questions.filter((question) => question.selectedIndex !== question.correctIndex);
+    const review = missed.length
+      ? '<div class="review-list"><h4>需要再斩一次</h4><div class="review-chips">'
+        + missed.map((question) => '<button class="chip" type="button" data-review="' + esc(question.fnName) + '">'
+          + esc(question.display) + '</button>').join('')
+        + '</div></div>'
+      : '<div class="review-list"><h4>本轮全对</h4><p class="feedback-note">这些函数都已经记入「已掌握」，明天再来巩固。</p></div>';
+
+    return '<div class="quiz-result">'
+      + '<div class="result-score">' + quiz.score + '<span> / ' + QUIZ_SIZE + '</span></div>'
+      + '<p class="result-label">本轮正确率 ' + accuracy + '% · 最高连对 ' + quiz.bestCombo + '</p>'
+      + '<div class="result-grid">'
+      + '<div class="stat"><b>' + quiz.score + '</b><span>斩中</span></div>'
+      + '<div class="stat"><b>' + missed.length + '</b><span>待复习</span></div>'
+      + '<div class="stat"><b>' + quiz.bestCombo + '</b><span>本轮最高连对</span></div>'
+      + '</div>'
+      + review
+      + '<div class="result-actions">'
+      + '<button class="btn-primary" type="button" data-action="again">再斩一组</button>'
+      + '<button class="btn-ghost" type="button" data-action="exit">回到词库</button>'
+      + '</div>'
+      + '</div>';
+  }
+
+  function selectQuizOption(index) {
+    if (!quiz || quiz.stage !== 'playing') return;
+    const question = quiz.questions[quiz.index];
+    if (question.selectedIndex !== undefined && question.selectedIndex !== null) return;
+
+    question.selectedIndex = index;
+    const correct = index === question.correctIndex;
+
+    if (correct) {
+      quiz.score++;
+      quiz.combo++;
+      quiz.bestCombo = Math.max(quiz.bestCombo, quiz.combo);
+      mastered.add(question.fnName);
+      saveMastered();
+      updateProgress();
+      renderResults();
+    } else {
+      quiz.combo = 0;
+    }
+
+    if (quizStats.today !== todayKey()) {
+      quizStats.today = todayKey();
+      quizStats.todayAnswered = 0;
+    }
+    quizStats.answered++;
+    quizStats.todayAnswered++;
+    if (correct) quizStats.correct++;
+    quizStats.bestCombo = Math.max(quizStats.bestCombo, quiz.combo);
+    saveQuizStats();
+    updateQuizStatsUI();
+    renderQuiz();
+  }
+
+  function nextQuizQuestion() {
+    if (!quiz || quiz.stage !== 'playing') return;
+    if (quiz.index < QUIZ_SIZE - 1) {
+      quiz.index++;
+      renderQuiz();
+      return;
+    }
+    quiz.stage = 'result';
+    quizStats.sessions++;
+    saveQuizStats();
+    updateQuizStatsUI();
+    renderQuiz();
+  }
+
+  $('startQuizBtn').addEventListener('click', openQuiz);
+  $('startQuizTop').addEventListener('click', openQuiz);
+  $('quizClose').addEventListener('click', closeQuiz);
+
+  quizBackdrop.addEventListener('click', (event) => {
+    if (event.target === quizBackdrop) closeQuiz();
+  });
+
+  quizStage.addEventListener('click', (event) => {
+    const review = event.target.closest('[data-review]');
+    if (review) {
+      const name = review.dataset.review;
+      closeQuiz();
+      openModal(name);
+      return;
+    }
+
+    const option = event.target.closest('[data-option]');
+    if (option) {
+      selectQuizOption(Number(option.dataset.option));
+      return;
+    }
+
+    const action = event.target.closest('[data-action]');
+    if (!action) return;
+    if (action.dataset.action === 'start' || action.dataset.action === 'again') startQuiz();
+    if (action.dataset.action === 'next') nextQuizQuestion();
+    if (action.dataset.action === 'exit') closeQuiz();
+  });
+
+  /* ---------- 事件绑定 ---------- */
+
+  document.querySelectorAll('.view-tab').forEach((tab) => {
+    tab.addEventListener('click', () => {
+      state.view = tab.dataset.view;
+      state.level = 'all';
+      state.letter = 'all';
+      state.category = 'all';
+      document.querySelectorAll('.view-tab').forEach((item) => {
+        const active = item === tab;
+        item.classList.toggle('active', active);
+        item.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      renderFilterPanel();
+      renderResults();
+    });
+  });
+
+  filterPanel.addEventListener('click', (event) => {
+    const button = event.target.closest('button');
+    if (!button || button.disabled) return;
+    if (button.dataset.level !== undefined) state.level = button.dataset.level;
+    if (button.dataset.letter !== undefined) state.letter = button.dataset.letter;
+    if (button.dataset.category !== undefined) state.category = button.dataset.category;
+    renderFilterPanel();
+    renderResults();
+  });
+
+  cardGrid.addEventListener('click', (event) => {
+    const suggestion = event.target.closest('[data-suggestion]');
+    if (suggestion) {
+      applyQuery(suggestion.dataset.suggestion);
+      return;
+    }
+    const card = event.target.closest('.card');
+    if (card) openModal(card.dataset.name);
+  });
+
+  cardGrid.addEventListener('keydown', (event) => {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    const card = event.target.closest('.card');
+    if (!card) return;
+    event.preventDefault();
+    openModal(card.dataset.name);
+  });
+
+  $('searchForm').addEventListener('submit', (event) => {
+    event.preventDefault();
+    state.query = searchInput.value;
+    if (state.query.trim()) {
+      state.level = 'all';
+      state.letter = 'all';
+      state.category = 'all';
+      renderFilterPanel();
+    }
+    document.querySelectorAll('#intentRow .intent-chip').forEach((chip) => chip.classList.remove('active'));
+    renderResults();
+    document.getElementById('library').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  searchInput.addEventListener('input', () => {
+    state.query = searchInput.value;
+    if (state.query.trim()) {
+      state.level = 'all';
+      state.letter = 'all';
+      state.category = 'all';
+      renderFilterPanel();
+    }
+    document.querySelectorAll('#intentRow .intent-chip').forEach((chip) => chip.classList.remove('active'));
+    renderResults();
+  });
+
+  searchClear.addEventListener('click', () => {
+    searchInput.value = '';
+    state.query = '';
+    renderResults();
+    searchInput.focus();
+  });
+
+  resetBtn.addEventListener('click', resetAll);
+
+  document.querySelectorAll('#intentRow .intent-chip').forEach((chip) => {
+    chip.addEventListener('click', () => applyQuery(chip.dataset.query));
+  });
+
+  $('heroStart').addEventListener('click', () => openModal('print'));
+
+  $('modalClose').addEventListener('click', closeModal);
+
+  modalBackdrop.addEventListener('click', (event) => {
+    if (event.target === modalBackdrop) closeModal();
+  });
+
+  $('modalRelated').addEventListener('click', (event) => {
+    const button = event.target.closest('[data-related]');
+    if (button && !button.disabled) openModal(button.dataset.related);
+  });
+
+  masterBtn.addEventListener('click', () => {
+    if (!currentName) return;
+    if (mastered.has(currentName)) {
+      mastered.delete(currentName);
+    } else {
+      mastered.add(currentName);
+    }
+    saveMastered();
+    updateProgress();
+    updateMasterBtn();
+    renderResults();
+  });
+
+  $('nextBtn').addEventListener('click', () => {
+    const ordered = [...FUNCTIONS].sort((a, b) => a.level - b.level || a.name.localeCompare(b.name));
+    const index = ordered.findIndex((fn) => fn.name === currentName);
+    openModal(ordered[(index + 1) % ordered.length].name);
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (quizBackdrop.classList.contains('open')) {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        closeQuiz();
+        return;
+      }
+      if (!quiz) return;
+      if (quiz.stage === 'intro' && event.key === 'Enter') {
+        event.preventDefault();
+        startQuiz();
+        return;
+      }
+      if (quiz.stage === 'playing') {
+        const question = quiz.questions[quiz.index];
+        const answered = question.selectedIndex !== undefined && question.selectedIndex !== null;
+        if (!answered && ['1', '2', '3', '4'].includes(event.key)) {
+          event.preventDefault();
+          selectQuizOption(Number(event.key) - 1);
+          return;
+        }
+        if (answered && (event.key === 'Enter' || event.key === ' ')) {
+          event.preventDefault();
+          nextQuizQuestion();
+          return;
+        }
+      }
+      return;
+    }
+    if (event.key === 'Escape' && modalBackdrop.classList.contains('open')) closeModal();
+    if (event.key === '/' && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+      event.preventDefault();
+      searchInput.focus();
+    }
+  });
+
+  /* ---------- 初始化 ---------- */
+  const totalFunctions = FUNCTIONS.length;
+  ['totalCount', 'heroTotal', 'libraryCount', 'footerCount'].forEach((id) => {
+    const el = $(id);
+    if (el) el.textContent = totalFunctions;
+  });
+  renderFilterPanel();
+  renderResults();
+  updateProgress();
+  updateQuizStatsUI();
+</script>
+</body>
+</html>
